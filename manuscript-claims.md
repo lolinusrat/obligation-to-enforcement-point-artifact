@@ -435,6 +435,7 @@ The classification is also architecture-relative. An obligation that is Class O 
 Class T in another where the necessary fact has already been routed to the mediating layer. In the
 latter case, a previous application of the method has effectively been built into the platform.
 
+
 ![](fig-method.png){width=3.4in}
 
 **Fig. 2.** The deficit-driven placement procedure. Steps 1–7 are those of §VII‑A; step 6 applies Table 3 to each missing fact separately and to any actuation deficit. Dashed boxes are outputs the method reports but does not route, and the dashed return is the transport recursion of §VII‑E.
@@ -494,27 +495,17 @@ detection; and an actuation deficit permits the same only where an adequate subs
 exists. An unrenderable predicate admits none of these transformations.
 :::
 
-The principle is conditional. It applies only at an adequate cut, and therefore says nothing about an
-obligation for which no cut exists (§VIII‑D); it determines the *class* of transformation and not its
-implementation, which §V‑C's operational qualities still choose; and it selects T3 for an actuation
-deficit only where Table 3's substitution condition holds.
-
 Concretely: a gateway may lack a record's sensitivity classification because the label was dropped when
 the record was served — a representational deficit, closed by transporting the fact — or because policy
 forbids exposing it there — an authority deficit, closed only by transporting a verdict. The same
 observable condition, a missing decision fact, yields different architectures; its cause is
-architecturally consequential. This is not an isolated pair. Of the 35 deficit-bearing obligations in the
-corpora of §VIII, 33 require T2, T3 or Terminal: 14 transport a fact, 9 transport a verdict,
-8 approximate and detect, and 2 are terminal; the other two are the mediation case of §VIII‑D and one
-obligation resolved by T1 with a minor residual. The counts use the predictions recorded before each
-study and count each obligation once; the counting rules and case-level data are in the artifact.
-Because they re-tabulate our own codings, they show that the cause dimension separates these
-obligations, not that each separation is correct. Obligation class alone does not distinguish among
-these transformations.
+architecturally consequential. §VIII‑D reports how the cause separates the obligations of the three
+constructed corpora.
 
-Three committed codings — development item 20 and retrodiction cases P9 and P12 — depart from this
-mapping: task scope is recorded as representational yet routed to a verdict, where it is better read as
-epistemic-renderable. They are retained unchanged rather than recoded; the artifact gives the reasoning.
+The principle is conditional. It applies only at an adequate cut, and therefore says nothing about an
+obligation for which no cut exists (§VIII‑D); it determines the *class* of transformation and not its
+implementation, which §V‑C's operational qualities still choose; and it selects T3 for an actuation
+deficit only where Table 3's substitution condition holds.
 
 Two features of Table 3 deserve emphasis. First, the payload of a transport is not a design preference
 but a consequence of the cause: an authority deficit forbids moving the fact while permitting the
@@ -744,6 +735,17 @@ One qualification bounds the count. Five of the twelve rows structurally resembl
 analysed; only two resemble nothing in the earlier corpora, and one of those two is the exception. Clean
 results concentrate where obligations look like ones the method was built on, so further evaluation
 should select for distance from the existing corpora rather than for size.
+
+**The cause across the three corpora.** Of the 35 deficit-bearing obligations in the three constructed
+corpora, 33 require T2, T3 or Terminal: 14 transport a fact, 9 transport a verdict, 8 approximate and
+detect, and 2 are terminal; the other two are the mediation case above and one obligation resolved by T1
+with a minor residual. Obligation class alone does not distinguish among these transformations. The
+counts use the predictions recorded before each study and count each obligation once; the counting rules
+and case-level data are in the artifact. Because they re-tabulate our own codings, they show that the
+cause dimension separates these obligations, not that each separation is correct. Three committed
+codings — development item 20 and retrodiction cases P9 and P12 — depart from Table 3: task scope is
+recorded as representational yet routed to a verdict, where it is better read as epistemic-renderable.
+They are retained unchanged rather than recoded; the artifact gives the reasoning.
 
 ## E. Discrimination
 

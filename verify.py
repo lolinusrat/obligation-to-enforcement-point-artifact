@@ -572,7 +572,7 @@ if MANUSCRIPT.exists():
           [spelled(g) for g in m.groups()] if m else None)
 
     # §7.2 states the ablation counts; they must be the counts above.
-    m = re.search(r"Of the (\d+) deficit-bearing obligations in the\s+corpora of\s+§VIII,\s+"
+    m = re.search(r"Of the (\d+) deficit-bearing obligations in the\s+(?:three\s+constructed\s+)?corpora(?: of\s+§VIII)?,\s+"
                   r"(\d+) (?:resolve through|require) T2, T3 or Terminal:\s+(\d+) transport a fact,\s+"
                   r"(\d+) transport a verdict,\s+(\d+) approximate and detect,\s+and\s+"
                   r"(\d+) are terminal", MAN)
