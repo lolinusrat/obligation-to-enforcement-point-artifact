@@ -111,13 +111,11 @@ The derived architecture is therefore not a filter in one place. Sensitivity tra
 with the data, one label per record: where several records are assembled into one prompt, the modelled
 design keeps each label bound to the segment it describes, and the gateway checks every labelled segment
 rather than classifying the assembled prompt, failing closed — rejecting or escalating — on any segment
-that is unlabelled or whose label cannot be verified; while purpose is rendered where the business context is available and travels with the
+that is unlabelled or whose label cannot be verified. Purpose is rendered where the business context is available and travels with the
 request as a verdict: a purpose attestation. The upstream business-context component attests to the
 requester's business purpose and applicable entitlement, using the business context available to it:
 entitlement is evaluated there against the identity provider's records, not merely asserted, and
-attested with the purpose; the gateway checks the attestation's issuer and bindings, not the entitlement
-decision itself.
-The gateway verifies the sensitivity label and the attestation, including their issuer, identity,
+attested with the purpose. The gateway verifies the sensitivity label and the attestation, including their issuer, identity,
 entitlement and request bindings, then applies the disclosure policy to the attested purpose,
 entitlement, sensitivity label and destination; an authenticated declaration alone is not proof of
 legitimate purpose. A valid attestation establishes the accountable component's judgement; it does not
@@ -176,11 +174,8 @@ claim novelty in content, not form.
 Agent runtime enforcement is the closest active body of work, and it has matured beyond preprints. AgentSpec [@agentspec] provides a
 language of triggers, predicates and enforcement actions evaluated at runtime events such as an
 impending action; Progent
-[@progent] represents privilege as symbolic rules over tool names and arguments, with an SMT check ensuring that, without approval, an agent's action space can only narrow; and MI9 [@mi9], the Organizational
-Control Layer [@ocl] and five-plane runtime architectures [@fiveplane] each propose enforcement
-machinery for production agents. These approaches instantiate constraints at predetermined runtime boundaries — such as tool invocation,
-action execution or a named control plane — rather than treating selection among heterogeneous
-enterprise locations as the architectural decision.
+[@progent] represents privilege as symbolic rules over tool names and arguments, with an SMT check ensuring that, without approval, an agent's action space can only narrow; and MI9 [@mi9] and the Organizational Control Layer [@ocl] each propose enforcement machinery for deployed agents. These approaches instantiate constraints at predetermined runtime boundaries — such as tool invocation,
+action execution or a named control plane — rather than treating selection among heterogeneous enterprise locations as the architectural decision. Tallam [@fiveplane] comes closer: it centralises adjudication in a reasoning plane with full context and fans the verdict out to network, identity, endpoint and data planes — a fixed instance of verdict transport, which does not derive placement per obligation from the cause of a deficit.
 
 Two results come closest to the mechanism developed in §IV. Bensalem et al. [@bensalem] argue
 that safe agent operation depends on information becoming available at different execution stages,
@@ -210,7 +205,7 @@ enterprise scale: the location space becomes a heterogeneous estate of applicati
 layers, platforms and organisational boundaries with different owners; and the transformation follows
 from the cause of the deficit at an adequate cut rather than from constraint class alone, which yields
 fact and verdict transport, compositional placement and explicit residuals (§VII‑B). A related result composes several pre-action gates on one
-action, where remediation by one control invalidates another's judgement [@onegate] — composition at a
+action, where remediation by one control can invalidate another's judgement [@onegate] — composition at a
 single enforcement point, not across locations.
 
 ## D. Requirements into architectural reasoning
@@ -229,8 +224,7 @@ method derives fact transport, verdict transport, approximation and detection, o
 Where no single adequate cut exists, it reports a mediation deficit;
 deriving coverage through complementary enforcement points remains outside the present method.
 Fact transport, verdict transport, layered enforcement and integrity binding are not individually novel; the contribution is
-their combination under adequate-cut analysis, deficit-cause diagnosis and per-fact composition. The
-literature search reported here was frozen on 5 September 2026, in an area where directly relevant
+their combination under adequate-cut analysis, deficit-cause diagnosis and per-fact composition. The literature search reported here was frozen on 5 September 2026 (CONTINUITY [@continuity], submitted on 4 September, was added on its release), in an area where directly relevant
 preprints appear frequently. The vendor documentation used in §VIII‑F was read earlier, on 19 August
 2026, and is dated separately.
 
@@ -340,7 +334,7 @@ architecture.
 | **Z1** Design-time / CI / registry | artifacts, evaluations, declared purpose | all deployments | block release |
 | **Z2** Application & business logic | identity, session, business object, purpose, entitlement | own pre-agent path only | block, escalate |
 | **Z3** SDK / agent orchestration | prompt, plan, tool arguments, intermediate outputs | calls made via the SDK | block, modify, escalate |
-| **Z4** AI gateway / model proxy | prompt text, model, tenant, caller service, tokens | all model-bound traffic | block, modify, log |
+| **Z4** AI gateway / model proxy | prompt text, model, tenant, caller service, destination, tokens | all model-bound traffic | block, modify, log |
 | **Z5** Model endpoint | prompt, output | calls to that model | refuse, filter |
 | **Z6** Tool & data access | resource, query, data labels | all access to that resource | deny, redact |
 | **Z7** Network egress | destination, volume, metadata | all traffic | block |
@@ -555,7 +549,7 @@ in the transformed architecture — its class in the original architecture is un
 7. **Compose.** Compose the per-fact transformations into the enforcement architecture. Record the
    selected enforcement location, the transported facts or verdicts and their integrity obligations,
    any approximation and detection controls, and the residual — the terminal outputs together with
-   what each approximation or transported verdict leaves unenforced.
+   what each approximation or transported fact or verdict leaves unenforced.
 
 A feasible adequate cut therefore takes precedence: a broader but deficient cut is diagnosed only when
 no adequate cut is feasible. Fig. 2 summarises the procedure and the transformation function of §VII‑B; §VIII records
@@ -568,7 +562,7 @@ remains unenforced.
 
 ![](fig-method.png){width=3.4in}
 
-**Fig. 2.** The deficit-driven placement procedure. Steps 1–7 are those of §VII‑A; step 6 applies Table 3 to each missing fact separately and to any actuation deficit. Dashed boxes are outputs the method reports but does not route, and the dashed return is the transport recursion of §VII‑E.
+**Fig. 2.** The deficit-driven placement procedure. Steps 1–7 are those of §VII‑A; step 6 applies Table 3 to each missing fact separately and to any actuation deficit. Dashed boxes mark outputs outside Table 3's routing: Class N and the mediation deficit are reported, and the integrity obligation o′ returns through the dashed path as the transport recursion of §VII‑E.
 
 ## B. The transformation function
 
@@ -629,7 +623,7 @@ An obligation rarely has a single deficit. Purpose limitation (§VII‑D) requir
 label and an attestation of the current purpose, which are missing for different causes; Table 3 applied at
 obligation granularity cannot express that. The method therefore operates per fact. Each missing fact receives its
 own transformation, and the enforcement architecture is their composition. The residual combines the
-terminal outputs with whatever each approximation or transported verdict leaves unenforced. Operating per fact lets the method return the layered answers real obligations require while keeping the underlying
+terminal outputs with whatever each approximation or transported fact or verdict leaves unenforced. Operating per fact lets the method return the layered answers real obligations require while keeping the underlying
 transformation rule single-valued. Composition here is per fact at one selected cut. The method does not
 compose several enforcement points to achieve coverage jointly, so a mediation deficit means that no
 single location covers every path, not that no architecture can enforce the obligation: complementary
@@ -677,7 +671,7 @@ organisation's defined purposes this use of the data serves — needs the busine
 party accountable for the activity can make it. Where the purpose is already a stored value, such as a
 purpose code fixed on a case file, carrying it is a transported fact instead (§V‑E). Neither transport is free — the
 label must be bound to the record and the attestation to the requester. Both transports create derived integrity obligations (§VII‑E). These are predicates
-over provenance facts and are therefore Class T, closing by T1 at the signing and identity layers. The residual is stated rather than
+over provenance facts and here are Class T, closing by T1 at the signing and identity layers. The residual is stated rather than
 absorbed: the purpose attestation rests on what the requester declares, so processing for a purpose other
 than the one declared remains outside this cut, as does reuse of a copy already retrieved, which does not
 pass Z6 again.
@@ -723,7 +717,7 @@ A placement method should be able to report what no available location or suppor
 the modelled architecture can enforce. The method's residual has three parts, with different implications
 for review: what no location in *L* can enforce — an unrenderable deficit, or an actuation deficit with no adequate
 substitute — which calls for acceptance or redesign; what the enforcement point
-accepts on upstream trust through each transported verdict, which calls for scrutiny of the issuer; and
+accepts on upstream trust through each transported fact or verdict, which calls for scrutiny of the issuer; and
 what an approximation may miss, which calls for monitoring where the effect is reversible, and for
 acceptance or redesign where it is not, since detection cannot undo an irreversible effect. For each, the method states what remains unenforced and why. A mediation deficit is recorded separately, as a
 method-coverage limitation rather than an enforcement residual: it shows that the method as tested cannot
@@ -880,7 +874,7 @@ results concentrate where obligations look like ones the method was built on, so
 should select for distance from the existing corpora rather than for size.
 
 **The cause across the three corpora.** Of the 35 deficit-bearing obligations in the three constructed
-corpora, 33 require T2, T3 or Terminal: 14 transport a fact, 9 transport a verdict, 8 approximate and
+corpora, 33 were coded to T2, T3 or Terminal (held-out rows as predicted): 14 transport a fact, 9 transport a verdict, 8 approximate and
 detect, and 2 are terminal; the other two are the mediation case above and one obligation resolved by T1
 with a minor residual. Obligation class alone does not distinguish among these transformations. The
 counts re-tabulate our own codings, so they show that the cause dimension separates these obligations,
@@ -900,11 +894,7 @@ placements. We therefore also asked whether it rejects plausible but structurall
 the ten Class O obligations we recorded a placement a competent architect might propose — our own
 construction, not an independent architect's — and what the method returned.
 
-Prompt-injection filtering at the gateway operates on a prompt stripped of segment provenance; an
-approval workflow in the application sits at a location that is not a cut under our adversary model;
-tool allow-listing, content classification and read-time memory sanitisation fail likewise, each standing
-in for a fact held elsewhere. These share a shape: the naïve placement reconstructs by inference a fact
-the architecture held upstream but did not preserve across the interface.
+Three of the six share a shape. Prompt-injection filtering at the gateway works on a prompt stripped of segment provenance, tool allow-listing sits in a framework that is not a cut, and read-time memory sanitisation acts after write-time trust labels are lost: each tries to decide, where it lacks it, a fact the architecture held upstream but did not preserve across the interface. The other three fail differently: an approval workflow in the application is not a cut under our adversary model, a content classifier at the gateway is a proxy for an intent predicate, and a per-API-key purpose declaration is self-asserted and coarse, leaving misuse within a declared purpose as residual.
 
 The method also endorses the obvious answer where it is right. For unsanctioned code execution it
 returns the platform boundary, because the predicate ranges over process and host behaviour and that is what the layer holds. Azure Container Apps dynamic sessions [@aca] enforce exactly there,
@@ -916,8 +906,7 @@ be read as biased towards elaborate distributed controls.
 
 The fourth study compares the method's predictions with documented enforcement placements. Predictions
 were committed to file before the corresponding documentation was opened, and marked *[clean]* where the prediction preceded substantive exposure to the implementation evidence and *[prior]* otherwise; only clean
-pairs are analysed; the seven [prior] pairs (P1–P3, P7, P8, P10, P11) were predicted but never coded. To avoid selecting cases only after seeing their fit, the last six cases were each
-chosen to fill a cell in a stratification over deficit type, enforcement zone and system type, with the
+pairs are analysed; the seven [prior] pairs (P1–P3, P7, P8, P10, P11) were predicted but never coded. To avoid selecting cases only after seeing their fit, five of the last six cases (P17–P21) were each chosen to fill a cell in a stratification over deficit type, enforcement zone and system type, with the
 stratum recorded before the prediction; that rule was fixed after the first eight cases had been coded.
 
 Evidence was restricted to official first-party documentation. Outcomes were coded using a fixed five-point scheme:
@@ -941,7 +930,7 @@ and fifth coding passes, every deficit branch and enforcement zone had an extern
 would not relieve the single-coder constraint, and effort was better spent elsewhere. Because the first
 reason depends on the outcome, the decision to stop was not independent of the result.
 
-Three cases illustrate different outcome categories. All documentation was read on **19 August 2026**,
+Three cases illustrate different outcome categories. All documentation was read on **19 August 2026** (one source re-checked on 31 August for a recorded wording correction),
 and vendor architectures change. **Google VPC Service Controls** [@vpcsc] was predicted to enforce at the
 network boundary on a destination predicate; its documentation agrees, states that the perimeter "is not
 designed to enforce comprehensive controls on metadata movement", and points to a separate service for
@@ -957,7 +946,7 @@ The two errors share a methodological root: each arose from incorrect assumption
 not from a deficit the method failed to represent. One predicted enforcement at the Vertex AI
 Model Registry [@vertexreg], assuming it holds deployment-approval state and mediates deployment; the
 documentation describes a catalogue from which a model is deployed to an endpoint as a separate step,
-with no deployment-approval state. The other predicted a preventive serving-time proxy alongside
+and describes no deployment-approval state. The other predicted a preventive serving-time proxy alongside
 detective evaluation for Amazon SageMaker Model Monitor [@sagemaker]; monitoring there is scheduled and
 asynchronous, off the serving path, so both halves are detective. Neither prediction is rescued, and the
 count is unchanged. Both errors involved incorrectly attributed component properties. Reapplying the
@@ -985,8 +974,7 @@ approximation with a named residual or a statement that the obligation is not ar
 enforceable.
 
 **Residuals should be explicit, not implicit.** The documented systems we examined generally contain
-controls; the revealing question is what those controls cannot decide or enforce. Microsoft Foundry
-[@foundry] permits deletion of fine-tuned models and uploaded training data but offers no selective removal
+controls; the revealing question is what those controls cannot decide or enforce. For Foundry Models sold by Azure, Microsoft Foundry [@foundry] permits deletion of fine-tuned models and uploaded training data but documents no selective removal
 of an individual's influence from trained weights, and does not state that residual. We did not count
 this as a gap: deleting what can be deleted and declaring the remainder as residual is what the method
 prescribes, so the shortfall is one of disclosure rather than placement. Model Armor's documentation
@@ -1056,8 +1044,7 @@ enumerated.
 **Documentation is a proxy for implementation.** Retrodiction tests what vendors document, not what their
 systems actually do. The documentation was read on a single date for products that continue to change.
 Findings resting on documented presence are stronger than those resting on omission. This asymmetry
-matters for the three gap findings: OpenAI's moderation endpoint rests on documented invocation semantics
-(the application elects to call it) and NeMo Guardrails on its documented in-process deployment, whereas
+matters for the three gap findings: OpenAI's moderation endpoint rests on documented invocation semantics (the application elects to call it) and NeMo Guardrails on its documented in-process deployment (case records P16 and P9 in the artifact), whereas
 Model Armor's rests on the absence of documented provenance handling.
 
 **No practitioner study.** No architect other than the author has applied the method or used its

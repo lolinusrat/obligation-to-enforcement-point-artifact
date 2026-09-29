@@ -271,3 +271,16 @@ single-coder study supports.
 | 4 F, 2 A, 2 U of 8 test cases | `data/t4-cases.csv` | column `t4_outcome` |
 | Independent pass agrees in 8 of 8 | same | column `agreement_norm` |
 | K6 (D0) is diagnostic only | `protocols/t4-cases.json` | `role` = diagnostic; excluded from every count |
+
+
+## Notes on the recorded evidence (added 29 Sep 2026)
+
+- `protocols/retrodiction-protocol.md` §5 says "The eight `[prior]` pairs remain uncoded". That line was
+  written at an interim stage; the final record has **seven** `[prior]` pairs (P1–P3, P7, P8, P10, P11),
+  as the paper states. The protocol text is kept as written.
+- The P5 row of `data/retrodiction-cases.csv` places "examines the assembled prompt and complete response
+  without distinguishing between segments by provenance" in quotation marks. It is a paraphrase of the
+  Model Armor documentation, not a verbatim quotation; the paper quotes only the page's own wording
+  ("inspects each prompt and response independently as a single-turn request").
+- The cause tally is reported in §VIII‑D of the paper; the labels "§7.2" and "VII.B" in `verify.py`
+  are the section numbers it had when the checks were written.

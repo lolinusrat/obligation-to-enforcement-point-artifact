@@ -573,7 +573,7 @@ if MANUSCRIPT.exists():
 
     # §7.2 states the ablation counts; they must be the counts above.
     m = re.search(r"Of the (\d+) deficit-bearing obligations in the\s+(?:three\s+constructed\s+)?corpora(?: of\s+§VIII)?,\s+"
-                  r"(\d+) (?:resolve through|require) T2, T3 or Terminal:\s+(\d+) transport a fact,\s+"
+                  r"(\d+) (?:resolve through|require|were coded to) T2, T3 or Terminal(?:\s+\(held-out rows as\s+predicted\))?:\s+(\d+) transport a fact,\s+"
                   r"(\d+) transport a verdict,\s+(\d+) approximate and detect,\s+and\s+"
                   r"(\d+) are terminal", MAN)
     check("§7.2's ablation counts are what the corpora give",
