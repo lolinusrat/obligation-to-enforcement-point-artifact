@@ -133,8 +133,9 @@ verification activities [@buscemi] and audit-evidence schemes such as CEDAR-4200
 approaches produce assurance artifacts rather than enforcement locations.
 
 The Responsible AI Pattern Catalogue [@raipatterns] is the most systematic attempt to operationalise
-responsible AI at the system level, organising governance, process and product patterns; it answers
-*what to build*, not which of several competing locations should host a given obligation.
+responsible AI at the system level. It organises governance, process and product patterns, some of which
+inform implementation choices; it does not, however, provide a general procedure for deriving a placement
+across competing enforcement locations from the cause of an obligation-specific deficit.
 
 Koch's layered translation method [@koch] goes furthest towards placement. It carries standards-derived
 objectives through design-time constraints, runtime mediation and assurance feedback, using a rubric that
@@ -150,7 +151,8 @@ each deficit, returning transport, composition or an explicit residual rather th
 Two ideas we rely on are long settled. Complete mediation [@saltzer] and the reference monitor
 [@anderson] establish that an enforcement point is only as good as its unbypassability; §V‑C restates unbypassability as a *cut* — a location that every path available to the adversary
 traverses — and generalises it from a single system to an estate, where coverage becomes a variable rather
-than an assumption. The separation of decision from enforcement is standardised in XACML and central to zero trust
+than an assumption. Cut coverage captures the unbypassability requirement; it does not, by itself,
+establish the enforcement component's integrity, decision correctness or ability to act. The separation of decision from enforcement is standardised in XACML and central to zero trust
 architecture; §IV‑C sets out why that inheritance does not settle the present question. The form of our
 contribution is likewise inherited: quality-attribute-driven design and architectural tactics [@bass]
 established the pattern of deriving design decisions from requirements under stated trade-offs, and we
@@ -207,9 +209,12 @@ enforcement-location analogue for AI governance, not the idea of such translatio
 
 Taken together, this literature supplies obligations, patterns, enforcement mechanisms, layered
 architectures, and — in SARC — placement rules within an agent execution loop. To the best of our
-knowledge, no existing work takes a stated governance obligation and derives its enforcement
-architecture across heterogeneous enterprise locations, while also specifying the transformation
-required when no single location is sufficient. The novelty is not another enforcement layer or policy
+knowledge, no existing work combines obligation-specific information requirements, adequate-cut analysis
+and deficit-cause diagnosis to derive enforcement transformations across modelled heterogeneous
+enterprise locations. Where an adequate cut exists but lacks required information or capabilities, the
+method derives fact transport, verdict transport, approximation and detection, or an explicit residual.
+Where no single adequate cut exists, it reports a mediation deficit; deriving coverage through
+complementary enforcement points remains outside the present method. The novelty is not another enforcement layer or policy
 language but a derivation rule from deficit cause to architectural transformation. Fact transport, verdict
 transport, layered enforcement and integrity binding are not individually novel; the contribution is
 their combination under adequate-cut analysis, deficit-cause diagnosis and per-fact composition. The
