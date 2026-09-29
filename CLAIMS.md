@@ -5,7 +5,7 @@ produces it. `verify.py` recomputes all of them and exits non-zero on any
 disagreement, so this table is checked rather than asserted:
 
 ```
-python3 verify.py        # 148 checks, then the evaluation section recomputed
+python3 verify.py        # 172 checks, then the evaluation section recomputed
 ```
 
 The column headed **recompute** is a command you can run yourself, from this

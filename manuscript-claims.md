@@ -112,7 +112,10 @@ with the data, one label per record: where several records are assembled into on
 design keeps each label bound to the segment it describes, and the gateway checks every labelled segment
 rather than classifying the assembled prompt; while purpose is rendered where the business context is available and travels with the
 request as a verdict: a purpose attestation. The upstream business-context component attests to the
-requester's business purpose and applicable entitlement, using the business context available to it.
+requester's business purpose and applicable entitlement, using the business context available to it:
+entitlement is evaluated there against the identity provider's records, not merely asserted, and
+attested with the purpose; the gateway checks the attestation's issuer and bindings, not the entitlement
+decision itself.
 The gateway verifies the sensitivity label and the attestation, including their issuer, identity,
 entitlement and request bindings, then applies the disclosure policy to the attested purpose,
 entitlement, sensitivity label and destination; an authenticated declaration alone is not proof of
@@ -222,8 +225,9 @@ knowledge, no existing work combines obligation-specific information requirement
 and deficit-cause diagnosis to derive enforcement transformations across modelled heterogeneous
 enterprise locations. Where an adequate cut exists but lacks required information or capabilities, the
 method derives fact transport, verdict transport, approximation and detection, or an explicit residual.
-Where no single adequate cut exists, it reports a mediation deficit; deriving coverage through
-complementary enforcement points remains outside the present method. The novelty is not another enforcement layer or policy
+Where no single adequate cut exists, it reports a mediation deficit;
+deriving coverage through complementary enforcement points remains outside the present method.
+The novelty is not another enforcement layer or policy
 language but a derivation rule from deficit cause to architectural transformation. Fact transport, verdict
 transport, layered enforcement and integrity binding are not individually novel; the contribution is
 their combination under adequate-cut analysis, deficit-cause diagnosis and per-fact composition. The
@@ -360,7 +364,9 @@ the phenomenon the rest of the paper is about.
 ## C. What a location offers
 
 Three attributes characterise a location. **Availability** $A(l)$ is the set of facts observable or
-derivable at *l* at decision time, without new plumbing. **Mediation** describes how much of the
+derivable at *l* at decision time, without new plumbing, under the trust assumptions the obligation
+requires: a locally visible fact that may be stale, misbound or supplied by an untrusted component is not
+available until those assumptions are met. **Mediation** describes how much of the
 governed path space passes through a location. Let $M(l) \subseteq S$ be the governed paths that
 traverse *l* — its **cut-scope** — and $S_X \subseteq S$ the paths by which *X* can realise the effect.
 A location *l* *mediates* the governed effect over ⟨*S*, *X*⟩ iff it is a **cut** — that is,
@@ -368,7 +374,9 @@ $S_X \subseteq M(l)$, so every path available to *X* traverses *l*. This is comp
 an estate; stated this way, coverage becomes a variable rather than an assumption. **Actuation** $\alpha (l)$ is the
 response repertoire available at *l*. Locations downstream of the governed effect permit only
 observation and whatever compensation the effect admits; the preventive/detective distinction is
-therefore positional rather than merely a design choice.
+therefore positional rather than merely a design choice. A cut that the governed effect reaches only
+after it has occurred is adequate for a detective response, supporting T3 subject to its reversibility
+condition, but not for prevention.
 
 Together these determine **structural placement feasibility**: whether a location *can* host a control at
 all. Operational qualities — latency, cost, ownership, maintainability — rank structurally feasible
@@ -403,7 +411,9 @@ Formally, any location satisfying $\mathit{cut}(l \mid S,X)$ is an **adequate cu
 can do. Location $l_a$ **dominates** $l_b$, written $l_a \succeq l_b$, iff $M(l_b) \subseteq M(l_a)$ — a
 preorder, not a scalar, and because $M$ ranges over all governed paths rather than only the adversary's,
 two cuts can still differ in strength; *S* must therefore be pinned to the governed effect first (§VII‑D).
-Preferring coverage beyond the adversary's paths is a resilience preference, not part of the obligation's
+Adequacy and feasibility are judged over the adversary's paths $S_X$; dominance ranges over all governed
+paths $S$ and serves only to choose among adequate candidates. Preferring coverage beyond the adversary's
+paths is a resilience preference, not part of the obligation's
 scope.
 The adequate cuts that no other strictly dominates are the **maximal adequate cuts**, and the maximal
 elements of $F(o)$ are the **strongest candidates**, with §V‑C's operational qualities choosing among
@@ -498,7 +508,10 @@ do not.
 The boundary of Class N is a judgement, and we record it as one. EU AI Act Article 9, largely a process
 obligation with a mediated post-market monitoring component, was coded Class N; ISO/IEC 42001 A.6.2.6,
 similarly astride the line, was coded architecturally enforceable. The divergence shows that the
-boundary is a coding judgement rather than a mechanical test.
+boundary is a coding judgement rather than a mechanical test. The unit of classification is an
+individual obligation: a requirement that mixes organisational, procedural and runtime duties is
+decomposed first, and Article 9 was coded as a single unit because its runtime component was judged
+subordinate to its process obligation.
 
 The classification is also architecture-relative. An obligation that is Class O in one estate may be
 Class T in another where the necessary fact has already been routed to the mediating layer. In the
@@ -691,7 +704,7 @@ the modelled architecture can enforce. The method's residual has three parts, wi
 for review: what no location in *L* can enforce — an unrenderable deficit, or an actuation deficit with no adequate
 substitute — which calls for acceptance or redesign, together with what the present method cannot place
 at a single adequate cut, a mediation deficit, which calls for redesign or for complementary enforcement
-points the method does not yet compose (§VII‑C); what the enforcement point
+points, which the method as tested does not compose (§VII‑C); what the enforcement point
 accepts on upstream trust through each transported verdict, which calls for scrutiny of the issuer; and
 what an approximation may miss, including any T3 whose effect is not reversible within its detection
 latency, which calls for monitoring. For each, the method states what remains unenforced and why.
@@ -760,8 +773,10 @@ Class T, ten Class O. Three of the fifteen (items 1, 3 and 21), however, require
 estate to be transported to the enforcement cut. Under the definition of §VI those three are Class O, so
 applying that definition retrospectively gives twelve Class T and thirteen Class O. We report the
 development study as coded rather than recode it after the method was refined. Many obligations needed
-no transformation at all: 11 of the 25 had an empty deficit at some adequate cut and a twelfth only a
-minor epistemic residual, and the three just named lacked only a fact that already existed elsewhere in
+no transformation at all: 11 of the 25 had an empty deficit at some adequate cut and a twelfth — the
+override or kill-switch obligation — only a minor epistemic residual, whether stopping is safe, which
+was coded T because the switch's operator, not the control, makes that judgement; it is a borderline
+case under the strict definition of Class T and is retained as coded, and the three just named lacked only a fact that already existed elsewhere in
 the estate.
 
 Within this purposive corpus — descriptive counts, not prevalence estimates — 71% of the agentic
@@ -1001,7 +1016,7 @@ and their ordering must be planned in advance.
 **Table 3 does not route every way placement can fail.** It covers deficits of decision and of actuation;
 a mediation deficit — no location in *L* cuts the governed effect — has no row, which §VIII‑D's exception
 exposed. The symmetric row derived after observing that exception is stated there but remains untested.
-Nor does the method compose several enforcement points that jointly cover the paths no single location
+Nor does the method as tested compose several enforcement points that jointly cover the paths no single location
 covers; that coverage composition, as distinct from the per-fact composition of §VII‑C, is future work.
 
 **The corpora are purposive, and partly self-similar.** The development corpus was sampled from a fixed
