@@ -22,9 +22,10 @@ Enterprises deploying AI systems do not lack governance requirements. The EU AI 
 Risk Management Framework [@airmf] and its Generative AI Profile [@nist6001], and ISO/IEC 42001
 [@iso42001] collectively provide regulatory obligations, risk-management guidance, more than two hundred
 suggested actions, and a control annex addressing concerns including logging, human oversight,
-transparency and robustness. What none supplies is the step an architect actually has to take: given an
-obligation, derive the enforcement architecture — where it should be enforced, what information must
-cross architectural boundaries, and what remains unenforceable. That step is left to judgement, and it is
+transparency and robustness. What these sources do not provide is an end-to-end procedure for deriving an
+enforcement architecture from an individual governance obligation: identifying where the control can
+operate, what information must cross component boundaries, and what remains unenforceable. That step is
+left to judgement, and it is
 not a small one. A single obligation can plausibly be enforced in the application, an agent framework, an
 AI gateway, the model endpoint, the data access layer, the network boundary, or the platform runtime —
 and these are not interchangeable.
@@ -32,8 +33,8 @@ and these are not interchangeable.
 They are not interchangeable for a reason that is easy to state and easy to miss. Take the obligation
 that commercially sensitive information must not be disclosed to an externally hosted model unless the
 requester has a legitimate business purpose. It needs five facts: sensitivity in context, requester identity,
-purpose, entitlement and externality of the destination. In the architecture considered here, the
-locations with the broadest mediation hold only the last. §II works the case through.
+purpose, entitlement and externality of the destination. In the illustrative architecture of §II, the
+broadly mediating locations initially have only the last available in authoritative form. §II works the case through.
 
 We argue that this is not only an artefact of immature tooling. A location mediates many paths because
 those paths share a general interface, and that generality tends to be achieved by abstracting over what
@@ -44,8 +45,9 @@ inspection among the perimeter's own controls [@vpcsc].
 
 We therefore ask: **how should architects resolve the tension between semantic decision context and
 enforcement strength when allocating governance controls across enterprise AI architectures?** And when
-no location offers both, what determines whether the obligation is resolved by enforcing elsewhere,
-transporting a fact or verdict, approximating and detecting, or declaring part of it unenforceable?
+a suitable enforcement location lacks the required information or ability to act, what determines the
+architectural response — and how should the method report obligations for which no single adequate
+enforcement point exists?
 
 Existing work supplies much of what surrounds this question (§III): layered guardrail architectures
 [@swisscheese], complete mediation [@saltzer], reference monitors [@anderson], and the separation of
@@ -59,17 +61,18 @@ heterogeneous enterprise estate, and from constraint class to the *cause* of the
 We make five contributions. Two explain the problem: *mediation–abstraction coupling*, a mechanism
 explaining why information and enforcement strength come apart, stated as a coupling rather than a law;
 and a classification of obligations as non-architectural, transparent or placement-obstructed, applied to
-a purposive corpus of governance obligations. Three form the method: the *Deficit-Cause Principle*, under
-which the cause of each deficit, rather than the obligation's class, determines the class of architectural
-transformation; compositional placement, including a transport recursion in which transported facts or
+a purposive corpus of governance obligations. Three form the method: the *Deficit-Cause Principle*, a
+proposed decision rule that maps the diagnosed cause of each deficit at an adequate enforcement cut,
+rather than the obligation's class, to a class of architectural transformation; compositional placement, including a transport recursion in which transported facts or
 verdicts create derived integrity obligations; and the residual as a first-class output, so that the
 method states explicitly what the architecture cannot enforce.
 The method is intended to be applied obligation by obligation and to produce an explicit placement record: where enforcement
 occurs, which facts or verdicts must cross boundaries, what integrity dependencies those transports
 create, and what remains unenforced.
 In evaluation, a pre-specified study routed eleven of twelve obligations from sources that played no
-part in the method's development. Across fourteen documented cases, eight architectures agreed with or extended the method's prediction, three exhibited pre-specified
-gaps, two contradicted it, and one was undetermined. These results provide external corroboration rather
+part in the method's development. Across fourteen documented cases, eight architectures agreed with or
+extended the method's prediction, three had documented or documentation-inferred gaps consistent with
+the predictions, two contradicted it, and one was undetermined. These results provide external corroboration rather
 than independent validation.
 
 # II. A governance obligation and four plausible places to enforce it
