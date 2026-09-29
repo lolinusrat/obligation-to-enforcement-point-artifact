@@ -303,7 +303,7 @@ concatenated into a representation that no longer preserves the provenance and t
 which an injection predicate depends. Second, under the adversary model considered here, the adversary
 can operate inside the trust boundary — an agent acting on
 injected instructions routes around checks placed where the semantics live, removing the well-informed
-locations from the set of cuts exactly when they are needed.
+locations from the set of cuts, along the modelled bypass paths, exactly when they are needed.
 
 For an architect, the coupling is a diagnostic warning: selecting the location with the broadest coverage
 is insufficient unless the information the obligation needs survives there. §V formalises how coverage,
@@ -397,6 +397,9 @@ three hold:
 
 $F(o)=\{\,l \in L : I(o) \subseteq A(l) \wedge \mathit{cut}(l \mid S,X) \wedge \alpha(l) \supseteq R(o)\,\}$
 
+Because $A(l)$ is trust-qualified, a candidate enters $F(o)$ only once every integrity obligation attached
+to an assertion it relies on has been discharged; a pending trust condition is never treated as resolved.
+
 The **deficit** at a location,
 $\Delta (o,l) = I(o) \setminus A(l)$, is the set of required facts it lacks. $\Delta$ records only the
 first of the three ways a location can fail; not covering every path and not being able to act are
@@ -486,7 +489,8 @@ Class N is not a leftover category: it accounts for a substantial share of the g
 governance.
 
 **Class T — transparent.** Some adequate cut has the required actuation and already holds all facts in
-$I(o)$. Placement is then immediate (T1) at a strongest candidate, even where a more broadly mediating
+$I(o)$, trusted in the sense of §V‑C: an observed assertion whose integrity is not yet established does
+not make an obligation Class T. Placement is then immediate (T1) at a strongest candidate, even where a more broadly mediating
 cut lacks a fact, with §V‑C's operational qualities choosing among maximal candidates.
 
 **Class O — placement-obstructed.** No adequate cut is immediately feasible because of a
