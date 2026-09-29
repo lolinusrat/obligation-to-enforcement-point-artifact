@@ -110,7 +110,8 @@ is available at the broadly mediating locations; the rest must be inferred, asse
 The derived architecture is therefore not a filter in one place. Sensitivity travels
 with the data, one label per record: where several records are assembled into one prompt, the modelled
 design keeps each label bound to the segment it describes, and the gateway checks every labelled segment
-rather than classifying the assembled prompt; while purpose is rendered where the business context is available and travels with the
+rather than classifying the assembled prompt, failing closed — rejecting or escalating — on any segment
+that is unlabelled or whose label cannot be verified; while purpose is rendered where the business context is available and travels with the
 request as a verdict: a purpose attestation. The upstream business-context component attests to the
 requester's business purpose and applicable entitlement, using the business context available to it:
 entitlement is evaluated there against the identity provider's records, not merely asserted, and
