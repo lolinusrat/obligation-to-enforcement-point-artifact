@@ -107,8 +107,11 @@ is available at the broadly mediating locations; the rest must be inferred, asse
 The derived architecture is therefore not a filter in one place. Sensitivity travels
 with the data, while purpose is rendered where the business context is available and travels with the
 request as a verdict: a purpose attestation, bound to requester identity and entitlement. The gateway
-relies on the business-context component's authority to attest the purpose, since binding shows who attested what,
-not that the purpose is legitimate. The gateway combines these facts with destination externality to enforce the obligation. Transport creates a second, smaller
+verifies the sensitivity label and the purpose attestation, including their issuer, identity,
+entitlement and request bindings. It then evaluates the disclosure policy itself, using those assertions
+and destination externality. The attestation carries the business-context component's judgement of the
+stated purpose; it does not independently establish that the underlying declaration was truthful, since
+binding shows who attested what, not that the purpose is legitimate. Transport creates a second, smaller
 obligation: each transported fact or verdict must be bound to what it describes. The architecture still leaves a residual: it cannot verify a purpose that is falsely asserted upstream
 of the binding point.
 
