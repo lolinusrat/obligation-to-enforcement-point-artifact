@@ -6,6 +6,9 @@ One obligation per sheet. Fill top to bottom; do not skip to the transformation.
 
 **Obligation** (verbatim, with source): ______________________________________
 
+**Unit** — if the requirement mixes organisational, procedural and runtime duties: decomposed
+(which runtime obligation was separated, and why) or kept whole (which obligation dominates, and why): ____
+
 **Frame**
 - Scope `S` — the effect being governed, and the paths that realise it: ________
 - Adversary `X`: ______________________________________________________________
