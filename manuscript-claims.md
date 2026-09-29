@@ -390,7 +390,9 @@ A location can enforce an obligation only if three things hold. It can **decide*
 fact, $I(o) \subseteq A(l)$. It **covers every path**: every path by which the adversary can realise the
 governed effect traverses it, $\mathit{cut}(l \mid S,X)$. It can **act**: it can perform the responses
 $R(o)$ the obligation requires, $\alpha(l) \supseteq R(o)$, where $R(o)$ is the response capability
-required by the selected enforcement strategy. Where $R(o)$ is preventive, the cut condition is read as
+required by the selected enforcement strategy. Feasibility is therefore relative to that strategy:
+moving from prevention to detection changes $R(o)$, and so changes the requirement being tested, not
+merely the answer. Where $R(o)$ is preventive, the cut condition is read as
 coverage *before* the governed effect; a location reached only afterwards can satisfy a detective $R(o)$
 and supports T3 only under its compensation and reversibility conditions. The **feasible set** is where all
 three hold:
@@ -420,7 +422,8 @@ two cuts can still differ in strength; *S* must therefore be pinned to the gover
 Adequacy and feasibility are judged over the adversary's paths $S_X$; dominance ranges over all governed
 paths $S$ and serves only to choose among adequate candidates. Preferring coverage beyond the adversary's
 paths is a resilience preference, not part of the obligation's
-scope.
+scope: dominance is a selection preference among adequate cuts, never an additional feasibility
+requirement.
 The adequate cuts that no other strictly dominates are the **maximal adequate cuts**, and the maximal
 elements of $F(o)$ are the **strongest candidates**, with §V‑C's operational qualities choosing among
 several. Where no adequate cut is feasible, the method diagnoses a maximal one rather than retreating to a
