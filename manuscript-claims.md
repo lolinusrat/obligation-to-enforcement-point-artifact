@@ -227,9 +227,7 @@ enterprise locations. Where an adequate cut exists but lacks required informatio
 method derives fact transport, verdict transport, approximation and detection, or an explicit residual.
 Where no single adequate cut exists, it reports a mediation deficit;
 deriving coverage through complementary enforcement points remains outside the present method.
-The novelty is not another enforcement layer or policy
-language but a derivation rule from deficit cause to architectural transformation. Fact transport, verdict
-transport, layered enforcement and integrity binding are not individually novel; the contribution is
+Fact transport, verdict transport, layered enforcement and integrity binding are not individually novel; the contribution is
 their combination under adequate-cut analysis, deficit-cause diagnosis and per-fact composition. The
 literature search reported here was frozen on 5 September 2026, in an area where directly relevant
 preprints appear frequently. The vendor documentation used in §VIII‑F was read earlier, on 19 August
@@ -392,7 +390,10 @@ A location can enforce an obligation only if three things hold. It can **decide*
 fact, $I(o) \subseteq A(l)$. It **covers every path**: every path by which the adversary can realise the
 governed effect traverses it, $\mathit{cut}(l \mid S,X)$. It can **act**: it can perform the responses
 $R(o)$ the obligation requires, $\alpha(l) \supseteq R(o)$, where $R(o)$ is the response capability
-required by the selected enforcement strategy. The **feasible set** is where all three hold:
+required by the selected enforcement strategy. Where $R(o)$ is preventive, the cut condition is read as
+coverage *before* the governed effect; a location reached only afterwards can satisfy a detective $R(o)$
+and supports T3 only under its compensation and reversibility conditions. The **feasible set** is where all
+three hold:
 
 $F(o)=\{\,l \in L : I(o) \subseteq A(l) \wedge \mathit{cut}(l \mid S,X) \wedge \alpha(l) \supseteq R(o)\,\}$
 
@@ -646,7 +647,8 @@ Z6 is a cut and Z4 is not: every such path traverses Z6, and some (an export, a 
 cuts for this effect in the modelled pipeline: a retrieved record can be processed without leaving the
 network, and processing spans several runtimes, no one of whose platform boundaries sees every path. Every
 path, by contrast, begins with an access to the resource, so, under the stated assumption that every
-modelled path begins with access to this resource, Z6 is the unique maximal adequate cut. The
+modelled path begins with access to this resource, Z6 is the unique maximal adequate cut among the
+instantiated candidate locations. The
 cut covers the modelled retrieval paths, not every later use of the personal data: a copy already
 retrieved and reused never passes Z6 again, which is why that reuse appears in the residual. The
 placement enforces purpose limitation at retrieval, not over every downstream copy. *Diagnose and transform (5–6).* Diagnosing
