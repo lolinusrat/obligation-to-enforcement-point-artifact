@@ -2,6 +2,7 @@ cff-version: 1.2.0
 message: "If you use this replication package, please cite the paper and this package."
 title: "Replication package for: From Obligation to Enforcement Point: A Deficit-Driven Method for Placing AI Governance Controls in Enterprise Architectures"
 type: dataset
+doi: 10.5281/zenodo.23034311   # concept DOI: all versions, resolves to the latest
 authors:
   - family-names: Loli
     given-names: Nusrat

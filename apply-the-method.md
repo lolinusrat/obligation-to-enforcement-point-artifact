@@ -85,9 +85,9 @@ unrenderable) · temporal · actuation.
 - Derived integrity obligations from each transport, and where each closes: ____
 - For each transported **verdict**, its validity condition:
 
-  | Verdict | What it decides — and what it does not | Issued by | Bound to | Expires | Invalidated by |
-  |---|---|---|---|---|---|
-  | | | | | | |
+  | Verdict | What it decides — and what it does not | Issued by | Bound to (request, time) | Expires | Invalidated by | Replay prevented by |
+  |---|---|---|---|---|---|---|
+  | | | | | | | |
 
   A verdict answers only the question its issuer can judge (for example, "this
   record is sensitive", not "this disclosure is authorised"); the facts it does

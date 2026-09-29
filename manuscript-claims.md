@@ -103,8 +103,9 @@ is available at the broadly mediating locations; the rest must be inferred, asse
 
 The derived architecture is therefore not a filter in one place. Sensitivity travels
 with the data, while purpose is rendered where the business context is available and travels with the
-request as a verdict. The purpose verdict is bound to requester identity and entitlement, and the gateway
-combines these facts with destination externality to enforce the obligation. Transport creates a second, smaller
+request as a verdict. The purpose verdict is bound to requester identity and entitlement; the gateway
+relies on the business-context component's authority to attest it, since binding shows who attested what,
+not that the purpose is legitimate. The gateway combines these facts with destination externality to enforce the obligation. Transport creates a second, smaller
 obligation: each transported fact or verdict must be bound to what it describes. The architecture still leaves a residual: it cannot verify a purpose that is falsely asserted upstream
 of the binding point.
 
@@ -224,8 +225,9 @@ HTTP boundary, a chat-completions API, a syscall table. Shared interfaces are ty
 the applications that use them, and that generality is achieved by abstracting over whatever differs
 between those applications: which customer, which case, which entitlement, which business purpose. Unless that state is
 deliberately preserved across the interface, the enforcement location loses the facts on which semantic
-governance predicates depend. Mediation tends to be bought with abstraction, and abstraction is paid for
-in semantics.
+governance predicates depend. The context need not be destroyed: the interface may simply not require or
+expose it, or it may sit with a different owner; the effect at the control is the same. Mediation tends to
+be bought with abstraction, and abstraction is paid for in semantics.
 
 ::: {custom-style="First Paragraph"}
 **Mediation–Abstraction Coupling.** For obligations whose decision predicates range
@@ -365,6 +367,8 @@ Formally, any location satisfying $\mathit{cut}(l \mid S,X)$ is an **adequate cu
 can do. Location $l_a$ **dominates** $l_b$, written $l_a \succeq l_b$, iff $M(l_b) \subseteq M(l_a)$ — a
 preorder, not a scalar, and because $M$ ranges over all governed paths rather than only the adversary's,
 two cuts can still differ in strength; *S* must therefore be pinned to the governed effect first (§VII‑D).
+Preferring coverage beyond the adversary's paths is a resilience preference, not part of the obligation's
+scope.
 The adequate cuts that no other strictly dominates are the **maximal adequate cuts**, and the maximal
 elements of $F(o)$ are the **strongest candidates**, with §V‑C's operational qualities choosing among
 several. Where no adequate cut is feasible, the method diagnoses a maximal one rather than retreating to a
@@ -407,7 +411,10 @@ The epistemic rows are operational judgements relative to the stated architectur
 boundary, not claims of uncomputability. One repeatable test separates the first two rows from the third:
 if an authoritative upstream value exists and may cross, the deficit is representational and the value
 is transported; if it exists but may not cross, it is authority; if the upstream party must exercise
-judgement to produce it, it is epistemic-renderable and the transported object is a verdict.
+judgement to produce it, it is epistemic-renderable and the transported object is a verdict. Where more
+than one cause applies to the same fact — one that may not cross and also needs judgement upstream, say —
+the record lists every cause, and the transformation must satisfy all their constraints; here, a
+verdict.
 
 # VI. Three classes of obligation
 
@@ -448,8 +455,8 @@ boundary is a coding judgement rather than a mechanical test.
 The classification is also architecture-relative. An obligation that is Class O in one estate may be
 Class T in another where the necessary fact has already been routed to the mediating layer. In the
 latter case, a previous application of the method has effectively been built into the platform: once a
-missing fact is transported to the cut, the cut holds every fact it needs, and the obligation there is
-transparent.
+missing fact is transported to the cut, the cut holds every fact it needs, and the obligation is transparent
+in the transformed architecture — its class in the original architecture is unchanged.
 
 
 # VII. The deficit-driven placement method
@@ -504,8 +511,9 @@ detection; and an actuation deficit permits the same only where an adequate subs
 exists. An unrenderable predicate admits none of these transformations.
 :::
 
-The principle is conditional. It holds under the stated architecture, adversary and authority
-assumptions, and applies only at an adequate cut, and therefore says nothing about an
+The principle is a proposed decision rule, not an empirical law: the evaluation shows that it routes the
+studied cases under our classifications, not that every missing fact has one unambiguous cause. It
+holds under the stated architecture, adversary and authority assumptions, and applies only at an adequate cut, and therefore says nothing about an
 obligation for which no cut exists (§VIII‑D); it determines the *class* of transformation and not its
 implementation, which §V‑C's operational qualities still choose; and it selects T3 for an actuation
 deficit only where Table 3's substitution condition holds. §VIII‑D reports how the cause separates the
@@ -545,7 +553,9 @@ own transformation, and the enforcement architecture is their composition. The r
 terminal outputs with whatever each approximation or transported verdict leaves unenforced. Operating per fact lets the method return the layered answers real obligations require while keeping the underlying
 transformation rule single-valued. Composition also checks that transported assertions belong together:
 a label bound to a record and a verdict bound to a requester must also be bound to the same request and
-time, or the cut may combine assertions about different transactions.
+time, or the cut may combine assertions about different transactions. A signature alone does not show
+that an assertion still applies, so the record also states each assertion's validity period and how
+replay is prevented, where these matter.
 
 ## D. The method applied
 
@@ -568,7 +578,8 @@ cuts for this effect in the modelled pipeline: a retrieved record can be process
 network, and processing spans several runtimes, no one of whose platform boundaries sees every path. Every
 path, by contrast, begins with an access to the resource, so Z6 is the unique maximal adequate cut. The
 cut covers the modelled retrieval paths, not every later use of the personal data: a copy already
-retrieved and reused never passes Z6 again, which is why that reuse appears in the residual. *Diagnose and transform (5–6).* Diagnosing
+retrieved and reused never passes Z6 again, which is why that reuse appears in the residual. The
+placement enforces purpose limitation at retrieval, not over every downstream copy. *Diagnose and transform (5–6).* Diagnosing
 each fact there and applying Table 3 gives Table 4.
 
 *Compose (7).* The composed architecture has Z6 evaluate compatibility using two transported inputs: a collection-purpose
@@ -673,7 +684,8 @@ reproduced. Table 1's location model
 and §V‑A's adversary model were also fixed before the first obligation was coded.
 
 The first result concerns scope rather than method. At least 24 of the 38 ISO/IEC 42001 Annex A controls
-are Class N — the policy, roles, impact-assessment, external-reporting and supplier families entirely so
+are Class N (the artifact's per-control enumeration codes 29; we report the lower bound because the
+Class N boundary is a coding judgement, §VI) — the policy, roles, impact-assessment, external-reporting and supplier families entirely so
 — as are several AI Act articles and many NIST suggested actions. All are discharged by producing a
 document, holding a review or assigning a role. In the sources examined, a substantial share of
 governance requirements is organisational or procedural rather than architecturally placeable.
@@ -773,10 +785,11 @@ corpora, 33 require T2, T3 or Terminal: 14 transport a fact, 9 transport a verdi
 detect, and 2 are terminal; the other two are the mediation case above and one obligation resolved by T1
 with a minor residual. Obligation class alone does not distinguish among these transformations. The
 counts re-tabulate our own codings, so they show that the cause dimension separates these obligations,
-not that each separation is correct; the counting rules are in the artifact. Three committed
-codings — development item 20 and retrodiction cases P9 and P12 — depart from Table 3: task scope is
-recorded as representational yet routed to a verdict, where it is better read as epistemic-renderable.
-They are retained unchanged rather than recoded; the artifact gives the reasoning.
+not that each separation is correct; the counting rules are in the artifact. Three committed codings —
+development item 20 and retrodiction cases P9 and P12 — are classification disagreements with the rule:
+task scope is recorded as representational yet routed to a verdict, where it is better read as
+epistemic-renderable. They are retained unchanged rather than recoded, and they show that assigning a
+cause is itself a judgement; the artifact gives the reasoning.
 
 ## E. Discrimination
 
@@ -835,7 +848,8 @@ labels from the data layer into the AI interaction; its documentation agrees, an
 encryption, AI apps honour it through Rights Management usage rights — consistent with the transport
 recursion of §VII‑E. **Google Model Armor** [@modelarmor] was flagged as a gap *before* its documentation
 was read; the documentation confirms the placement, describes screening each prompt and response as a
-single, independent request, and describes no provenance-aware treatment of its segments.
+single, independent request, and describes no provenance-aware treatment of its segments. This is a gap
+in the documented design, not proof that the deployed product lacks every provenance-aware integration.
 
 The two errors share a methodological root: each arose from incorrect assumptions about the candidate component,
 not from a deficit the method failed to represent. One predicted enforcement at the Vertex AI
@@ -936,6 +950,10 @@ on the absence of documented provenance handling.
 
 **No practitioner study.** No architect other than the author has applied the method or used its
 placement records; claims about their usability and review value are design claims, not findings.
+
+**The decomposition is not independently assessed.** The completeness and correctness of each $I(o)$
+were judged by the author. A correct transformation rule can still produce an inadequate design if $I(o)$
+omits a necessary fact; this is distinct from misidentifying what a component can do.
 
 **The coupling is a tendency, not a law**, and §IV‑B gives constructions that deliberately defeat it. It
 is also stated over a model we constructed: Table 1's attributes are assigned rather than empirically
