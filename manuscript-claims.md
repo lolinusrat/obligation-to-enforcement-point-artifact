@@ -108,7 +108,9 @@ needs, only destination externality
 is available at the broadly mediating locations; the rest must be inferred, asserted or transported.
 
 The derived architecture is therefore not a filter in one place. Sensitivity travels
-with the data, while purpose is rendered where the business context is available and travels with the
+with the data, one label per record: where several records are assembled into one prompt, the modelled
+design keeps each label bound to the segment it describes, and the gateway checks every labelled segment
+rather than classifying the assembled prompt; while purpose is rendered where the business context is available and travels with the
 request as a verdict: a purpose attestation. The upstream business-context component attests to the
 requester's business purpose and applicable entitlement, using the business context available to it.
 The gateway verifies the sensitivity label and the attestation, including their issuer, identity,
