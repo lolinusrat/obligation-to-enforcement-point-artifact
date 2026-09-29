@@ -462,9 +462,9 @@ latter case, a previous application of the method has effectively been built int
    any approximation and detection controls, and the residual — the terminal outputs together with
    what each approximation or transported verdict leaves unenforced.
 
-A feasible adequate cut takes precedence: if one already holds every fact and can act, step 4 selects
-it and steps 5–6 return T1; a broader but deficient cut is diagnosed only when no adequate cut is
-feasible. Fig. 2 summarises the procedure and the transformation function of §VII‑B; §VIII records
+**Precedence.** Step 4 is read with one rule: a feasible adequate cut takes precedence. If one already
+holds every fact and can act, it is selected and steps 5–6 return T1; a broader but deficient cut is
+diagnosed only when no adequate cut is feasible. Fig. 2 summarises the procedure and the transformation function of §VII‑B; §VIII records
 how the procedure reached this form.
 
 **Practitioner use.** The procedure is intended to be applied obligation by obligation. Its output is not
