@@ -580,7 +580,7 @@ from SARC's reversibility window [@sarc]; otherwise T3 leaves a residual (§VII�
 | epistemic, renderable | **T2 Transport (verdict)** — the party who can judge decides; the cut enforces |
 | epistemic, approximable | **T3 Approximate-and-detect** — where a later observation or compensating control can detect the failure; otherwise residual |
 | epistemic, unrenderable | **Terminal — declare residual** |
-| temporal | **T3 Approximate-and-detect** — preventive over-approximation at the cut, detective evaluation of the true predicate after the effect |
+| temporal | **T3 Approximate-and-detect** — conservatively approximate before the action and evaluate the true predicate afterwards, provided the effect remains reversible within the detection latency; otherwise the unenforceable portion is residual |
 | actuation | **T3** if preventive approximation plus later detection or compensation adequately substitutes for the unavailable response; otherwise **Terminal** |
 
 
@@ -627,7 +627,8 @@ is pinned to the governed effect — processing of *this* personal data on the m
 Z6 is a cut and Z4 is not: every such path traverses Z6, and some (an export, a report) bypass Z4 entirely. Z7 and Z8 are not
 cuts for this effect in the modelled pipeline: a retrieved record can be processed without leaving the
 network, and processing spans several runtimes, no one of whose platform boundaries sees every path. Every
-path, by contrast, begins with an access to the resource, so Z6 is the unique maximal adequate cut. The
+path, by contrast, begins with an access to the resource, so, under the stated assumption that every
+modelled path begins with access to this resource, Z6 is the unique maximal adequate cut. The
 cut covers the modelled retrieval paths, not every later use of the personal data: a copy already
 retrieved and reused never passes Z6 again, which is why that reuse appears in the residual. The
 placement enforces purpose limitation at retrieval, not over every downstream copy. *Diagnose and transform (5–6).* Diagnosing
@@ -670,9 +671,11 @@ asserted by a location it does not control. The integrity of that assertion is a
 **derived integrity obligation** *o′* — which must itself be placed. Recent context-contract and zero-knowledge gateway designs provide
 concrete mechanisms for discharging such derived integrity obligations [@continuity], [@zkgateway].
 
-The recursion stops under one condition: the identity and signing layers must themselves be adequate
-cuts under the stated adversary. Given that, transported assertions generate predicates over provenance
-facts — signatures, issuance time, binding to a request — which are transparent by the criterion of §VI. The evidence: in the seven development transport cases whose derived obligation was recorded
+The recursion terminates at a derived obligation when an adequate identity or signing cut under the
+stated adversary already has the provenance information and actuation required to enforce it; being a cut
+is necessary but not sufficient, and a signature alone does not establish validity, freshness or correct
+binding. Transported assertions generate predicates over provenance facts — signatures, issuance time,
+binding to a request — which are transparent where that condition holds. The evidence: in the seven development transport cases whose derived obligation was recorded
 (items 1, 3, 4, 19, 20, 21 and 23) and the five transport cases of the pre-specified study whose sealed predictions named it (§VIII‑D), the
 derived obligation was Class T and closed by T1 at an identity or signing layer, with no second
 recursion. Three documented retrodiction cases (P4, P12 and P13; §VIII‑F) show the same pattern. The
@@ -682,9 +685,9 @@ not claim it; the case-level records are in the artifact.
 
 ## F. Residual as an output
 
-A placement method should be able to report when no available architecture can fully enforce an
-obligation. The method's residual has three parts, with different implications for review: what no
-architecture in *L* can enforce — an unrenderable deficit, or an actuation deficit with no adequate
+A placement method should be able to report what no available location or supported transformation in
+the modelled architecture can enforce. The method's residual has three parts, with different implications
+for review: what no location in *L* can enforce — an unrenderable deficit, or an actuation deficit with no adequate
 substitute — which calls for acceptance or redesign, together with what the present method cannot place
 at a single adequate cut, a mediation deficit, which calls for redesign or for complementary enforcement
 points the method does not yet compose (§VII‑C); what the enforcement point
