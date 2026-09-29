@@ -462,7 +462,8 @@ transparent.
    properties from what the component does, not from its category name.
 4. **Locate.** Identify the adequate cuts over ⟨*S*, *X*⟩. If any is feasible, select a maximal feasible
    candidate; otherwise identify the maximal adequate cuts for diagnosis. If no adequate cut exists,
-   report a mediation deficit. Use §V‑C's operational qualities to choose among incomparable candidates.
+   report a mediation deficit: steps 5–6 do not apply, and step 7 records it in the residual. Use §V‑C's
+   operational qualities to choose among incomparable candidates.
 5. **Diagnose.** At each selected cut, determine the cause of each missing fact in $\Delta (o,l)$
    (Table 2), and separately whether the required response exceeds $\alpha (l)$.
 6. **Transform.** Apply Table 3 **per fact**. A mediation deficit is reported but is not routed by the
@@ -503,7 +504,8 @@ detection; and an actuation deficit permits the same only where an adequate subs
 exists. An unrenderable predicate admits none of these transformations.
 :::
 
-The principle is conditional. It applies only at an adequate cut, and therefore says nothing about an
+The principle is conditional. It holds under the stated architecture, adversary and authority
+assumptions, and applies only at an adequate cut, and therefore says nothing about an
 obligation for which no cut exists (§VIII‑D); it determines the *class* of transformation and not its
 implementation, which §V‑C's operational qualities still choose; and it selects T3 for an actuation
 deficit only where Table 3's substitution condition holds. §VIII‑D reports how the cause separates the
@@ -516,7 +518,7 @@ from SARC's reversibility window [@sarc]; otherwise T3 leaves a residual (§VII�
 
 | Condition at a maximal adequate cut | Transformation |
 |---|---|
-| no deficit | **T1 Relocate** — enforce there |
+| no deficit | **T1** — enforce at the feasible cut (protocol label: *Relocate*) |
 | representational | **T2 Transport (fact)** — restore the representation across the boundary |
 | authority | **T2 Transport (verdict)** — the fact may not cross; the decision may |
 | epistemic, renderable | **T2 Transport (verdict)** — the party who can judge decides; the cut enforces |
@@ -541,7 +543,9 @@ label and a verdict on the current purpose, which are missing for different caus
 obligation granularity cannot express that. The method therefore operates per fact. Each missing fact receives its
 own transformation, and the enforcement architecture is their composition. The residual combines the
 terminal outputs with whatever each approximation or transported verdict leaves unenforced. Operating per fact lets the method return the layered answers real obligations require while keeping the underlying
-transformation rule single-valued.
+transformation rule single-valued. Composition also checks that transported assertions belong together:
+a label bound to a record and a verdict bound to a requester must also be bound to the same request and
+time, or the cut may combine assertions about different transactions.
 
 ## D. The method applied
 
@@ -558,8 +562,8 @@ sees every access to the resource with its data labels and can deny or redact (T
 cut shows why $\succeq$ is defined against a pinned
 scope. The gateway **Z4** and the data
 access layer **Z6** each mediate some governed paths, and until *S* is pinned neither dominates. Once *S*
-is pinned to the governed effect — further processing of *this* personal data — Z6 is a cut and Z4 is
-not: every such path traverses Z6, and some (an export, a report) bypass Z4 entirely. Z7 and Z8 are not
+is pinned to the governed effect — processing of *this* personal data on the modelled retrieval paths —
+Z6 is a cut and Z4 is not: every such path traverses Z6, and some (an export, a report) bypass Z4 entirely. Z7 and Z8 are not
 cuts for this effect in the modelled pipeline: a retrieved record can be processed without leaving the
 network, and processing spans several runtimes, no one of whose platform boundaries sees every path. Every
 path, by contrast, begins with an access to the resource, so Z6 is the unique maximal adequate cut. The
@@ -569,9 +573,9 @@ each fact there and applying Table 3 gives Table 4.
 
 *Compose (7).* The composed architecture has Z6 evaluate compatibility using two transported inputs: a collection-purpose
 label carried with the data, and a purpose verdict rendered in the requester's business context and
-carried with the request. The verdict asserts one thing: the requester's current processing purpose,
-as rendered in the business context. It does not assert compatibility, which Z6 judges itself against
-the collection-purpose label. Neither transport is free — the label must be bound to the record and the
+carried with the request. The verdict is an authenticated attestation, issued by the requester's
+business context, that this request is made for a stated purpose; it is not a compatibility decision,
+which Z6 makes itself against the collection-purpose label. Neither transport is free — the label must be bound to the record and the
 verdict to the requester. Both transports create derived integrity obligations (§VII‑E). These are predicates
 over provenance facts and are therefore Class T, closing by T1 at the signing and identity layers. The residual is stated rather than
 absorbed: the purpose verdict rests on what the requester declares, so processing for a purpose other
@@ -600,10 +604,9 @@ asserted by a location it does not control. The integrity of that assertion is a
 **derived integrity obligation** *o′* — which must itself be placed. Recent context-contract and zero-knowledge gateway designs provide
 concrete mechanisms for discharging such derived integrity obligations [@continuity], [@zkgateway].
 
-The argument for why the recursion stops is that transported assertions generate predicates over
-provenance facts — signatures, issuance time, binding to a request — which are transparent by the
-criterion of §VI, provided the identity and signing layers are themselves cuts under the stated
-adversary. The evidence: in the seven development transport cases whose derived obligation was recorded
+The recursion stops under one condition: the identity and signing layers must themselves be adequate
+cuts under the stated adversary. Given that, transported assertions generate predicates over provenance
+facts — signatures, issuance time, binding to a request — which are transparent by the criterion of §VI. The evidence: in the seven development transport cases whose derived obligation was recorded
 (items 1, 3, 4, 19, 20, 21 and 23) and the five transport cases of the pre-specified study whose sealed predictions named it (§VIII‑D), the
 derived obligation was Class T and closed by T1 at an identity or signing layer, with no second
 recursion. Three documented retrodiction cases (P4, P12 and P13; §VIII‑F) show the same pattern. The
@@ -614,10 +617,12 @@ not claim it; the case-level records are in the artifact.
 ## F. Residual as an output
 
 A placement method should be able to report when no available architecture can fully enforce an
-obligation. The method's residual collects the terminal outputs of Table 3 — an unrenderable deficit, or
-an actuation deficit with no adequate substitute — together with what each transported verdict and each
-approximation leaves unenforced, including any T3 whose effect is not reversible within its detection
-latency. For each, it states what remains unenforced and why.
+obligation. The method's residual has three parts, with different implications for review: what no
+architecture in *L* can enforce — an unrenderable deficit, an actuation deficit with no adequate
+substitute, or a mediation deficit — which calls for acceptance or redesign; what the enforcement point
+accepts on upstream trust through each transported verdict, which calls for scrutiny of the issuer; and
+what an approximation may miss, including any T3 whose effect is not reversible within its detection
+latency, which calls for monitoring. For each, the method states what remains unenforced and why.
 
 One failure the method exposes is an unstated residual: a control that approximates a predicate it cannot
 fully evaluate, presented without stating where its competence ends. Making the residual an output
