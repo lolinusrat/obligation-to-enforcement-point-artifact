@@ -547,9 +547,9 @@ in the transformed architecture — its class in the original architecture is un
 4. **Locate.** Identify the adequate cuts over ⟨*S*, *X*⟩. If any is feasible, select a maximal feasible
    candidate; otherwise identify the maximal adequate cuts for diagnosis. If no adequate cut exists,
    report a mediation deficit: steps 5–6 do not apply, and step 7 records it in the residual. Use §V‑C's
-   operational qualities to choose among incomparable candidates.
-5. **Diagnose.** At each selected cut, determine the cause of each missing fact in $\Delta (o,l)$
-   (Table 2), and separately whether the required response exceeds $\alpha (l)$.
+   operational qualities to choose among incomparable candidates, and record why.
+5. **Diagnose.** At each selected cut, separate absent facts from observed but untrusted ones (§V‑E);
+   determine the cause of each absent fact (Table 2), and whether the required response exceeds $\alpha (l)$.
 6. **Transform.** Apply Table 3 **per fact**. A mediation deficit is reported but is not routed by the
    present transformation table.
 7. **Compose.** Compose the per-fact transformations into the enforcement architecture. Record the
@@ -585,7 +585,9 @@ determined by *why* each required fact is missing, not by the obligation's class
 representation permits transport of the fact; an authority or renderable-epistemic deficit permits
 only transport of a verdict; a temporal or approximable deficit requires approximation with later
 detection, which closes the obligation only where the effect is reversible within the detection latency; and an actuation deficit permits the same only where an adequate substitute response
-exists. An unrenderable predicate admits none of these transformations.
+exists. An unrenderable predicate admits none of these transformations. Each class is available only
+subject to its authority, transportability, actuation and reversibility preconditions; where these
+cannot be met, the unresolved part is residual.
 :::
 
 The principle is a proposed decision rule, not an empirical law: the evaluation shows that it routes the
@@ -720,12 +722,12 @@ residual; the case-level records are in the artifact.
 A placement method should be able to report what no available location or supported transformation in
 the modelled architecture can enforce. The method's residual has three parts, with different implications
 for review: what no location in *L* can enforce — an unrenderable deficit, or an actuation deficit with no adequate
-substitute — which calls for acceptance or redesign, together with what the present method cannot place
-at a single adequate cut, a mediation deficit, which calls for redesign or for complementary enforcement
-points, which the method as tested does not compose (§VII‑C); what the enforcement point
+substitute — which calls for acceptance or redesign; what the enforcement point
 accepts on upstream trust through each transported verdict, which calls for scrutiny of the issuer; and
 what an approximation may miss, which calls for monitoring where the effect is reversible, and for
-acceptance or redesign where it is not, since detection cannot undo an irreversible effect. For each, the method states what remains unenforced and why.
+acceptance or redesign where it is not, since detection cannot undo an irreversible effect. For each, the method states what remains unenforced and why. A mediation deficit is recorded separately, as a
+method-coverage limitation rather than an enforcement residual: it shows that the method as tested cannot
+place the obligation at a single adequate cut, not that no adequate architecture exists (§VII‑C).
 
 One failure the method exposes is an unstated residual: a control that approximates a predicate it cannot
 fully evaluate, presented without stating where its competence ends. Making the residual an output
@@ -851,7 +853,8 @@ routed using only the four pre-specified transformations. Any obligation requiri
 transformation counted as a method failure, regardless of the total routed.
 
 Eleven of the twelve were routed — nine cleanly, two with a recorded strain — and none required a
-transformation outside the four.
+transformation outside the four. The test met its numerical threshold but did not establish coverage of
+all three feasibility dimensions.
 
 The twelfth was diagnosed as a mediation deficit but could not be routed by the frozen transformation
 table, and therefore remained an exception: a missing row rather than a missing transformation. Provenance that must survive a third party's re-publication has no adequate cut in the
@@ -913,7 +916,7 @@ be read as biased towards elaborate distributed controls.
 
 The fourth study compares the method's predictions with documented enforcement placements. Predictions
 were committed to file before the corresponding documentation was opened, and marked *[clean]* where the prediction preceded substantive exposure to the implementation evidence and *[prior]* otherwise; only clean
-pairs are analysed. To avoid selecting cases only after seeing their fit, the last six cases were each
+pairs are analysed; the seven [prior] pairs (P1–P3, P7, P8, P10, P11) were predicted but never coded. To avoid selecting cases only after seeing their fit, the last six cases were each
 chosen to fill a cell in a stratification over deficit type, enforcement zone and system type, with the
 stratum recorded before the prediction; that rule was fixed after the first eight cases had been coded.
 
@@ -1003,7 +1006,9 @@ illustrates this: where its label applies encryption, the label is enforced rath
 §VIII‑F arose from structural properties incorrectly attributed to a candidate component rather than from
 the transformation rules. Category names such as "registry" and "monitor" implied properties that the
 documented products did not have. This is the most practically consequential limitation we identified,
-and the Instantiate step (§VII‑A) mitigates rather than removes it.
+and the Instantiate step (§VII‑A) mitigates rather than removes it. It addresses the properties assigned
+to components, not whether the model includes every path available to the adversary; that completeness
+is assumed, not established.
 
 **Every result is relative to a stated adversary.** We reclassified five obligations under three
 adversaries: a careless user (X1), the agent adversary used in the main analysis (X2), and an adversary
@@ -1051,8 +1056,9 @@ enumerated.
 **Documentation is a proxy for implementation.** Retrodiction tests what vendors document, not what their
 systems actually do. The documentation was read on a single date for products that continue to change.
 Findings resting on documented presence are stronger than those resting on omission. This asymmetry
-matters for the three gap findings: some rest on documented invocation semantics, whereas others depend
-on the absence of documented provenance handling.
+matters for the three gap findings: OpenAI's moderation endpoint rests on documented invocation semantics
+(the application elects to call it) and NeMo Guardrails on its documented in-process deployment, whereas
+Model Armor's rests on the absence of documented provenance handling.
 
 **No practitioner study.** No architect other than the author has applied the method or used its
 placement records; claims about their usability and review value are design claims, not findings.
