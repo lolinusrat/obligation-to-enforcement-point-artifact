@@ -710,7 +710,9 @@ derived obligation was Class T and closed by T1 at an identity or signing layer,
 recursion. Three documented retrodiction cases (P4, P12 and P13; §VIII‑F) show the same pattern. The
 other constructed transport cases did not record their derived obligation and are not counted. Twelve
 constructed cases and three documented ones do not establish universal one-step termination, and we do
-not claim it; the case-level records are in the artifact.
+not claim it. For general use the method does not assume termination: a derived obligation that no
+adequate identity or signing cut can discharge is recorded as an unresolved dependency in the residual,
+and the transport that created it is not counted as enforcing; the case-level records are in the artifact.
 
 ## F. Residual as an output
 
