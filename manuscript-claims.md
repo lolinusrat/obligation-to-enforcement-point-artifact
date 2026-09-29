@@ -523,7 +523,9 @@ boundary is a coding judgement rather than a mechanical test. The unit of classi
 individual obligation: a requirement that mixes organisational, procedural and runtime duties is
 decomposed when its runtime component constitutes a separately assessable obligation; otherwise the
 dominant obligation determines the coding unit. Article 9 was coded as a single unit on that rule, its
-runtime component being judged subordinate to its process obligation.
+runtime component being judged subordinate to its process obligation. The rule reduces but does not
+remove this judgement: independent coders could decompose a mixed requirement differently and so reach
+different classifications, and agreement on the unit of classification is untested (§X).
 
 The classification is also architecture-relative. An obligation that is Class O in one estate may be
 Class T in another where the necessary fact has already been routed to the mediating layer. In the
