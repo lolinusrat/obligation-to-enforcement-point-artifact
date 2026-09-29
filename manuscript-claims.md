@@ -346,8 +346,12 @@ $F(o)=\{\,l \in L : I(o) \subseteq A(l) \wedge \mathit{cut}(l \mid S,X) \wedge \
 The **deficit** at a location,
 $\Delta (o,l) = I(o) \setminus A(l)$, is the set of required facts it lacks.
 
-**The strongest cut.** Among the locations every relevant path must traverse, the method prefers the one
-with the broadest coverage; if several are incomparable, operational considerations choose among them.
+**The strongest cut.** In practice: pin the governed effect, list the locations that every path available
+to the adversary must traverse. If one of them can already decide and act, enforce there (Class T, §VI):
+broader coverage elsewhere does not justify a transport. Otherwise prefer the one with the broadest
+coverage and diagnose it; if several are incomparable, operational considerations choose among them. If
+none exists, the obstruction is one of mediation.
+
 Formally, any location satisfying $\mathit{cut}(l \mid S,X)$ is an **adequate cut**, whatever it knows or
 can do. Location $l_a$ **dominates** $l_b$, written $l_a \succeq l_b$, iff $M(l_b) \subseteq M(l_a)$ — a
 preorder, not a scalar, and because $M$ ranges over all governed paths rather than only the adversary's,
@@ -355,8 +359,7 @@ two cuts can still differ in strength; *S* must therefore be pinned to the gover
 The adequate cuts that no other strictly dominates are the **maximal adequate cuts**, and the maximal
 elements of $F(o)$ are the **strongest candidates**, with §V‑C's operational qualities choosing among
 several. Where no adequate cut is feasible, the method diagnoses a maximal one rather than retreating to a
-narrower location, so a deficit found there is a diagnosis rather than a disqualification; where no
-adequate cut exists, the deficit is one of mediation.
+narrower location, so a deficit found there is a diagnosis rather than a disqualification.
 
 A candidate location can fail feasibility for three independent reasons, one per attribute: it cannot
 **decide** (decision deficit), cannot **mediate** the governed effect (mediation deficit), or cannot
@@ -459,7 +462,9 @@ latter case, a previous application of the method has effectively been built int
    any approximation and detection controls, and the residual — the terminal outputs together with
    what each approximation or transported verdict leaves unenforced.
 
-Fig. 2 summarises the procedure and the transformation function of §VII‑B; §VIII records
+A feasible adequate cut takes precedence: if one already holds every fact and can act, step 4 selects
+it and steps 5–6 return T1; a broader but deficient cut is diagnosed only when no adequate cut is
+feasible. Fig. 2 summarises the procedure and the transformation function of §VII‑B; §VIII records
 how the procedure reached this form.
 
 **Practitioner use.** The procedure is intended to be applied obligation by obligation. Its output is not
@@ -468,6 +473,13 @@ the integrity bindings they require, any approximation and detection controls, a
 remains unenforced.
 
 ## B. The transformation function
+
+A contrast shows why the cause, not the missing fact, decides. A gateway may lack a record's sensitivity
+classification because the label was dropped when the record was served — a representational deficit,
+closed by transporting the fact — or because policy forbids exposing it there — an authority deficit,
+closed only by transporting a verdict. The same observable condition, a missing decision fact, yields
+different architectures; its cause is architecturally consequential. Table 3 gives the mapping for every
+cause.
 
 **Table 3.** Deficit cause determines the transformation. The rows cover decision and actuation
 deficits; a mediation deficit, where no adequate cut exists, has no row (§VIII‑D). T3's detective
@@ -495,17 +507,11 @@ detection; and an actuation deficit permits the same only where an adequate subs
 exists. An unrenderable predicate admits none of these transformations.
 :::
 
-Concretely: a gateway may lack a record's sensitivity classification because the label was dropped when
-the record was served — a representational deficit, closed by transporting the fact — or because policy
-forbids exposing it there — an authority deficit, closed only by transporting a verdict. The same
-observable condition, a missing decision fact, yields different architectures; its cause is
-architecturally consequential. §VIII‑D reports how the cause separates the obligations of the three
-constructed corpora.
-
 The principle is conditional. It applies only at an adequate cut, and therefore says nothing about an
 obligation for which no cut exists (§VIII‑D); it determines the *class* of transformation and not its
 implementation, which §V‑C's operational qualities still choose; and it selects T3 for an actuation
-deficit only where Table 3's substitution condition holds.
+deficit only where Table 3's substitution condition holds. §VIII‑D reports how the cause separates the
+obligations of the three constructed corpora.
 
 Two features of Table 3 deserve emphasis. First, the payload of a transport is not a design preference
 but a consequence of the cause: an authority deficit forbids moving the fact while permitting the
@@ -543,7 +549,9 @@ is pinned to the governed effect — further processing of *this* personal data 
 not: every such path traverses Z6, and some (an export, a report) bypass Z4 entirely. Z7 and Z8 are not
 cuts for this effect in the modelled pipeline: a retrieved record can be processed without leaving the
 network, and processing spans several runtimes, no one of whose platform boundaries sees every path. Every
-path, by contrast, begins with an access to the resource, so Z6 is the unique maximal adequate cut. *Diagnose and transform (5–6).* Diagnosing
+path, by contrast, begins with an access to the resource, so Z6 is the unique maximal adequate cut. The
+cut covers the modelled retrieval paths, not every later use of the personal data: a copy already
+retrieved and reused never passes Z6 again, which is why that reuse appears in the residual. *Diagnose and transform (5–6).* Diagnosing
 each fact there and applying Table 3 gives Table 4.
 
 *Compose (7).* The composed architecture has Z6 evaluate compatibility using two transported inputs: a collection-purpose
@@ -646,7 +654,7 @@ are Class N — the policy, roles, impact-assessment, external-reporting and sup
 document, holding a review or assigning a role. In the sources examined, a substantial share of
 governance requirements is organisational or procedural rather than architecturally placeable.
 
-## B. Obligation classification
+## B. Obligation classification (EQ1)
 
 Under the development-time coding, twenty-five architecturally enforceable obligations remained: fifteen
 Class T, ten Class O. Three of the fifteen (items 1, 3 and 21), however, required a fact that exists in the
@@ -667,7 +675,7 @@ obligations need application-specific state or a fact held elsewhere in the esta
 controls are predominantly predicates over content properties, destinations and rates, which reach a
 gateway intact. The overall Class O share (40% as coded) is likewise not a prevalence claim.
 
-## C. Held-out applicability
+## C. Held-out applicability (EQ2)
 
 To test whether the rules extend beyond the corpus that produced them, we froze the **pre-test method** —
 class definitions, deficit causes, the four transformations (T1, T2, T3 and Terminal), the location model and the adversary model —
@@ -691,7 +699,7 @@ The count of 13 is against the pre-test rules, not the refined ones. The three r
 as an independent feasibility dimension, the approximable epistemic branch and per-fact composition —
 were fixed before the documented-architecture study began.
 
-## D. Untouched applicability of the frozen method
+## D. Untouched applicability of the frozen method (EQ3)
 
 We then froze the refined method and applied it, with no further development, to an untouched,
 pre-specified test set — the first study in which the method, cases, predictions and pass criterion were
@@ -740,9 +748,8 @@ should select for distance from the existing corpora rather than for size.
 corpora, 33 require T2, T3 or Terminal: 14 transport a fact, 9 transport a verdict, 8 approximate and
 detect, and 2 are terminal; the other two are the mediation case above and one obligation resolved by T1
 with a minor residual. Obligation class alone does not distinguish among these transformations. The
-counts use the predictions recorded before each study and count each obligation once; the counting rules
-and case-level data are in the artifact. Because they re-tabulate our own codings, they show that the
-cause dimension separates these obligations, not that each separation is correct. Three committed
+counts re-tabulate our own codings, so they show that the cause dimension separates these obligations,
+not that each separation is correct; the counting rules are in the artifact. Three committed
 codings — development item 20 and retrodiction cases P9 and P12 — depart from Table 3: task scope is
 recorded as representational yet routed to a verdict, where it is better read as epistemic-renderable.
 They are retained unchanged rather than recoded; the artifact gives the reasoning.
@@ -766,7 +773,7 @@ through
 Hyper-V isolation applied irrespective of the code an agent generates. Without that case the method could
 be read as biased towards elaborate distributed controls.
 
-## F. Documented-architecture retrodiction
+## F. Documented-architecture retrodiction (EQ4)
 
 The fourth study compares the method's predictions with documented enforcement placements. Predictions
 were committed to file before the corresponding documentation was opened, and marked *[clean]* where the prediction preceded substantive exposure to the implementation evidence and *[prior]* otherwise; only clean

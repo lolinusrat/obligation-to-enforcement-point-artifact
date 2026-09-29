@@ -28,10 +28,14 @@ actually does, not from its category name. Read them from the component's
 own documentation. Both prediction errors in the paper's retrodiction study
 came from skipping this step.
 
-| Location | `A(l)` holds | cut over ⟨S,X⟩? | `α(l)` admits |
-|---|---|---|---|
-| | | | |
-| | | | |
+| Location | `A(l)` holds | cut over ⟨S,X⟩? | `α(l)` admits | Evidence for these properties |
+|---|---|---|---|---|
+| | | | | |
+| | | | | |
+
+*Evidence* means a documentation reference, an architecture diagram or an
+observed implementation — not the component's category name. A property with
+no evidence is an assumption; mark it as one.
 
 **Step 4 — Locate.** Identify the maximal *adequate* cuts over ⟨S, X⟩: the
 locations every path available to `X` must traverse, whatever they know or can
@@ -74,6 +78,14 @@ unrenderable) · temporal · actuation.
 **Step 7 — Compose.**
 - Resulting architecture: ______________________________________________________
 - Derived integrity obligations from each transport, and where each closes: ____
+- For each transported **verdict**, its validity condition:
+
+  | Verdict | Issued by | Bound to | Expires | Invalidated by |
+  |---|---|---|---|---|
+  | | | | | |
+
+  Binding prevents substitution and tampering; it does not make the original
+  judgement true. What the issuer could get wrong belongs in the residual.
 - **Residual** — everything the architecture leaves unenforced, stated plainly.
   Check each source:
   - terminal outputs (an unrenderable fact; an actuation deficit with no
