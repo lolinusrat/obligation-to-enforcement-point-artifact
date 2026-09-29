@@ -97,7 +97,8 @@ why. A
 classifier there reconstructs facts that were available upstream but were not carried across the
 architectural boundary. The network boundary is at least as strong a cut but sees only traffic; choosing
 between equally strong cuts is an operational judgement (§V‑C), and here it favours the gateway, which can
-read what travels inside the request. Of the five facts the obligation needs, only destination externality
+read what travels inside the request. In the architecture modelled here, of the five facts the obligation
+needs, only destination externality
 is available at the broadly mediating locations; the rest must be inferred, asserted or transported.
 
 The derived architecture is therefore not a filter in one place. Sensitivity travels
@@ -202,7 +203,10 @@ architectures, and — in SARC — placement rules within an agent execution loo
 knowledge, no existing work takes a stated governance obligation and derives its enforcement
 architecture across heterogeneous enterprise locations, while also specifying the transformation
 required when no single location is sufficient. The novelty is not another enforcement layer or policy
-language but a derivation rule from deficit cause to architectural transformation. The literature search reported here was frozen on 5 September 2026, in an area where directly relevant
+language but a derivation rule from deficit cause to architectural transformation. Fact transport, verdict
+transport, layered enforcement and integrity binding are not individually novel; the contribution is
+their combination under adequate-cut analysis, deficit-cause diagnosis and per-fact composition. The
+literature search reported here was frozen on 5 September 2026, in an area where directly relevant
 preprints appear frequently. The vendor documentation used in §VIII‑F was read earlier, on 19 August
 2026, and is dated separately.
 
@@ -256,8 +260,9 @@ often without that trade being made explicit.
 
 ## C. This is not zero trust restated
 
-The coupling is not simply a restatement of zero trust or classical access control. The difference lies
-in what the policy ranges over and why a required fact is missing. Classical access-control architectures make policy-relevant attributes —
+The coupling is not simply a restatement of zero trust or classical access control. The distinctive
+problem is not that policy information is absent from a decision point — attribute routing addresses
+that — but that the cause of its absence can require a different architectural response. Classical access-control architectures make policy-relevant attributes —
 subject, resource, action and contextual attributes retrieved as needed — available to the decision
 function; the policy information point exists to route what is not local. For semantic AI obligations, however, a required fact may no longer be represented at the boundary, may
 require a judgement no mechanism at the cut can render, may not yet exist at that point in the path, or
@@ -282,7 +287,7 @@ carries meaning. The **governed effect** is the effect the obligation prohibits,
 the **scope** *S* is the set of execution paths through which it can be realised. The
 **adversary** *X* is the actor whose avoidance of the control is being reasoned about — in this paper,
 a prompt-injected or misdirected agent operating inside an otherwise trusted application, together
-with a careless user.
+with a careless user. This is the study's default model, not an exhaustive enterprise threat model.
 
 Every property below is relative to ⟨*S*, *X*⟩, and this is not a formality: *bypass resistance* has no
 truth value until *X* is named. A location mediating every path available to a careless user may mediate
@@ -309,7 +314,9 @@ deployment rather than runtime execution.
 
 A **governance obligation** *o* is a decision predicate $\pi_o$ over facts about a contemplated or
 completed action. For a chosen decomposition of the obligation, its **information requirement** $I(o)$
-is the set of facts whose values $\pi_o$ requires for correct evaluation.
+is the set of facts whose values $\pi_o$ requires for correct evaluation. A fact may itself be a rendered
+judgement — whether a business purpose is legitimate, for example — which is why a transported verdict
+can stand in for it.
 
 Deriving $I(o)$ is the first analytical step of the method and carries most of its interpretive burden.
 For the disclosure obligation of §II, $I(o)$ comprises the five facts listed in §I, of which only
@@ -344,9 +351,11 @@ $R(o)$ the obligation requires, $\alpha(l) \supseteq R(o)$. The **feasible set**
 $F(o)=\{\,l \in L : I(o) \subseteq A(l) \wedge \mathit{cut}(l \mid S,X) \wedge \alpha(l) \supseteq R(o)\,\}$
 
 The **deficit** at a location,
-$\Delta (o,l) = I(o) \setminus A(l)$, is the set of required facts it lacks.
+$\Delta (o,l) = I(o) \setminus A(l)$, is the set of required facts it lacks. $\Delta$ records only the
+first of the three ways a location can fail; not covering every path and not being able to act are
+separate (below).
 
-**The strongest cut.** In practice: pin the governed effect, list the locations that every path available
+**Selecting the cut.** In practice: pin the governed effect, list the locations that every path available
 to the adversary must traverse. If one of them can already decide and act, enforce there (Class T, §VI):
 broader coverage elsewhere does not justify a transport. Otherwise prefer the one with the broadest
 coverage and diagnose it; if several are incomparable, operational considerations choose among them. If
@@ -395,8 +404,10 @@ the last is an actuation deficit on $\alpha (l)$. A mediation deficit — no ade
 | **Actuation** | the fact is present but *l* cannot perform the required response | erasure of a training example from weights |
 
 The epistemic rows are operational judgements relative to the stated architecture and governance
-boundary, not claims of uncomputability. A fact that may not cross is an authority deficit, not a
-representational one.
+boundary, not claims of uncomputability. One repeatable test separates the first two rows from the third:
+if an authoritative upstream value exists and may cross, the deficit is representational and the value
+is transported; if it exists but may not cross, it is authority; if the upstream party must exercise
+judgement to produce it, it is epistemic-renderable and the transported object is a verdict.
 
 # VI. Three classes of obligation
 
@@ -436,12 +447,10 @@ boundary is a coding judgement rather than a mechanical test.
 
 The classification is also architecture-relative. An obligation that is Class O in one estate may be
 Class T in another where the necessary fact has already been routed to the mediating layer. In the
-latter case, a previous application of the method has effectively been built into the platform.
+latter case, a previous application of the method has effectively been built into the platform: once a
+missing fact is transported to the cut, the cut holds every fact it needs, and the obligation there is
+transparent.
 
-
-![](fig-method.png){width=3.4in}
-
-**Fig. 2.** The deficit-driven placement procedure. Steps 1–7 are those of §VII‑A; step 6 applies Table 3 to each missing fact separately and to any actuation deficit. Dashed boxes are outputs the method reports but does not route, and the dashed return is the transport recursion of §VII‑E.
 
 # VII. The deficit-driven placement method
 
@@ -471,6 +480,10 @@ how the procedure reached this form.
 only an enforcement location but a placement record: the selected cut, the transported facts or verdicts,
 the integrity bindings they require, any approximation and detection controls, and the residual that
 remains unenforced.
+
+![](fig-method.png){width=3.4in}
+
+**Fig. 2.** The deficit-driven placement procedure. Steps 1–7 are those of §VII‑A; step 6 applies Table 3 to each missing fact separately and to any actuation deficit. Dashed boxes are outputs the method reports but does not route, and the dashed return is the transport recursion of §VII‑E.
 
 ## B. The transformation function
 
@@ -556,7 +569,9 @@ each fact there and applying Table 3 gives Table 4.
 
 *Compose (7).* The composed architecture has Z6 evaluate compatibility using two transported inputs: a collection-purpose
 label carried with the data, and a purpose verdict rendered in the requester's business context and
-carried with the request. Neither transport is free — the label must be bound to the record and the
+carried with the request. The verdict asserts one thing: the requester's current processing purpose,
+as rendered in the business context. It does not assert compatibility, which Z6 judges itself against
+the collection-purpose label. Neither transport is free — the label must be bound to the record and the
 verdict to the requester. Both transports create derived integrity obligations (§VII‑E). These are predicates
 over provenance facts and are therefore Class T, closing by T1 at the signing and identity layers. The residual is stated rather than
 absorbed: the purpose verdict rests on what the requester declares, so processing for a purpose other
@@ -624,7 +639,9 @@ there were made without it. The untouched test prompted two clarifications — a
 separately from locating a cut, and a missing cut is reported as a mediation deficit. Step 4 now also
 states the precedence of a feasible adequate cut, which the definition of Class T already implied; in the
 untouched test every alternative location the sealed predictions considered covered only its own paths,
-so it was not an adequate cut. None of these changes alters a recorded outcome. We do not aggregate the four studies; even the fourth is not fully
+so it was not an adequate cut. None of these changes alters a recorded outcome, but all are
+retrospective: they were not part of the method the untouched test applied, and are not claimed as
+tested by it. We do not aggregate the four studies; even the fourth is not fully
 independent, since one researcher selected the cases, made the predictions, read the documentation and
 assigned the codes.
 
@@ -837,9 +854,10 @@ interface that carries the fact:
 > **Do not reconstruct by inference what the architecture could have preserved by representation.**
 
 Reconstruction is not merely less accurate: it silently converts a decidable predicate into a
-probabilistic one at a boundary the architecture chose. Where the fact cannot be preserved, the answer
-is transport, approximation with a named residual or a statement that the obligation is not
-architecturally enforceable.
+probabilistic one at a boundary the architecture chose. The maxim applies only where the fact exists
+and may cross. Where it may not cross, the answer is a transported verdict; where no party holds it, an
+approximation with a named residual or a statement that the obligation is not architecturally
+enforceable.
 
 **Residuals should be explicit, not implicit.** The documented systems we examined generally contain
 controls; the revealing question is what those controls cannot decide or enforce. Microsoft Foundry
