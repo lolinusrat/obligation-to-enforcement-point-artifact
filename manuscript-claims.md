@@ -964,6 +964,8 @@ reported here was made before that step existed, and none is revised in light of
 
 # IX. Discussion
 
+The lessons below differ in basis: case observation, recommendation, design implication.
+
 **Preserve, do not reconstruct.** The naïve placements of §VIII‑E and the gap argued at Model Armor
 (§VIII‑F) share the same pattern: a control is positioned where it must infer a fact that the
 architecture previously held but did not preserve. The remedy is not a better classifier but an
@@ -983,8 +985,9 @@ controls; the revealing question is what those controls cannot decide or enforce
 of an individual's influence from trained weights, and does not state that residual. We did not count
 this as a gap: deleting what can be deleted and declaring the remainder as residual is what the method
 prescribes, so the shortfall is one of disclosure rather than placement. Model Armor's documentation
-(§VIII‑F) likewise leaves the boundary of its controls implicit. The residual belongs in the
-architectural decision record beside the chosen control.
+(§VIII‑F) likewise leaves the boundary of its controls implicit. We recommend recording the residual in
+the architectural decision record beside the chosen control; the practitioner value of doing so is
+untested.
 
 **Governance is often won or lost at the contracts between components.** A characteristic output of the
 method is not simply "put the control at X" but "carry this fact, or this verdict, from X to Y, and
