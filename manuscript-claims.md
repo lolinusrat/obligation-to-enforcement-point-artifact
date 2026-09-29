@@ -449,8 +449,8 @@ if an authoritative upstream value exists and may cross, the deficit is represen
 is transported; if it exists but may not cross, it is authority; if the upstream party must exercise
 judgement to produce it, it is epistemic-renderable and the transported object is a verdict. Where more
 than one cause applies to the same fact — one that may not cross and also needs judgement upstream, say —
-the record lists every cause, and the transformation must satisfy all their constraints; here, a
-verdict.
+the record lists every cause, and the transformation must satisfy all their constraints; here,
+potentially a verdict, subject to the transport conditions below.
 
 Two routes carry preconditions. For an authority deficit, verdict transport is available only where an
 authorized party can render the required judgement and the resulting verdict may itself cross the
@@ -481,8 +481,13 @@ when the architecture knows precisely which data is at issue. Obstructed does no
 immediate placement fails, and a transformation or residual must be considered — though a mediation
 deficit, which §VIII‑D exposed, is not routed by Table 3.
 
-For decision-obstructed obligations, the criterion separating T from O is whether $I(o)$ **survives
-abstraction** at an adequate cut for the governed effect. An obligation is also Class O
+Classify the obligation against the architecture as it exists before proposing any transformation, and
+record the governed effect, scope and adversary first; otherwise the same obligation may be classified
+inconsistently.
+
+For an obligation requiring a governance decision, the distinction between T and O depends on whether an
+adequate enforcement location already has all the information needed to decide; in the cases §IV
+describes, that turns on whether $I(o)$ **survives abstraction**. An obligation is also Class O
 if such a location lacks the required actuation, or if no adequate cut exists. §IV argued that broad
 mediation tends to be purchased with abstraction, so an obligation's class often depends on whether the
 facts in its predicate survive that abstraction. Predicates over *content properties*, *destinations*,
