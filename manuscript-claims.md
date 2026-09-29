@@ -445,7 +445,8 @@ it is not representable at the location, may not cross to it, cannot be determin
 three cases: the judgement can be rendered elsewhere, can only be approximated or can be rendered by no identified party. Together with the other causes, these yield the six decision-deficit rows of Table 2. The analysis
 asks why a required value is *absent*: a fact that is observed but not yet trusted is handled by a
 derived integrity obligation (§VII‑E), not by a cause in Table 2, though until that obligation is met the
-fact does not count towards feasibility. An **actuation deficit** concerns $\alpha (l)$: every fact is present and
+fact does not count towards feasibility. A required fact not in $A(l)$ is thus in one of two diagnostic
+states: *absent*, routed by Table 2, or *observed but untrusted*, routed to a derived integrity obligation. An **actuation deficit** concerns $\alpha (l)$: every fact is present and
 *l* simply cannot perform the required response. A mediation deficit — no adequate cut — has no cause
 row (§VIII‑D). Table 2 enumerates the ways a fact can be absent; it is not a claim that facts usually are
 (§VIII‑B).
