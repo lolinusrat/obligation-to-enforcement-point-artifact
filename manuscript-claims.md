@@ -636,8 +636,10 @@ not claim it; the case-level records are in the artifact.
 
 A placement method should be able to report when no available architecture can fully enforce an
 obligation. The method's residual has three parts, with different implications for review: what no
-architecture in *L* can enforce — an unrenderable deficit, an actuation deficit with no adequate
-substitute, or a mediation deficit — which calls for acceptance or redesign; what the enforcement point
+architecture in *L* can enforce — an unrenderable deficit, or an actuation deficit with no adequate
+substitute — which calls for acceptance or redesign, together with what the present method cannot place
+at a single adequate cut, a mediation deficit, which calls for redesign or for complementary enforcement
+points the method does not yet compose (§VII‑C); what the enforcement point
 accepts on upstream trust through each transported verdict, which calls for scrutiny of the issuer; and
 what an approximation may miss, including any T3 whose effect is not reversible within its detection
 latency, which calls for monitoring. For each, the method states what remains unenforced and why.

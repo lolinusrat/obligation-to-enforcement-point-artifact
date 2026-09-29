@@ -51,7 +51,9 @@ this order:
   choose among incomparable candidates.
 - **4c — no cut at all.** If no adequate cut exists, record a **mediation
   deficit**. The transformation table has no row for it: go to step 7 and state
-  it in the residual.
+  it in the residual. This means no *single* location covers every path, not
+  that the obligation is unenforceable: complementary enforcement points might
+  cover it jointly, which the method does not yet derive.
 
 Adequate cuts: __________________  Feasible one (4a), if any: __________________
 
