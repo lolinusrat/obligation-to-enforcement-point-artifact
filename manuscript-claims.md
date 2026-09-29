@@ -250,10 +250,11 @@ expose it, or it may sit with a different owner; the effect at the control is th
 be bought with abstraction, and abstraction is paid for in semantics.
 
 ::: {custom-style="First Paragraph"}
-**Mediation–Abstraction Coupling.** For obligations whose decision predicates range
-over application-specific state, a location's information availability tends to fall as its cut-scope
-(the governed paths that traverse it; §V‑C) rises: broader mediation and reduced application-specific context are both consequences of interface
-generality.
+**Mediation–Abstraction Coupling.** For governance obligations that depend on application-specific
+state, locations mediating broader sets of execution paths (a wider cut-scope; §V‑C) often expose less of
+the context required to evaluate those obligations. Both properties can arise from interface generality.
+The relationship is obligation- and architecture-dependent, rather than a universal inverse
+relationship.
 :::
 
 Fig. 1 shows the pattern across representative locations of Table 1. The restriction to
@@ -265,10 +266,10 @@ distinction into the classification on which the method operates.
 ![](fig-coupling.png){width=3.4in}
 
 **Fig. 1.** Mediation–abstraction coupling across representative zones of Table 1 (Z2, Z3, Z4 and Z7–8), shown in
-four groups.
-Moving from application-specific locations towards shared infrastructure, cut-scope tends to rise while
-available application-specific context tends to fall. The bands represent a design tendency, not a
-measured quantity. The dashed arrow (T2, §VII‑B) shows how deliberate transport can move a required fact or verdict to a
+four groups; the ordering is illustrative, not a ranking of every enterprise component. Moving from
+application-specific locations towards shared infrastructure, cut-scope tends to rise while the
+application-specific context a context-dependent obligation needs tends to fall. The bands represent a
+design tendency, not a measured quantity, and do not validate the coupling empirically. The dashed arrow (T2, §VII‑B) shows how deliberate transport can move a required fact or verdict to a
 strong cut that lacks it.
 
 ## B. A coupling, not a law
@@ -278,13 +279,17 @@ gateways, mandatory SDKs with attestation, service meshes propagating end-user i
 carrying classification labels. Each weakens or reverses the coupling by deliberate design — moving context to a
 strongly mediating location, or hardening a semantically rich location into a cut. The first is transport, which §VII prescribes; the second changes the architecture to
 which the method is applied. The coupling is therefore a pressure, not an invariant: absent deliberate measures of this kind, consolidating access behind a general interface tends to trade semantic context for coverage,
-often without that trade being made explicit.
+often without that trade being made explicit. The counterexamples are not exceptions the method must
+eliminate: they are architectures in which the necessary information or coverage may already be present,
+making the obligation Class T rather than Class O.
 
-## C. This is not zero trust restated
+## C. Beyond attribute routing
 
-The coupling is not simply a restatement of zero trust or classical access control. The distinctive
-problem is not that policy information is absent from a decision point — attribute routing addresses
-that — but that the cause of its absence can require a different architectural response. Classical access-control architectures make policy-relevant attributes —
+Classical access-control and zero-trust architectures already separate policy decisions from enforcement
+and provide mechanisms for retrieving policy-relevant attributes. The present problem is therefore not
+simply that information is absent from a decision point. It is determining why a required fact is
+unavailable at an otherwise suitable enforcement location, and which architectural response that cause
+permits. Classical access-control architectures make policy-relevant attributes —
 subject, resource, action and contextual attributes retrieved as needed — available to the decision
 function; the policy information point exists to route what is not local. For semantic AI obligations, however, a required fact may no longer be represented at the boundary, may
 require a judgement no mechanism at the cut can render, may not yet exist at that point in the path, or
@@ -297,6 +302,10 @@ which an injection predicate depends. Second, under the adversary model consider
 can operate inside the trust boundary — an agent acting on
 injected instructions routes around checks placed where the semantics live, removing the well-informed
 locations from the set of cuts exactly when they are needed.
+
+For an architect, the coupling is a diagnostic warning: selecting the location with the broadest coverage
+is insufficient unless the information the obligation needs survives there. §V formalises how coverage,
+information availability and actuation are assessed separately.
 
 # V. Primitives
 
