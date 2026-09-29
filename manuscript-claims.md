@@ -451,8 +451,9 @@ latter case, a previous application of the method has effectively been built int
 2. **Derive $I(o)$.** Enumerate the facts $\pi_o$ requires.
 3. **Instantiate.** Establish each candidate location's actual information, mediation and actuation
    properties from what the component does, not from its category name.
-4. **Locate.** Identify the maximal adequate cuts over ⟨*S*, *X*⟩. If no adequate cut exists, report a
-   mediation deficit. Use §V‑C's operational qualities to choose among incomparable candidates.
+4. **Locate.** Identify the adequate cuts over ⟨*S*, *X*⟩. If any is feasible, select a maximal feasible
+   candidate; otherwise identify the maximal adequate cuts for diagnosis. If no adequate cut exists,
+   report a mediation deficit. Use §V‑C's operational qualities to choose among incomparable candidates.
 5. **Diagnose.** At each selected cut, determine the cause of each missing fact in $\Delta (o,l)$
    (Table 2), and separately whether the required response exceeds $\alpha (l)$.
 6. **Transform.** Apply Table 3 **per fact**. A mediation deficit is reported but is not routed by the
@@ -462,9 +463,8 @@ latter case, a previous application of the method has effectively been built int
    any approximation and detection controls, and the residual — the terminal outputs together with
    what each approximation or transported verdict leaves unenforced.
 
-**Precedence.** Step 4 is read with one rule: a feasible adequate cut takes precedence. If one already
-holds every fact and can act, it is selected and steps 5–6 return T1; a broader but deficient cut is
-diagnosed only when no adequate cut is feasible. Fig. 2 summarises the procedure and the transformation function of §VII‑B; §VIII records
+A feasible adequate cut therefore takes precedence: a broader but deficient cut is diagnosed only when
+no adequate cut is feasible. Fig. 2 summarises the procedure and the transformation function of §VII‑B; §VIII records
 how the procedure reached this form.
 
 **Practitioner use.** The procedure is intended to be applied obligation by obligation. Its output is not
@@ -621,8 +621,10 @@ systems enforce, rather than our own architectural judgement.
 (§VIII‑F) preceded the untouched test (§VIII‑D). The held-out set produced three refinements (§VIII‑C). The
 two documented-architecture prediction errors prompted the Instantiate step, and the predictions reported
 there were made without it. The untouched test prompted two clarifications — actuation is considered
-separately from locating a cut, and a missing cut is reported as a mediation deficit — neither of which
-changes a recorded outcome. We do not aggregate the four studies; even the fourth is not fully
+separately from locating a cut, and a missing cut is reported as a mediation deficit. Step 4 now also
+states the precedence of a feasible adequate cut, which the definition of Class T already implied; in the
+untouched test every alternative location the sealed predictions considered covered only its own paths,
+so it was not an adequate cut. None of these changes alters a recorded outcome. We do not aggregate the four studies; even the fourth is not fully
 independent, since one researcher selected the cases, made the predictions, read the documentation and
 assigned the codes.
 
