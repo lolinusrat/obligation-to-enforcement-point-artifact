@@ -507,7 +507,7 @@ cause, and the principle states it.
 determined by *why* each required fact is missing, not by the obligation's class alone. A lost
 representation permits transport of the fact; an authority or renderable-epistemic deficit permits
 only transport of a verdict; a temporal or approximable deficit requires approximation with later
-detection; and an actuation deficit permits the same only where an adequate substitute response
+detection, which closes the obligation only where the effect is reversible within the detection latency; and an actuation deficit permits the same only where an adequate substitute response
 exists. An unrenderable predicate admits none of these transformations.
 :::
 
@@ -551,7 +551,10 @@ label and an attestation of the current purpose, which are missing for different
 obligation granularity cannot express that. The method therefore operates per fact. Each missing fact receives its
 own transformation, and the enforcement architecture is their composition. The residual combines the
 terminal outputs with whatever each approximation or transported verdict leaves unenforced. Operating per fact lets the method return the layered answers real obligations require while keeping the underlying
-transformation rule single-valued. Composition also checks that transported assertions belong together:
+transformation rule single-valued. Composition here is per fact at one selected cut. The method does not
+compose several enforcement points to achieve coverage jointly, so a mediation deficit means that no
+single location covers every path, not that no architecture can enforce the obligation: complementary
+points, each covering part of the paths, might, and that is outside the present method (§X). Composition also checks that transported assertions belong together:
 a label bound to a record and a verdict bound to a requester must also be bound to the same request and
 time, or the cut may combine assertions about different transactions. A signature alone does not show
 that an assertion still applies, so the record also states each assertion's validity period and how
@@ -586,7 +589,11 @@ each fact there and applying Table 3 gives Table 4.
 label carried with the data, and a purpose attestation carried with the request — a T2 verdict. The
 attestation is authenticated and issued by the requester's business context, and states that this
 request is made for a stated purpose; it does not approve the processing, and it is not a compatibility
-decision, which Z6 makes itself against the collection-purpose label. Neither transport is free — the
+decision, which Z6 makes itself against the collection-purpose label. What makes it a verdict rather than
+a transported fact is the judgement behind it: characterising the activity — deciding which of the
+organisation's defined purposes this use of the data serves — needs the business context, and only the
+party accountable for the activity can make it. Where the purpose is already a stored value, such as a
+purpose code fixed on a case file, carrying it is a transported fact instead (§V‑E). Neither transport is free — the
 label must be bound to the record and the attestation to the requester. Both transports create derived integrity obligations (§VII‑E). These are predicates
 over provenance facts and are therefore Class T, closing by T1 at the signing and identity layers. The residual is stated rather than
 absorbed: the purpose attestation rests on what the requester declares, so processing for a purpose other
@@ -933,6 +940,8 @@ and their ordering must be planned in advance.
 **Table 3 does not route every way placement can fail.** It covers deficits of decision and of actuation;
 a mediation deficit — no location in *L* cuts the governed effect — has no row, which §VIII‑D's exception
 exposed. The symmetric row derived after observing that exception is stated there but remains untested.
+Nor does the method compose several enforcement points that jointly cover the paths no single location
+covers; that coverage composition, as distinct from the per-fact composition of §VII‑C, is future work.
 
 **The corpora are purposive, and partly self-similar.** The development corpus was sampled from a fixed
 frame but is not representative, and its class distribution depends on the source mix. The untouched test
@@ -964,8 +973,8 @@ measured. Table 1 therefore illustrates the proposed tendency; it does not indep
 Context-dependent governance obligations and their enforcement locations tend to be pulled apart by a
 recurring design pressure: broad mediation is often obtained through general interfaces that abstract over the application-specific state on which context-dependent
 obligations depend — purpose, entitlement, objective and contextual sensitivity. We turn that pressure into a placement method in which the cause of
-each deficit determines whether to enforce locally, transport a fact or verdict, approximate and detect,
-or declare a residual.
+each deficit determines whether to enforce locally, transport a fact or verdict, approximate and detect
+where the effect can be undone, or declare a residual.
 
 The resulting design lesson is simple: in the cases we examined, placement often turned on the
 contracts between components, and every placement decision should state both what its control enforces
