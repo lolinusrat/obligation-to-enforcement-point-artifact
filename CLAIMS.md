@@ -259,3 +259,15 @@ published separately for held-out set 2, and the `mirroring` column publishes th
 study's own main limitation — so a reader can disagree with a specific code and
 see exactly what it would change, which is the strongest form of checking a
 single-coder study supports.
+
+
+## §VIII‑G — T4 extension (arXiv version; preliminary, constructed cases)
+
+| Claim | File | Recompute |
+|---|---|---|
+| Rule, cases and passes sealed in order | `protocols/T4-SEAL.txt` | `shasum -a 256` each listed file |
+| No test case has a single adequate cut | `protocols/t4-cases.json` | intersection of each case's path `via` sets is empty |
+| 18 of 18 per-path outcomes are what the rule returns | `data/t4-paths.csv` vs `protocols/t4-cases.json` | `verify.py` re-applies protocol §2 |
+| 4 F, 2 A, 2 U of 8 test cases | `data/t4-cases.csv` | column `t4_outcome` |
+| Independent pass agrees in 8 of 8 | same | column `agreement_norm` |
+| K6 (D0) is diagnostic only | `protocols/t4-cases.json` | `role` = diagnostic; excluded from every count |

@@ -1,0 +1,36 @@
+PRE-SPECIFICATION SEAL — T4 extension study
+
+file    : t4-protocol.md
+sha256  : faa7f36a3a73dbe72a006fd4d5d2dc91fb3bcf85f7e40b6e893cc801d197eccf
+bytes   : 7250
+
+file    : t4-cases.json
+sha256  : 09fcf7706aecde1ba3ca0fb3a318f4de3827070b49a44503281814ba8d66079b
+bytes   : 9056
+
+sealed  : 2026-09-29 10:13 UTC
+status  : sealed before any case was analysed; no derivation, independent
+          reasoning or code written as at the sealing time
+
+Verify with:  shasum -a 256 t4-protocol.md t4-cases.json
+
+Each later pass is sealed in turn; its hash is appended below, in order, before
+the next pass begins.
+
+PASS 2 — derivation
+file    : t4-derivations.md
+sha256  : c1344a65410120d102714a7931c519804bc53eb23fe678338a5220d41d4107e0
+bytes   : 5876
+sealed  : 2026-09-29 10:14 UTC, before the independent pass began
+
+PASS 3 — independent
+file    : t4-independent.md
+sha256  : 4ca666981830c6ff4e7d670fca534e8c9c1598723707be5f022a01b97677641b
+bytes   : 4431
+sealed  : 2026-09-29 10:14 UTC, before comparison and coding began
+
+PASS 4 — comparison and coding
+file    : t4-test.md
+sha256  : 238e8b9e0690bd470ac6f9fb8b549d15cbc3a23b34465714f28b99d8464be591
+bytes   : 3688
+sealed  : 2026-09-29 10:15 UTC

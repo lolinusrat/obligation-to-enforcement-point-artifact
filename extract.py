@@ -297,6 +297,18 @@ def main():
     print(f"\nexpected 25 / 15 / 12 / 14 — got {n1} / {n2} / {n4} / {n3}")
     assert len(adv) == 5, f"expected 5 sensitivity rows, got {len(adv)}"
 
+    # T4 extension study: per-path outcomes from the sealed derivation pass, and
+    # per-case codes from the sealed comparison. verify.py re-applies the rule to
+    # t4-cases.json and checks both against these.
+    t4p = rows(ROOT / "t4-derivations.md", "| case | path | assigned | outcome |", 4)
+    t4p = [r for r in t4p if r[0] != "case"]
+    write("t4-paths.csv", ["case", "path", "assigned", "outcome"], t4p)
+    t4c = rows(ROOT / "t4-test.md", "| case | T4 outcome | independent outcome |", 5)
+    t4c = [r[:4] + [{"✓": "agree", "~": "partial", "✗": "disagree"}[r[3]]] for r in t4c if r[0] != "case"]
+    write("t4-cases.csv", ["case", "t4_outcome", "independent_outcome", "agreement",
+                           "agreement_norm"], t4c)
+    assert len(t4c) == 8, f"expected 8 T4 test cases, got {len(t4c)}"
+
 
 if __name__ == "__main__":
     main()

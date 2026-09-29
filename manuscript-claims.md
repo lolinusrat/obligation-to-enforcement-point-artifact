@@ -602,7 +602,8 @@ terminal outputs with whatever each approximation or transported verdict leaves 
 transformation rule single-valued. Composition here is per fact at one selected cut. The method does not
 compose several enforcement points to achieve coverage jointly, so a mediation deficit means that no
 single location covers every path, not that no architecture can enforce the obligation: complementary
-points, each covering part of the paths, might, and that is outside the present method (§X). Composition also checks that transported assertions belong together:
+points, each covering part of the paths, might, and that is outside the present method (§X).
+Composition also checks that transported assertions belong together:
 a label bound to a record and a verdict bound to a requester must also be bound to the same request and
 time, or the cut may combine assertions about different transactions. A signature alone does not show
 that an assertion still applies, so the record also states each assertion's validity period and how
@@ -726,7 +727,9 @@ assigned the codes.
 A sampling frame of 268 items was fixed before any classification: the EU AI Act Chapter III Section 2
 together with Article 50 (9 items), the 38 controls of ISO/IEC 42001 Annex A, the 211 suggested actions
 of the NIST Generative AI Profile, and the ten risks of the OWASP Top 10 for Agentic Applications
-[@owasp]. The first filter, fixed in advance, retained only architecturally enforceable obligations.
+[@owasp]. The 268 items are a sampling frame, not obligations each evaluated with the method: the first
+filter, fixed in advance, retained only architecturally enforceable obligations, and 25 were admitted to
+the development corpus.
 
 **Table 5.** Evaluation design: four questions, four studies, increasing separation from method development.
 
@@ -766,7 +769,7 @@ obligations were coded Class O, against 50% of the rights-based legal obligation
 operational controls from the management and security standards. Applying the §VI definition
 retrospectively gives 86%, 83% and 17%: the agentic-versus-legal contrast largely disappears, while the
 operational controls remain predominantly transparent. The cells are small and were classified with the
-same criterion, so the pattern is consistent with §VI rather than a test of it: agentic and most legal
+same criterion, so the pattern is a descriptive consequence of applying §VI, not corroboration of it: agentic and most legal
 obligations need application-specific state or a fact held elsewhere in the estate, whereas operational
 controls are predominantly predicates over content properties, destinations and rates, which reach a
 gateway intact. The overall Class O share (40% as coded) is likewise not a prevalence claim.
@@ -817,8 +820,8 @@ transformation counted as a method failure, regardless of the total routed.
 Eleven of the twelve were routed — nine cleanly, two with a recorded strain — and none required a
 transformation outside the four.
 
-The remaining obligation exposed a different incompleteness: a missing row rather than a missing
-transformation. Provenance that must survive a third party's re-publication has no adequate cut in the
+The twelfth was diagnosed as a mediation deficit but could not be routed by the frozen transformation
+table, and therefore remained an exception: a missing row rather than a missing transformation. Provenance that must survive a third party's re-publication has no adequate cut in the
 modelled estate. The method diagnoses this as a mediation deficit. §V‑D gives three reasons the feasible set can be empty,
 but Table 3 routes only two, so the method had nothing to return and the case
 counts as an exception.
@@ -845,8 +848,11 @@ corpora, 33 require T2, T3 or Terminal: 14 transport a fact, 9 transport a verdi
 detect, and 2 are terminal; the other two are the mediation case above and one obligation resolved by T1
 with a minor residual. Obligation class alone does not distinguish among these transformations. The
 counts re-tabulate our own codings, so they show that the cause dimension separates these obligations,
-not that each separation is correct; the counting rules are in the artifact. Three committed codings —
-development item 20 and retrodiction cases P9 and P12 — are classification disagreements with the rule:
+not that each separation is correct. Seven obligations need more than one transformation; each is
+counted once, under a primary transformation, by the counting rules in the artifact.
+
+**Coding disagreements across the studies.** Three committed codings — development item 20 and two
+cases from the documented-architecture study (§VIII‑F), P9 and P12 — are classification disagreements with the rule:
 task scope is recorded as representational yet routed to a verdict, where it is better read as
 epistemic-renderable. They are retained unchanged rather than recoded, and they show that assigning a
 cause is itself a judgement; the artifact gives the reasoning.
@@ -918,8 +924,10 @@ documentation describes a catalogue from which a model is deployed to an endpoin
 with no deployment-approval state. The other predicted a preventive serving-time proxy alongside
 detective evaluation for Amazon SageMaker Model Monitor [@sagemaker]; monitoring there is scheduled and
 asynchronous, off the serving path, so both halves are detective. Neither prediction is rescued, and the
-count is unchanged. Reapplying the method with the documented properties yields, in our judgement, a
-defensible architecture in each case; this is what prompted the **Instantiate** step of §VII‑A. Every
+count is unchanged. Both errors involved incorrectly attributed component properties. Reapplying the
+method with the documented properties produced different placements in our subsequent analysis, but this
+retrospective exercise does not independently validate those placements; it is what prompted the
+**Instantiate** step of §VII‑A. Every
 prediction
 reported here was made before that step existed, and none is revised in light of it.
 

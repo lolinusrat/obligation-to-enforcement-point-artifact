@@ -17,7 +17,7 @@ the exit code, not just the count line: the recomputed evaluation section is
 printed after the count.
 
 ```
-151/151 checks passed
+172/172 checks passed
 
 The paper's evaluation section, recomputed from the data files:
 
@@ -33,6 +33,7 @@ The paper's evaluation section, recomputed from the data files:
   VII.E   transport recursion, one-step terminations         12 constructed, 3 documented
   VII.B   cause ablation, deficit-bearing obligations        33 of 35 across 4 transformations
   X       adversary sensitivity, Class T by adversary        4 of 5 (X1), 2 of 5 (X2), 1 of 5 (X3)
+  VIII.G  T4 extension (constructed cases, preliminary)      F 4, A 2, U 2 of 8; agreement 8/8; soundness 18/18
 ```
 
 Every line above is computed from a column of a CSV in `data/`, which is in turn
@@ -40,12 +41,12 @@ derived from a protocol file in `protocols/`. `CLAIMS.md` names the file and the
 column behind each one, with a shell command to recompute it by hand, and holds
 the counting rules the paper refers to.
 
-### What the 151 checks are
+### What the 172 checks are
 
 Each check prints its source in brackets, so the kinds can be told apart
 without reading the Python:
 
-- **88 recompute results from the data.** Their source is a CSV or protocol
+- **109 recompute results from the data.** Their source is a CSV or protocol
   file only. They count, tally and cross-check the corpora, independently of
   the paper's text.
 - **23 compare the paper with the data.** Their source is
@@ -61,6 +62,18 @@ without reading the Python:
 
 `manuscript-claims.md` is the anonymised shared text of the paper, written by
 the build. The arXiv version adds explanatory material but no counts.
+
+## The T4 extension study (arXiv version only)
+
+A preliminary extension, T4 (complementary enforcement composition), is tested
+separately on eight constructed cases. Its rule, case facts and three analysis
+passes are in `protocols/t4-*.md` and `protocols/t4-cases.json`, sealed in order
+in `protocols/T4-SEAL.txt`; `protocols/t4-errata.md` records one numbering slip
+in the sealed coding file. `verify.py` checks every seal, re-applies the rule to
+the case facts independently of the derivation file (soundness: 18/18 per-path
+outcomes), and recomputes the counts. The cases were constructed by the author:
+the study shows consistent application and the separation of coverage from
+enforceability, not effectiveness in real architectures.
 
 ## Contents
 

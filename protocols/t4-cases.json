@@ -1,0 +1,174 @@
+{
+  "schema": {
+    "I": "facts the obligation's predicate needs",
+    "R": "responses the obligation requires",
+    "reversible": "whether the governed effect can be undone within a detection latency",
+    "facts.source": "location holding the authoritative value or judgement; null if no party in L holds it",
+    "facts.kind": "fact (a stored value) or judgement (rendered by the source party)",
+    "facts.may_cross": "whether the value, or for a judgement a verdict on it, may be sent from the source to another location",
+    "facts.proxy": "whether a defensible proxy for the fact exists",
+    "locations.native": "facts available at the location without transport",
+    "locations.alpha": "responses the location can perform",
+    "locations.can_receive": "whether the location's interface can receive and check transported assertions",
+    "paths.via": "locations in L that the path traverses (empty: none)",
+    "paths.over_approx_ok": "whether conservative over-approximation (or proxy recording, for a record obligation) is acceptable on this path under the case facts",
+    "paths.detect": "whether a later detection control for this path exists"
+  },
+  "cases": [
+    {
+      "id": "C1", "role": "test",
+      "title": "Sensitive disclosure; agent tool calls leave by the web proxy, model calls by the gateway's private link",
+      "I": ["sens", "purp", "ext"], "R": ["block"], "reversible": false,
+      "facts": {
+        "sens": {"source": "Z6", "kind": "fact", "may_cross": true, "proxy": true},
+        "purp": {"source": "Z2", "kind": "judgement", "may_cross": true, "proxy": false},
+        "ext": {"source": null, "kind": "fact", "may_cross": false, "proxy": false}
+      },
+      "locations": {
+        "Z4": {"native": ["ext"], "alpha": ["block", "log"], "can_receive": true},
+        "Z7": {"native": ["ext"], "alpha": ["block", "log"], "can_receive": true}
+      },
+      "paths": {
+        "p1_model_call": {"via": ["Z4"], "over_approx_ok": false, "detect": false},
+        "p2_agent_tool_http": {"via": ["Z7"], "over_approx_ok": false, "detect": false}
+      }
+    },
+    {
+      "id": "C2", "role": "test",
+      "title": "As C1, but tool traffic is end-to-end encrypted and the proxy may not inspect or annotate it; tools may reach only allow-listed endpoints",
+      "I": ["sens", "purp", "ext"], "R": ["block"], "reversible": false,
+      "facts": {
+        "sens": {"source": "Z6", "kind": "fact", "may_cross": true, "proxy": true},
+        "purp": {"source": "Z2", "kind": "judgement", "may_cross": true, "proxy": true},
+        "ext": {"source": null, "kind": "fact", "may_cross": false, "proxy": false}
+      },
+      "locations": {
+        "Z4": {"native": ["ext"], "alpha": ["block", "log"], "can_receive": true},
+        "Z7": {"native": ["ext"], "alpha": ["block", "log"], "can_receive": false}
+      },
+      "paths": {
+        "p1_model_call": {"via": ["Z4"], "over_approx_ok": false, "detect": false},
+        "p2_agent_tool_http": {"via": ["Z7"], "over_approx_ok": true, "detect": false}
+      }
+    },
+    {
+      "id": "C3", "role": "test",
+      "title": "Sensitive disclosure; a user can also paste data into a consumer AI service from an unmanaged personal device",
+      "I": ["sens", "purp", "ext"], "R": ["block"], "reversible": false,
+      "facts": {
+        "sens": {"source": "Z6", "kind": "fact", "may_cross": true, "proxy": true},
+        "purp": {"source": "Z2", "kind": "judgement", "may_cross": true, "proxy": false},
+        "ext": {"source": null, "kind": "fact", "may_cross": false, "proxy": false}
+      },
+      "locations": {
+        "Z4": {"native": ["ext"], "alpha": ["block", "log"], "can_receive": true}
+      },
+      "paths": {
+        "p1_model_call": {"via": ["Z4"], "over_approx_ok": false, "detect": false},
+        "p2_unmanaged_device": {"via": [], "over_approx_ok": false, "detect": false}
+      }
+    },
+    {
+      "id": "C4", "role": "test",
+      "title": "Purpose limitation; retrieval from the primary store, and from a vector index built earlier whose ingestion dropped collection-purpose labels",
+      "I": ["pd", "cpur", "cur", "compat"], "R": ["deny"], "reversible": false,
+      "facts": {
+        "pd": {"source": "Z6a", "kind": "fact", "may_cross": true, "proxy": false},
+        "cpur": {"source": "Z6a", "kind": "fact", "may_cross": true, "proxy": false},
+        "cur": {"source": "Z2", "kind": "judgement", "may_cross": true, "proxy": false},
+        "compat": {"source": null, "kind": "fact", "may_cross": false, "proxy": false}
+      },
+      "locations": {
+        "Z6a": {"native": ["pd", "cpur", "compat"], "alpha": ["deny", "redact"], "can_receive": true},
+        "Z6b": {"native": ["pd", "compat"], "alpha": ["deny", "redact"], "can_receive": true}
+      },
+      "paths": {
+        "p1_primary_store": {"via": ["Z6a"], "over_approx_ok": false, "detect": false},
+        "p2_vector_index": {"via": ["Z6b"], "over_approx_ok": false, "detect": false}
+      }
+    },
+    {
+      "id": "C5", "role": "test",
+      "title": "Tool calls must stay within the authorised task scope; calls go through the agent SDK, or directly from agent code to an internal service API",
+      "I": ["scope", "call"], "R": ["deny"], "reversible": false,
+      "facts": {
+        "scope": {"source": "Z3", "kind": "judgement", "may_cross": true, "proxy": false},
+        "call": {"source": null, "kind": "fact", "may_cross": false, "proxy": false}
+      },
+      "locations": {
+        "Z3": {"native": ["scope", "call"], "alpha": ["deny", "escalate"], "can_receive": true},
+        "Z6": {"native": ["call"], "alpha": ["deny"], "can_receive": true}
+      },
+      "paths": {
+        "p1_sdk_tool_call": {"via": ["Z3"], "over_approx_ok": false, "detect": false},
+        "p2_direct_api_call": {"via": ["Z6"], "over_approx_ok": false, "detect": false}
+      }
+    },
+    {
+      "id": "C6", "role": "test",
+      "title": "Toxic output must not reach an end user; chat through a filtering endpoint, batch e-mail through a vendor appliance and the mail relay",
+      "I": ["tox"], "R": ["block"], "reversible": false,
+      "facts": {
+        "tox": {"source": "Z5b", "kind": "fact", "may_cross": false, "proxy": true}
+      },
+      "locations": {
+        "Z5a": {"native": ["tox"], "alpha": ["block", "filter"], "can_receive": true},
+        "Z5b": {"native": ["tox"], "alpha": ["log"], "can_receive": false},
+        "Z7": {"native": [], "alpha": ["block"], "can_receive": false}
+      },
+      "paths": {
+        "p1_chat": {"via": ["Z5a"], "over_approx_ok": false, "detect": false},
+        "p2_batch_mail": {"via": ["Z5b", "Z7"], "over_approx_ok": false, "detect": true}
+      }
+    },
+    {
+      "id": "C7", "role": "test",
+      "title": "Only registered models may be used; hosted models behind the gateway, and models run locally on managed workstations",
+      "I": ["model", "registered"], "R": ["block"], "reversible": true,
+      "facts": {
+        "model": {"source": null, "kind": "fact", "may_cross": false, "proxy": false},
+        "registered": {"source": "Z1", "kind": "fact", "may_cross": true, "proxy": false}
+      },
+      "locations": {
+        "Z4": {"native": ["model"], "alpha": ["block", "log"], "can_receive": true},
+        "Z8": {"native": ["model"], "alpha": ["block", "terminate"], "can_receive": true}
+      },
+      "paths": {
+        "p1_hosted_model": {"via": ["Z4"], "over_approx_ok": false, "detect": false},
+        "p2_local_model": {"via": ["Z8"], "over_approx_ok": false, "detect": false}
+      }
+    },
+    {
+      "id": "C8", "role": "test",
+      "title": "Every model call must be recorded with the requesting end user's identity; calls through the gateway, and raw encrypted egress from a batch service",
+      "I": ["reqid", "call"], "R": ["record"], "reversible": true,
+      "facts": {
+        "reqid": {"source": "Z2", "kind": "fact", "may_cross": true, "proxy": true},
+        "call": {"source": null, "kind": "fact", "may_cross": false, "proxy": false}
+      },
+      "locations": {
+        "Z4": {"native": ["call"], "alpha": ["record", "block"], "can_receive": true},
+        "Z7": {"native": ["call"], "alpha": ["record", "block"], "can_receive": false}
+      },
+      "paths": {
+        "p1_gateway": {"via": ["Z4"], "over_approx_ok": false, "detect": false},
+        "p2_raw_egress": {"via": ["Z7"], "over_approx_ok": true, "detect": false}
+      }
+    },
+    {
+      "id": "D0", "role": "diagnostic",
+      "title": "K6 — provenance must survive a third party's re-publication (motivated T4; excluded from all counts)",
+      "I": ["provenance"], "R": ["block"], "reversible": false,
+      "facts": {
+        "provenance": {"source": "Z3", "kind": "fact", "may_cross": true, "proxy": false}
+      },
+      "locations": {
+        "Z7": {"native": [], "alpha": ["block"], "can_receive": true}
+      },
+      "paths": {
+        "p1_release": {"via": ["Z7"], "over_approx_ok": false, "detect": false},
+        "p2_third_party_republication": {"via": [], "over_approx_ok": false, "detect": false}
+      }
+    }
+  ]
+}

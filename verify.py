@@ -15,7 +15,7 @@ The artifact is self-contained: every file this script reads lives in this
 directory, so `unzip && cd artifact && python3 verify.py` is the whole
 procedure. Nothing outside the package is consulted.
 """
-import csv, hashlib, pathlib, re, subprocess, sys
+import csv, hashlib, json, pathlib, re, subprocess, sys
 from collections import Counter
 
 import extract  # normalisers only; importing does not rewrite the CSVs
@@ -650,6 +650,64 @@ if MANUSCRIPT.exists():
     check("§7.5 no longer claims ten transport cases",
           "manuscript-claims.md §7.5", False, states(r"ten transport cases"))
 
+# -- T4 extension study (preliminary; constructed cases) --------------------
+# The rule, case facts and each analysis pass were sealed in order. The rule is
+# re-applied here, independently of the derivation file, to every path of every
+# case; a derivation that calls a path enforced when the facts do not support it
+# fails the study (protocol §5, soundness).
+T4SEAL = (HERE / "protocols" / "T4-SEAL.txt").read_text(encoding="utf-8")
+t4_pairs = re.findall(r"file\s*:\s*(\S+)\s*\n\s*sha256\s*:\s*([0-9a-f]{64})", T4SEAL)
+check("T4 seal records the protocol, the case file and three passes",
+      "protocols/T4-SEAL.txt", 5, len(t4_pairs))
+for name, want in t4_pairs:
+    got = hashlib.sha256((HERE / "protocols" / name).read_bytes()).hexdigest()
+    check(f"T4 sealed file {name} is unchanged since sealing", "protocols/T4-SEAL.txt", want, got)
+
+t4cases = json.loads((HERE / "protocols" / "t4-cases.json").read_text(encoding="utf-8"))["cases"]
+
+
+def t4_path(c, p):
+    I, R, F, L = c["I"], set(c["R"]), c["facts"], c["locations"]
+    def moves(f, l):
+        return F[f]["source"] not in (None, l) and F[f]["may_cross"] and L[l]["can_receive"]
+    for l in p["via"]:
+        miss = [f for f in I if f not in L[l]["native"]]
+        if R <= set(L[l]["alpha"]) and all(moves(f, l) for f in miss):
+            return l, "enforced"
+    for l in p["via"]:
+        miss = [f for f in I if f not in L[l]["native"]]
+        if (R <= set(L[l]["alpha"]) and all(moves(f, l) or F[f]["proxy"] for f in miss)
+                and (p["over_approx_ok"] or (c["reversible"] and p["detect"]))):
+            return l, "approximated"
+    return "—", "residual"
+
+
+t4_rec = {(r["case"], r["path"]): (r["assigned"], r["outcome"]) for r in load("t4-paths.csv")}
+t4_mismatch, t4_case = [], {}
+for c in t4cases:
+    vias = [set(p["via"]) for p in c["paths"].values()]
+    check(f"T4 case {c['id']} has no single adequate cut", "protocols/t4-cases.json",
+          set(), set.intersection(*vias))
+    outs = []
+    for pid, p in c["paths"].items():
+        got = t4_path(c, p); outs.append(got[1])
+        if t4_rec.get((c["id"], pid)) != got:
+            t4_mismatch.append((c["id"], pid))
+    t4_case[c["id"]] = "U" if "residual" in outs else ("A" if "approximated" in outs else "F")
+check("T4 soundness: every recorded per-path outcome is what the rule returns",
+      "t4-paths.csv vs t4-cases.json", [], t4_mismatch)
+check("T4 per-path outcomes recorded", "t4-paths.csv", 18, len(t4_rec))
+t4c = load("t4-cases.csv")
+check("T4 case outcomes in the coding match the rule", "t4-cases.csv vs t4-cases.json", True,
+      all(t4_case[r["case"]] == r["t4_outcome"] for r in t4c))
+t4_count = Counter(r["t4_outcome"] for r in t4c)
+check("T4 test cases by outcome (F, A, U)", "t4-cases.csv", [4, 2, 2],
+      [t4_count["F"], t4_count["A"], t4_count["U"]])
+check("T4 never codes enforceable what the independent pass codes U (EQ5b)", "t4-cases.csv", True,
+      all(r["t4_outcome"] == "U" for r in t4c if r["independent_outcome"] == "U"))
+t4_agree = sum(1 for r in t4c if r["agreement_norm"] in ("agree", "partial"))
+check("T4 agreement meets the sealed threshold (at least 6 of 8)", "t4-cases.csv", True, t4_agree >= 6)
+
 # -- artifact integrity ------------------------------------------------------
 before = {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
           for p in sorted(DATA.glob("*.csv")) if p.name != "sampling-frame.csv"}
@@ -700,6 +758,9 @@ def paper_summary():
         ("X       adversary sensitivity, Class T by adversary",
          f"{t_counts[0]} of {len(adv)} (X1), {t_counts[1]} of {len(adv)} (X2), "
          f"{t_counts[2]} of {len(adv)} (X3)"),
+        ("VIII.G  T4 extension (constructed cases, preliminary)",
+         f"F {t4_count['F']}, A {t4_count['A']}, U {t4_count['U']} of {len(t4c)}; "
+         f"agreement {t4_agree}/{len(t4c)}; soundness {18 - len(t4_mismatch)}/18"),
     ]
 
 
