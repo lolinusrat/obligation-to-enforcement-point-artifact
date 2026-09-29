@@ -95,8 +95,11 @@ business purpose" is available, but it is a weak enforcement point under the adv
 applications may implement the check differently or not at all, and an agent acting on injected
 instructions can reach the model without passing back through the application-level check. **The AI
 gateway** is a strong candidate — model calls within the governed path traverse it and it sees the prompt
-text — but it does not know whether that text is sensitive *in this context*, who is really asking, or
-why. A
+text — but seeing content is not holding an authoritative sensitivity classification: it does not know
+whether that text is sensitive *in this context*, who is really asking, or why. In the modelled
+architecture, agents may bypass application-level checks, but all relevant external-model calls,
+including those initiated directly by agents, are required to traverse the gateway; this is an explicit
+architectural assumption, not a general property of AI gateways. A
 classifier there reconstructs facts that were available upstream but were not carried across the
 architectural boundary. The network boundary is at least as strong a cut but sees only traffic; choosing
 between equally strong cuts is an operational judgement (§V‑C), and here it favours the gateway, which can
@@ -106,14 +109,17 @@ is available at the broadly mediating locations; the rest must be inferred, asse
 
 The derived architecture is therefore not a filter in one place. Sensitivity travels
 with the data, while purpose is rendered where the business context is available and travels with the
-request as a verdict: a purpose attestation, bound to requester identity and entitlement. The gateway
-verifies the sensitivity label and the purpose attestation, including their issuer, identity,
-entitlement and request bindings. It then evaluates the disclosure policy itself, using those assertions
-and destination externality. The attestation carries the business-context component's judgement of the
-stated purpose; it does not independently establish that the underlying declaration was truthful, since
-binding shows who attested what, not that the purpose is legitimate. Transport creates a second, smaller
-obligation: each transported fact or verdict must be bound to what it describes. The architecture still leaves a residual: it cannot verify a purpose that is falsely asserted upstream
-of the binding point.
+request as a verdict: a purpose attestation. The upstream business-context component attests to the
+requester's business purpose and applicable entitlement, using the business context available to it.
+The gateway verifies the sensitivity label and the attestation, including their issuer, identity,
+entitlement and request bindings, then applies the disclosure policy to the attested purpose,
+entitlement, sensitivity label and destination; an authenticated declaration alone is not proof of
+legitimate purpose. A valid attestation establishes the accountable component's judgement; it does not
+independently establish that the requester's underlying declaration was truthful. Transport creates a
+second, smaller obligation: each transported fact or verdict must be bound to what it describes. The
+architecture still leaves residuals. It cannot verify a purpose falsely asserted upstream of the binding
+point, and it assumes the sensitivity label is authoritative: binding protects a label against tampering,
+not against misclassification, so a correctly bound but wrong label is also residual.
 
 
 None of this is exotic. What is missing is a way to reach it that does not depend on the architect
@@ -137,7 +143,8 @@ responsible AI at the system level. It organises governance, process and product
 inform implementation choices; it does not, however, provide a general procedure for deriving a placement
 across competing enforcement locations from the cause of an obligation-specific deficit.
 
-Koch's layered translation method [@koch] goes furthest towards placement. It carries standards-derived
+Koch's layered translation method [@koch] is among the closest placement-oriented approaches considered
+here. It carries standards-derived
 objectives through design-time constraints, runtime mediation and assurance feedback, using a rubric that
 reserves runtime guardrails for controls sufficiently observable, determinate and time-sensitive to
 justify execution-time intervention. That is a placement criterion, and we treat it as such. Koch
