@@ -479,7 +479,22 @@ classification because the label was dropped when the record was served — a re
 closed by transporting the fact — or because policy forbids exposing it there — an authority deficit,
 closed only by transporting a verdict. The same observable condition, a missing decision fact, yields
 different architectures; its cause is architecturally consequential. Table 3 gives the mapping for every
-cause.
+cause, and the principle states it.
+
+::: {custom-style="First Paragraph"}
+**Deficit-Cause Principle.** At an adequate cut, the class of architectural transformation is
+determined by *why* each required fact is missing, not by the obligation's class alone. A lost
+representation permits transport of the fact; an authority or renderable-epistemic deficit permits
+only transport of a verdict; a temporal or approximable deficit requires approximation with later
+detection; and an actuation deficit permits the same only where an adequate substitute response
+exists. An unrenderable predicate admits none of these transformations.
+:::
+
+The principle is conditional. It applies only at an adequate cut, and therefore says nothing about an
+obligation for which no cut exists (§VIII‑D); it determines the *class* of transformation and not its
+implementation, which §V‑C's operational qualities still choose; and it selects T3 for an actuation
+deficit only where Table 3's substitution condition holds. §VIII‑D reports how the cause separates the
+obligations of the three constructed corpora.
 
 **Table 3.** Deficit cause determines the transformation. The rows cover decision and actuation
 deficits; a mediation deficit, where no adequate cut exists, has no row (§VIII‑D). T3's detective
@@ -497,21 +512,6 @@ from SARC's reversibility window [@sarc]; otherwise T3 leaves a residual (§VII�
 | temporal | **T3 Approximate-and-detect** — preventive over-approximation at the cut, detective evaluation of the true predicate after the effect |
 | actuation | **T3** if preventive approximation plus later detection or compensation adequately substitutes for the unavailable response; otherwise **Terminal** |
 
-
-::: {custom-style="First Paragraph"}
-**Deficit-Cause Principle.** At an adequate cut, the class of architectural transformation is
-determined by *why* each required fact is missing, not by the obligation's class alone. A lost
-representation permits transport of the fact; an authority or renderable-epistemic deficit permits
-only transport of a verdict; a temporal or approximable deficit requires approximation with later
-detection; and an actuation deficit permits the same only where an adequate substitute response
-exists. An unrenderable predicate admits none of these transformations.
-:::
-
-The principle is conditional. It applies only at an adequate cut, and therefore says nothing about an
-obligation for which no cut exists (§VIII‑D); it determines the *class* of transformation and not its
-implementation, which §V‑C's operational qualities still choose; and it selects T3 for an actuation
-deficit only where Table 3's substitution condition holds. §VIII‑D reports how the cause separates the
-obligations of the three constructed corpora.
 
 Two features of Table 3 deserve emphasis. First, the payload of a transport is not a design preference
 but a consequence of the cause: an authority deficit forbids moving the fact while permitting the
