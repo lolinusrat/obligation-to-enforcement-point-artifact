@@ -103,8 +103,8 @@ is available at the broadly mediating locations; the rest must be inferred, asse
 
 The derived architecture is therefore not a filter in one place. Sensitivity travels
 with the data, while purpose is rendered where the business context is available and travels with the
-request as a verdict. The purpose verdict is bound to requester identity and entitlement; the gateway
-relies on the business-context component's authority to attest it, since binding shows who attested what,
+request as a verdict: a purpose attestation, bound to requester identity and entitlement. The gateway
+relies on the business-context component's authority to attest the purpose, since binding shows who attested what,
 not that the purpose is legitimate. The gateway combines these facts with destination externality to enforce the obligation. Transport creates a second, smaller
 obligation: each transported fact or verdict must be bound to what it describes. The architecture still leaves a residual: it cannot verify a purpose that is falsely asserted upstream
 of the binding point.
@@ -547,7 +547,7 @@ effect occurs. Under a temporal deficit that condition fails, leaving T3 as the 
 ## C. Composition
 
 An obligation rarely has a single deficit. Purpose limitation (§VII‑D) requires a collection-purpose
-label and a verdict on the current purpose, which are missing for different causes; Table 3 applied at
+label and an attestation of the current purpose, which are missing for different causes; Table 3 applied at
 obligation granularity cannot express that. The method therefore operates per fact. Each missing fact receives its
 own transformation, and the enforcement architecture is their composition. The residual combines the
 terminal outputs with whatever each approximation or transported verdict leaves unenforced. Operating per fact lets the method return the layered answers real obligations require while keeping the underlying
@@ -583,18 +583,18 @@ placement enforces purpose limitation at retrieval, not over every downstream co
 each fact there and applying Table 3 gives Table 4.
 
 *Compose (7).* The composed architecture has Z6 evaluate compatibility using two transported inputs: a collection-purpose
-label carried with the data, and a purpose verdict rendered in the requester's business context and
-carried with the request. The verdict is an authenticated attestation, issued by the requester's
-business context, that this request is made for a stated purpose; it is not a compatibility decision,
-which Z6 makes itself against the collection-purpose label. Neither transport is free — the label must be bound to the record and the
-verdict to the requester. Both transports create derived integrity obligations (§VII‑E). These are predicates
+label carried with the data, and a purpose attestation carried with the request — a T2 verdict. The
+attestation is authenticated and issued by the requester's business context, and states that this
+request is made for a stated purpose; it does not approve the processing, and it is not a compatibility
+decision, which Z6 makes itself against the collection-purpose label. Neither transport is free — the
+label must be bound to the record and the attestation to the requester. Both transports create derived integrity obligations (§VII‑E). These are predicates
 over provenance facts and are therefore Class T, closing by T1 at the signing and identity layers. The residual is stated rather than
-absorbed: the purpose verdict rests on what the requester declares, so processing for a purpose other
+absorbed: the purpose attestation rests on what the requester declares, so processing for a purpose other
 than the one declared remains outside this cut, as does reuse of a copy already retrieved, which does not
 pass Z6 again.
 
-**Placement record.** Enforce compatibility at Z6; transport the collection-purpose fact with the data; transport the current-purpose
-verdict with the request; bind both transported assertions to what they describe, closing each by T1 at the signing and
+**Placement record.** Enforce compatibility at Z6; transport the collection-purpose fact with the data; transport the purpose
+attestation with the request; bind both transported assertions to what they describe, closing each by T1 at the signing and
 identity layers; and record
 processing for an undeclared purpose, and reuse of a retrieved copy, as the residual.
 
