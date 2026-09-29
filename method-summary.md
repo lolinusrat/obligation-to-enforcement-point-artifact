@@ -19,7 +19,7 @@ Nothing below is defined without these two:
 |---|---|---|
 | **N — non-architectural** | constrains no mediated action; discharged by a document, review or role | out of scope. A substantial share of the governance material examined is here: at least 24 of 38 ISO/IEC 42001 Annex A controls |
 | **T — transparent** | some location is a cut with adequate actuation and `I(o) ⊆ A(l)` | enforce at a maximal feasible location; operational qualities choose among incomparable candidates |
-| **O — placement-obstructed** | every adequate cut carries a deficit, or no cut has adequate actuation | apply §3 |
+| **O — placement-obstructed** | no adequate cut is feasible: each carries a decision or actuation deficit, or no adequate cut exists (mediation) | apply §3 |
 
 The T/O criterion is whether `I(o)` **survives the abstraction** at a location
 that adequately mediates the effect.
@@ -52,7 +52,7 @@ Apply **per missing fact**, not per obligation.
 | `A(l)` | epistemic, approximable | **T3 Approximate-and-detect** |
 | `A(l)` | epistemic, unrenderable | **Terminal — declare residual** |
 | `A(l)` | temporal | **T3 Approximate-and-detect** — preventive over-approximation at the cut, detective evaluation of the true predicate after the effect |
-| `α(l)` | actuation | **T3** where an approximation of the required response exists; otherwise **Terminal** |
+| `α(l)` | actuation | **T3** if preventive approximation plus later detection or compensation adequately substitutes for the unavailable response; otherwise **Terminal** |
 | `cut(l)` | mediation | *no row — see below* |
 
 T3's detective half is adequate only if the effect is reversible within the
@@ -71,12 +71,17 @@ tested it.
 ## 4. Compose, recurse, declare
 
 - **Compose.** The architecture is the composition of the per-fact
-  transformations; the residual is the union of the terminal ones.
+  transformations. The residual collects the terminal outputs together with
+  what each transported verdict and each approximation leaves unenforced,
+  including any T3 whose effect is not reversible within its detection
+  latency.
 - **Recurse.** Every transport makes a strong location act on an assertion from a
   weaker one. The integrity of that assertion is a new obligation. Its predicate
   ranges over provenance facts, which survive abstraction, so it is Class T and
-  closes at the identity or signing layer. *In the seven counted development cases and the five of held-out
-  set 2, the derived obligation closed by T1 in one step; Microsoft Purview and
-  C2PA's claim signature provide two documented corroborating instances. This is
-  not claimed as universal.*
+  closes at the identity or signing layer, provided those layers are themselves
+  cuts under `X`. *In the seven counted development cases and the five of held-out
+  set 2, the derived obligation closed by T1 in one step; three documented
+  retrodiction cases (P4, P12, P13) show the same pattern. C2PA's claim signature
+  is constructed case K4, not a documented case. This is not claimed as
+  universal.*
 - **Declare.** A placement decision recorded without its residual is incomplete.

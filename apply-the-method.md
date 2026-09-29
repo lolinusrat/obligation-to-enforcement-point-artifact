@@ -33,12 +33,20 @@ came from skipping this step.
 | | | | |
 | | | | |
 
-**Step 4 — Locate.** Identify the maximal cuts over ⟨S, X⟩ whose actuation
-admits the required responses; use the operational qualities to choose among
-incomparable candidates.
+**Step 4 — Locate.** Identify the maximal *adequate* cuts over ⟨S, X⟩: the
+locations every path available to `X` must traverse, whatever they know or can
+do. Do **not** exclude a cut because its actuation looks inadequate; actuation is
+diagnosed in step 5. Use the operational qualities to choose among incomparable
+candidates.
 
-Maximal cuts with adequate actuation (maximal elements under mediation
-dominance; there may be more than one): ______________________________________
+- If some adequate cut already holds every fact in `I(o)` and admits the
+  required responses, the obligation is **Class T**: enforce there (T1), even if a
+  more broadly mediating cut lacks a fact.
+- If **no** adequate cut exists, record a **mediation deficit**. The
+  transformation table has no row for it: go to step 7 and state it in the
+  residual.
+
+Maximal adequate cuts (there may be more than one): _____________________________
 
 Selected cut, and the operational quality that chose it: _____________________
 
@@ -66,9 +74,19 @@ unrenderable) · temporal · actuation.
 **Step 7 — Compose.**
 - Resulting architecture: ______________________________________________________
 - Derived integrity obligations from each transport, and where each closes: ____
-- **Residual** — the union of the terminal transformations, stated plainly: ____
+- **Residual** — everything the architecture leaves unenforced, stated plainly.
+  Check each source:
+  - terminal outputs (an unrenderable fact; an actuation deficit with no
+    adequate substitute; a mediation deficit from step 4): ____
+  - what each transported **verdict** leaves unenforced — the cut acts on what
+    another party asserts (for example, a falsely declared purpose): ____
+  - what each **approximation** leaves unenforced, including any T3 whose effect
+    is not reversible within its detection latency: ____
+  - paths outside the stated scope that still realise the effect (for example,
+    reuse of a copy already retrieved): ____
 
 ---
 
-*If step 6 leaves the residual blank for a placement-obstructed obligation, the
-worksheet is not finished.*
+*A blank residual for a placement-obstructed obligation means the worksheet is
+not finished. Whether a stated residual is acceptable is a governance decision
+the method informs but does not make.*
