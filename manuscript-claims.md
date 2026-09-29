@@ -328,7 +328,9 @@ model is sufficient.
 
 **Table 1.** Generic enforcement zones and the three attributes used for placement (defined in §V‑C). Cut-scope is
 relative to the governed effect and the adversary model above; for Z1, the relevant effect is release or
-deployment rather than runtime execution.
+deployment rather than runtime execution. The listed facts, coverage and responses are illustrative
+defaults, not guarantees of a zone type; the Instantiate step establishes actual properties for each
+architecture.
 
 | Zone | Available facts $A(l)$ | Cut-scope | Responses $\alpha (l)$ |
 |---|---|---|---|
@@ -347,7 +349,8 @@ A **governance obligation** *o* is a decision predicate $\pi_o$ over facts about
 completed action. For a chosen decomposition of the obligation, its **information requirement** $I(o)$
 is the set of facts whose values $\pi_o$ requires for correct evaluation. A fact may itself be a rendered
 judgement — whether a business purpose is legitimate, for example — which is why a transported verdict
-can stand in for it.
+can stand in for it. A transported judgement may satisfy an input requirement of the predicate without
+constituting the final authorization decision.
 
 Deriving $I(o)$ is the first analytical step of the method and carries most of its interpretive burden.
 For the disclosure obligation of §II, $I(o)$ comprises the five facts listed in §I, of which only
@@ -368,8 +371,9 @@ observation and whatever compensation the effect admits; the preventive/detectiv
 therefore positional rather than merely a design choice.
 
 Together these determine **structural placement feasibility**: whether a location *can* host a control at
-all. Operational qualities — latency, cost, ownership, maintainability — rank otherwise feasible
-placements but do not determine the transformation a deficit generates. This is why Table 1 need
+all. Operational qualities — latency, cost, ownership, maintainability — rank structurally feasible
+placements and may rule out particular implementations; the deficit cause determines the candidate
+transformation class. This is why Table 1 need
 represent only the structural attributes the method uses.
 
 ## D. Feasibility
@@ -377,7 +381,8 @@ represent only the structural attributes the method uses.
 A location can enforce an obligation only if three things hold. It can **decide**: it holds every required
 fact, $I(o) \subseteq A(l)$. It **covers every path**: every path by which the adversary can realise the
 governed effect traverses it, $\mathit{cut}(l \mid S,X)$. It can **act**: it can perform the responses
-$R(o)$ the obligation requires, $\alpha(l) \supseteq R(o)$. The **feasible set** is where all three hold:
+$R(o)$ the obligation requires, $\alpha(l) \supseteq R(o)$, where $R(o)$ is the response capability
+required by the selected enforcement strategy. The **feasible set** is where all three hold:
 
 $F(o)=\{\,l \in L : I(o) \subseteq A(l) \wedge \mathit{cut}(l \mid S,X) \wedge \alpha(l) \supseteq R(o)\,\}$
 
@@ -390,7 +395,9 @@ separate (below).
 to the adversary must traverse. If one of them can already decide and act, enforce there (Class T, §VI):
 broader coverage elsewhere does not justify a transport. Otherwise prefer the one with the broadest
 coverage and diagnose it; if several are incomparable, operational considerations choose among them. If
-none exists, the obstruction is one of mediation.
+no adequate cut exists, the obstruction is one of mediation; if adequate cuts exist but none is feasible,
+diagnose the deficits at the maximal adequate cuts. A broader but deficient cut never displaces a
+feasible one.
 
 Formally, any location satisfying $\mathit{cut}(l \mid S,X)$ is an **adequate cut**, whatever it knows or
 can do. Location $l_a$ **dominates** $l_b$, written $l_a \succeq l_b$, iff $M(l_b) \subseteq M(l_a)$ — a
@@ -444,6 +451,13 @@ judgement to produce it, it is epistemic-renderable and the transported object i
 than one cause applies to the same fact — one that may not cross and also needs judgement upstream, say —
 the record lists every cause, and the transformation must satisfy all their constraints; here, a
 verdict.
+
+Two routes carry preconditions. For an authority deficit, verdict transport is available only where an
+authorized party can render the required judgement and the resulting verdict may itself cross the
+boundary; if neither the fact nor an adequate verdict may cross, the restriction is recorded as
+unresolved. An approximable deficit supports T3 only when a specified later observation or compensating
+control can adequately detect or address the relevant failure; a defensible proxy is not by itself a
+feasible detection mechanism, and where none exists the uncertainty remains residual.
 
 # VI. Three classes of obligation
 
@@ -557,9 +571,9 @@ from SARC's reversibility window [@sarc]; otherwise T3 leaves a residual (§VII�
 |---|---|
 | no deficit | **T1** — enforce at the feasible cut (protocol label: *Relocate*) |
 | representational | **T2 Transport (fact)** — restore the representation across the boundary |
-| authority | **T2 Transport (verdict)** — the fact may not cross; the decision may |
+| authority | **T2 Transport (verdict)** — the fact may not cross; the decision may, if an authorized party can render it and it may cross |
 | epistemic, renderable | **T2 Transport (verdict)** — the party who can judge decides; the cut enforces |
-| epistemic, approximable | **T3 Approximate-and-detect** |
+| epistemic, approximable | **T3 Approximate-and-detect** — where a later observation or compensating control can detect the failure; otherwise residual |
 | epistemic, unrenderable | **Terminal — declare residual** |
 | temporal | **T3 Approximate-and-detect** — preventive over-approximation at the cut, detective evaluation of the true predicate after the effect |
 | actuation | **T3** if preventive approximation plus later detection or compensation adequately substitutes for the unavailable response; otherwise **Terminal** |
