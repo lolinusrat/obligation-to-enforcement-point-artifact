@@ -722,8 +722,8 @@ substitute — which calls for acceptance or redesign, together with what the pr
 at a single adequate cut, a mediation deficit, which calls for redesign or for complementary enforcement
 points, which the method as tested does not compose (§VII‑C); what the enforcement point
 accepts on upstream trust through each transported verdict, which calls for scrutiny of the issuer; and
-what an approximation may miss, including any T3 whose effect is not reversible within its detection
-latency, which calls for monitoring. For each, the method states what remains unenforced and why.
+what an approximation may miss, which calls for monitoring where the effect is reversible, and for
+acceptance or redesign where it is not, since detection cannot undo an irreversible effect. For each, the method states what remains unenforced and why.
 
 One failure the method exposes is an unstated residual: a control that approximates a predicate it cannot
 fully evaluate, presented without stating where its competence ends. Making the residual an output
@@ -776,8 +776,8 @@ reproduced. Table 1's location model
 and §V‑A's adversary model were also fixed before the first obligation was coded.
 
 The first result concerns scope rather than method. At least 24 of the 38 ISO/IEC 42001 Annex A controls
-are Class N (the artifact's per-control enumeration codes 29; we report the lower bound because the
-Class N boundary is a coding judgement, §VI) — the policy, roles, impact-assessment, external-reporting and supplier families entirely so
+are Class N (a post-hoc per-control recount in the artifact gives 29, but no per-control original
+coding was retained, so we report the lower bound) — the policy, roles, impact-assessment, external-reporting and supplier families entirely so
 — as are several AI Act articles and many NIST suggested actions. All are discharged by producing a
 document, holding a review or assigning a role. In the sources examined, a substantial share of
 governance requirements is organisational or procedural rather than architecturally placeable.
@@ -958,7 +958,7 @@ asynchronous, off the serving path, so both halves are detective. Neither predic
 count is unchanged. Both errors involved incorrectly attributed component properties. Reapplying the
 method with the documented properties produced different placements in our subsequent analysis, but this
 retrospective exercise does not independently validate those placements; it is what prompted the
-**Instantiate** step of §VII‑A. Every
+**Instantiate** step of §VII‑A, whose effectiveness has not been independently tested. Every
 prediction
 reported here was made before that step existed, and none is revised in light of it.
 
