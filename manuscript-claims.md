@@ -365,8 +365,10 @@ the phenomenon the rest of the paper is about.
 
 Three attributes characterise a location. **Availability** $A(l)$ is the set of facts observable or
 derivable at *l* at decision time, without new plumbing, under the trust assumptions the obligation
-requires: a locally visible fact that may be stale, misbound or supplied by an untrusted component is not
-available until those assumptions are met. **Mediation** describes how much of the
+requires. A location may *observe* a fact it cannot yet *rely on* — a stale, misbound or untrusted
+assertion; such a fact is not in $A(l)$ until its trust assumptions are met, but because it is present,
+its shortfall is closed by a derived integrity obligation (§VII‑E) rather than routed as a missing fact,
+and feasibility requires that obligation to be discharged. **Mediation** describes how much of the
 governed path space passes through a location. Let $M(l) \subseteq S$ be the governed paths that
 traverse *l* — its **cut-scope** — and $S_X \subseteq S$ the paths by which *X* can realise the effect.
 A location *l* *mediates* the governed effect over ⟨*S*, *X*⟩ iff it is a **cut** — that is,
@@ -433,8 +435,9 @@ Deficits differ in kind, and the kind is what the method acts on. The taxonomy h
 which attribute fails. **Decision deficits** concern $A(l)$: a fact required by $\pi_o$ is absent because
 it is not representable at the location, may not cross to it, cannot be determined there or does not yet exist. Where the missing fact depends on a judgement, we distinguish
 three cases: the judgement can be rendered elsewhere, can only be approximated or can be rendered by no identified party. Together with the other causes, these yield the six decision-deficit rows of Table 2. The analysis
-asks why a required value is *absent*: a present but untrustworthy fact is not a deficit but a derived
-integrity obligation (§VII‑E). An **actuation deficit** concerns $\alpha (l)$: every fact is present and
+asks why a required value is *absent*: a fact that is observed but not yet trusted is handled by a
+derived integrity obligation (§VII‑E), not by a cause in Table 2, though until that obligation is met the
+fact does not count towards feasibility. An **actuation deficit** concerns $\alpha (l)$: every fact is present and
 *l* simply cannot perform the required response. A mediation deficit — no adequate cut — has no cause
 row (§VIII‑D). Table 2 enumerates the ways a fact can be absent; it is not a claim that facts usually are
 (§VIII‑B).
@@ -510,8 +513,9 @@ obligation with a mediated post-market monitoring component, was coded Class N; 
 similarly astride the line, was coded architecturally enforceable. The divergence shows that the
 boundary is a coding judgement rather than a mechanical test. The unit of classification is an
 individual obligation: a requirement that mixes organisational, procedural and runtime duties is
-decomposed first, and Article 9 was coded as a single unit because its runtime component was judged
-subordinate to its process obligation.
+decomposed when its runtime component constitutes a separately assessable obligation; otherwise the
+dominant obligation determines the coding unit. Article 9 was coded as a single unit on that rule, its
+runtime component being judged subordinate to its process obligation.
 
 The classification is also architecture-relative. An obligation that is Class O in one estate may be
 Class T in another where the necessary fact has already been routed to the mediating layer. In the
