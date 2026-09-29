@@ -1,0 +1,35 @@
+PRE-REGISTRATION SEAL — Held-out set 2
+
+file    : heldout-2-preregistration.md
+sha256  : 63ad5c995d35c40618895e654755a40cce4d8b591eed2e174f9ab773f916c026
+bytes   : 11436
+sealed  : 2026-09-05
+status  : sealed before any of the twelve obligations was analysed; no
+          prediction written, no architecture reasoned, no code assigned as at
+          the sealing date
+
+Verify with:  shasum -a 256 heldout-2-preregistration.md
+
+If this hash does not match, the protocol changed after sealing and the study's
+result cannot be reported as pre-registered.
+
+The two analysis passes are sealed in turn as they complete; their hashes are
+appended below, in the order they were written, and each was sealed before the
+next pass began.
+
+---
+file    : heldout-2-predictions.md
+sha256  : 439259ce83c2aa531c8acecf81a7da4f9edd9b8b3acf4c1124f5a9fed2e7abc9
+bytes   : 15764
+sealed  : 2026-09-05
+status  : sealed before the independent pass was begun; contains the frozen
+          method's output only, no architectural judgement
+
+---
+file    : heldout-2-independent.md
+sha256  : af4ddd4320e511eeedca9f7518502be50e9de9ecd702996179ac2f62b4aebbbb
+bytes   : 9829
+sealed  : 2026-09-05
+status  : sealed before any code was assigned; written without reopening the
+          prediction file, and not revised after the comparison was made
+

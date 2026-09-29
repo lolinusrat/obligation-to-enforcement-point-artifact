@@ -1,0 +1,10 @@
+{
+  "title": "Replication package for: From Obligation to Enforcement Point: A Deficit-Driven Method for Placing AI Governance Controls in Enterprise Architectures",
+  "upload_type": "dataset",
+  "creators": [{"name": "Loli, Nusrat", "affiliation": "Independent Researcher",
+                 "orcid": "0009-0007-2942-8261"}],
+  "description": "Evidence and reproduction steps for the paper's evaluation: the development, held-out and untouched corpora, the sealed protocols and prediction records, the documented-architecture retrodiction cases, the adversary-sensitivity and cause-ablation data, the counting rules (CLAIMS.md), and verify.py, which recomputes the reported counts from the data files and checks the manuscript against them (run: python3 verify.py; standard library only).",
+  "license": "cc-by-4.0",
+  "keywords": ["AI governance", "software architecture", "enterprise AI", "policy enforcement",
+               "agentic AI", "replication package"]
+}

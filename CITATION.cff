@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this replication package, please cite the paper and this package."
+title: "Replication package for: From Obligation to Enforcement Point: A Deficit-Driven Method for Placing AI Governance Controls in Enterprise Architectures"
+type: dataset
+authors:
+  - family-names: Loli
+    given-names: Nusrat
+    affiliation: Independent Researcher
+    orcid: "https://orcid.org/0009-0007-2942-8261"
+license: CC-BY-4.0
+preferred-citation:
+  type: article
+  title: "From Obligation to Enforcement Point: A Deficit-Driven Method for Placing AI Governance Controls in Enterprise Architectures"
+  authors:
+    - family-names: Loli
+      given-names: Nusrat
+  year: 2026
+  # add after arXiv assigns an identifier:
+  # identifiers: [{type: other, value: "arXiv:XXXX.XXXXX"}]

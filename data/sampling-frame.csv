@@ -1,0 +1,5 @@
+source,items_in_frame,how_obtained,items_admitted_to_corpus,notes
+EU AI Act Ch. III §2 (Arts 8-15) + Art 50,9,article list fetched from artificialintelligenceact.eu,6,"6 corpus items, not 6 articles: Arts 10, 12, 14, 15 (two items) and 50. Arts 9, 11 and 13 coded Class N; Art 8 contributed no item"
+ISO/IEC 42001 Annex A,38,"full control list, A.2.2-A.10.4",4,"24 of 38 are Class N: A.2.x policies, A.3.x roles, A.5.x impact assessment, A.8.x external reporting, A.10.x suppliers"
+NIST AI 600-1 §3 suggested actions,211,mechanical grep for ^(GV|MP|MS|MG)-n.n-nnn over the July 2024 PDF,8,"Filter 2 keyword screen applied before reading admitted ~40; 8 taken"
+OWASP Top 10 for Agentic Applications 2026,10,ASI01-ASI10,7,ASI04 ASI07 ASI08 not admitted

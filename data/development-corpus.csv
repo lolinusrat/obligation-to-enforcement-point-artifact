@@ -1,0 +1,26 @@
+id,obligation_and_source,key_facts_in_I_of_o,strongest_cut,deficit_at_cut,class,transformation,source,class_norm
+1,Automatic event recording over lifetime (AI Act Art 12; ISO A.6.2.8),"event, time, I/O, acting principal",Z4,end-user identity (gateway authenticates the *service*),**T\***,T2-fact → T1,EU AI Act,T
+2,Human oversight; ability to intervene (AI Act Art 14),action needs oversight; reviewer authority; **review was meaningful**; reversibility,Z4/Z6,Ep + Rep,**O**,T2-verdict + T3 + **residual**,EU AI Act,O
+3,Disclose AI interaction / mark AI content (AI Act Art 50),output is AI-generated; recipient is a natural person,Z4,recipient type,**T\***,T2-fact → T1,EU AI Act,T
+4,Resist adversarial manipulation / prompt injection (AI Act Art 15),**provenance of each context segment** (trusted vs retrieved); intended task,Z4,Rep — prompt flattened to one string,**O**,T2-fact → T1,EU AI Act,O
+5,Training/validation data quality & bias (AI Act Art 10),dataset properties,Z1,—,T,T1,EU AI Act,T
+6,Accuracy/performance within declared envelope (AI Act Art 15),true outcome vs prediction,Z4,**Tmp** — ground truth arrives later,**O**,T3 + **residual**,EU AI Act,O
+7,AI system operation & monitoring (ISO A.6.2.6),"traffic, latency, refusals, drift signals",Z4,—,T,T1,ISO/IEC 42001,T
+8,Data provenance (ISO A.7.5),origin of each datum,Z1 / Z6,—,T,T1,ISO/IEC 42001,T
+9,Controlled deployment (ISO A.6.2.5),"artifact identity, approval state",Z1,—,T,T1,ISO/IEC 42001,T
+10,System used only for its intended purpose (ISO A.9.4),declared purpose; **actual purpose of this use**,Z4,**Ep**,**O**,T2-verdict + **residual**,ISO/IEC 42001,O
+11,Prevent generation of CSAM/NCII/illegal content (NIST GV-1.4-001),content properties of the output,Z4 (response path),—,T,T1,NIST AI 600-1,T
+12,"Architecture can monitor outputs, recover from anomalies (NIST MS-2.6-005)","output stream, error/anomaly state",Z4 / Z8,—,T,T1,NIST AI 600-1,T
+13,"Prevent malicious usage — manipulation, extortion, impersonation, cyber-attack, weapons (NIST MS-2.6-006)",**user intent**; real-world downstream use,Z4,Ep + Tmp,**O**,T3 + **large residual**,NIST AI 600-1,O
+14,Privacy-enhancing techniques to minimise linkage (NIST MS-2.2-004),dataset linkage properties,Z1,—,T,T1,NIST AI 600-1,T
+15,Real-time monitoring that provenance protocols remain effective (NIST MG-2.2-003),provenance metadata present & valid,Z4,—,T,T1,NIST AI 600-1,T
+16,Trace origin/provenance of AI-generated content (NIST MG-2.2-002),generation lineage,Z1 + Z4,—,T,T1,NIST AI 600-1,T
+17,Review generated code before downstream use (NIST MS-2.6-004),code risk properties,Z4,—,T,T1,NIST AI 600-1,T
+18,"Override, appeal, decommission — ""kill switch"" (NIST MG-4.1; AI Act Art 14(4))",operator authority; target; safety of stopping,Z4 / Z8,minor Ep (is stopping safe),T,T1 + minor residual,NIST AI 600-1,T
+19,Agent pursues only its authorised objective (OWASP ASI01 Goal Hijack),**user's authorised objective** vs agent's current objective,Z4,Rep — objective not represented in the call,**O**,T2-fact → T1,OWASP Agentic,O
+20,Tool calls stay within legitimate task scope (OWASP ASI02 Tool Misuse),task scope; tool semantics; caller,Z6 / Z8,Rep — scope not represented at the cut,**O**,T2-verdict (capability) → T1,OWASP Agentic,O
+21,Agent identity & delegated privilege (OWASP ASI03),agent identity; delegation chain; on-behalf-of,Z6,delegation chain not propagated,**T\***,T2-fact → T1,OWASP Agentic,T
+22,No unsanctioned code execution (OWASP ASI05),process is executing unsanctioned code,**Z8**,—,T,T1,OWASP Agentic,T
+23,Memory/context integrity (OWASP ASI06),**trust level of each memory item at write time**,Z6 (read),Rep — labels lost between write and read,**O**,T2-fact → T1,OWASP Agentic,O
+24,Human not deceived by agent (OWASP ASI09 Human-Agent Trust Exploitation),**the human's belief state**,—,"**Ep, irreducible**",**O**,**Terminal: declare residual**,OWASP Agentic,O
+25,Detect rogue/unregistered agents (OWASP ASI10),registration state; behaviour over time,Z4,"Tmp (behaviour accrues) + Ep (""rogue"")",**O**,T1 (registry) + T3 + residual,OWASP Agentic,O

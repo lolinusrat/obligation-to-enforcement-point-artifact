@@ -1,0 +1,39 @@
+control_id,title,class_n,basis
+A.2.2,AI policy,yes,frozen note names A.2.x (policies) as Class N
+A.2.3,Alignment with other organizational policies,yes,frozen note names A.2.x (policies) as Class N
+A.2.4,Review of the AI policy,yes,frozen note names A.2.x (policies) as Class N
+A.3.2,AI roles and responsibilities,yes,frozen note names A.3.x (roles) as Class N
+A.3.3,Reporting of concerns,yes,frozen note names A.3.x (reporting concerns) as Class N
+A.4.2,Resource documentation,yes,reconstructed 2026-08-31 — discharged by documenting resources
+A.4.3,Data resources,yes,reconstructed 2026-08-31 — discharged by documenting resources
+A.4.4,Tooling resources,yes,reconstructed 2026-08-31 — discharged by documenting resources
+A.4.5,System and computing resources,yes,reconstructed 2026-08-31 — discharged by documenting resources
+A.4.6,Human resources,yes,reconstructed 2026-08-31 — discharged by documenting resources
+A.5.2,AI system impact assessment process,yes,frozen note names A.5.x (impact assessment) as Class N
+A.5.3,Documentation of AI system impact assessments,yes,frozen note names A.5.x (impact assessment) as Class N
+A.5.4,Assessing AI system impact on individuals or groups,yes,frozen note names A.5.x (impact assessment) as Class N
+A.5.5,Assessing societal impacts of AI systems,yes,frozen note names A.5.x (impact assessment) as Class N
+A.6.1.2,Objectives for responsible development of AI systems,yes,reconstructed 2026-08-31 — sets objectives; no mediated action
+A.6.1.3,Processes for responsible AI system design and development,yes,reconstructed 2026-08-31 — process definition
+A.6.2.2,AI system requirements and specification,yes,reconstructed 2026-08-31 — document
+A.6.2.3,Documentation of AI system design and development,yes,reconstructed 2026-08-31 — document
+A.6.2.4,AI system verification and validation,no,reconstructed 2026-08-31 — gateable at Z1 CI
+A.6.2.5,AI system deployment,no,in the development corpus as item 9
+A.6.2.6,AI system operation and monitoring,no,in the development corpus as item 7
+A.6.2.7,AI system technical documentation,yes,reconstructed 2026-08-31 — document
+A.6.2.8,AI system recording of event logs,no,in the development corpus as item 1 (dual-cited with AI Act Art 12)
+A.7.2,Data for development and enhancement of AI systems,yes,reconstructed 2026-08-31 — process definition
+A.7.3,Acquisition of data,no,reconstructed 2026-08-31 — acquisition is a mediated path
+A.7.4,Quality of data for AI systems,no,reconstructed 2026-08-31 — checkable at Z1
+A.7.5,Data provenance,no,in the development corpus as item 8
+A.7.6,Data preparation,no,reconstructed 2026-08-31 — a pipeline stage that can be gated
+A.8.2,System documentation and information for users,yes,frozen note names A.8.x as Class N
+A.8.3,External reporting,yes,frozen note names A.8.x (external reporting) as Class N
+A.8.4,Communication of incidents,yes,frozen note names A.8.x as Class N
+A.8.5,Information for interested parties,yes,frozen note names A.8.x as Class N
+A.9.2,Processes for responsible use of AI systems,yes,reconstructed 2026-08-31 — process definition
+A.9.3,Objectives for responsible use of AI systems,yes,reconstructed 2026-08-31 — sets objectives
+A.9.4,Intended use of the AI system,no,in the development corpus as item 10
+A.10.2,Allocating responsibilities,yes,frozen note names A.10.x as Class N
+A.10.3,Suppliers,yes,frozen note names A.10.x (suppliers) as Class N
+A.10.4,Customers,yes,frozen note names A.10.x (customers) as Class N
