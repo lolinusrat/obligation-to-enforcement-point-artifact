@@ -37,20 +37,25 @@ came from skipping this step.
 observed implementation — not the component's category name. A property with
 no evidence is an assumption; mark it as one.
 
-**Step 4 — Locate.** Identify the maximal *adequate* cuts over ⟨S, X⟩: the
-locations every path available to `X` must traverse, whatever they know or can
-do. Do **not** exclude a cut because its actuation looks inadequate; actuation is
-diagnosed in step 5. Use the operational qualities to choose among incomparable
-candidates.
+**Step 4 — Locate.** List the *adequate* cuts over ⟨S, X⟩: the locations every
+path available to `X` must traverse, whatever they know or can do. Then, in
+this order:
 
-- If some adequate cut already holds every fact in `I(o)` and admits the
-  required responses, the obligation is **Class T**: enforce there (T1), even if a
-  more broadly mediating cut lacks a fact.
-- If **no** adequate cut exists, record a **mediation deficit**. The
-  transformation table has no row for it: go to step 7 and state it in the
-  residual.
+- **4a — a feasible cut first.** If an adequate cut already holds every fact in
+  `I(o)` and admits the required responses, the obligation is **Class T**: select
+  it and enforce there (T1). Broader coverage elsewhere does not justify a
+  transport. Go to step 7.
+- **4b — otherwise, the maximal cuts.** Select among the maximal adequate cuts
+  and diagnose there. Do **not** exclude a cut because its actuation looks
+  inadequate; actuation is diagnosed in step 5. Use the operational qualities to
+  choose among incomparable candidates.
+- **4c — no cut at all.** If no adequate cut exists, record a **mediation
+  deficit**. The transformation table has no row for it: go to step 7 and state
+  it in the residual.
 
-Maximal adequate cuts (there may be more than one): _____________________________
+Adequate cuts: __________________  Feasible one (4a), if any: __________________
+
+Maximal adequate cuts (4b; there may be more than one): _________________________
 
 Selected cut, and the operational quality that chose it: _____________________
 
@@ -80,9 +85,13 @@ unrenderable) · temporal · actuation.
 - Derived integrity obligations from each transport, and where each closes: ____
 - For each transported **verdict**, its validity condition:
 
-  | Verdict | Issued by | Bound to | Expires | Invalidated by |
-  |---|---|---|---|---|
-  | | | | | |
+  | Verdict | What it decides — and what it does not | Issued by | Bound to | Expires | Invalidated by |
+  |---|---|---|---|---|---|
+  | | | | | | |
+
+  A verdict answers only the question its issuer can judge (for example, "this
+  record is sensitive", not "this disclosure is authorised"); the facts it does
+  not cover must still reach the cut another way.
 
   Binding prevents substitution and tampering; it does not make the original
   judgement true. What the issuer could get wrong belongs in the residual.
