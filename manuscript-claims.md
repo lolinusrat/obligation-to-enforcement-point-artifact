@@ -9,7 +9,7 @@ From Obligation to Enforcement Point: A Deficit-Driven Method for Placing AI Gov
 
 
 ::: {custom-style="Abstract"}
-***Abstract*—** Enterprises deploying AI systems have no shortage of governance obligations, but regulations and standards stop short of the step an architect must take: deriving an obligation's enforcement architecture — where enforcement should occur, what information must cross architectural boundaries, and what remains unenforceable. We identify a recurring tension behind this decision: locations with broad enforcement coverage typically operate through general interfaces that abstract away the application-specific state — such as purpose, entitlement, objective, and contextual sensitivity — needed to evaluate context-dependent obligations. We call this mediation–abstraction coupling. From this observation, we develop a deficit-driven placement method. After establishing what candidate locations actually know, mediate, and can do, the method diagnoses why an obligation cannot be enforced at an adequate enforcement point and derives the corresponding architectural transformation: enforce locally, transport a fact, transport a verdict, approximate and detect, or declare a residual. The resulting enforcement architecture is the composition of these transformations. We evaluate the method through four studies: a development corpus drawn from regulation and standards, a held-out applicability study, a pre-specified test of twelve obligations from sources excluded from method development, and fourteen cases drawn from documented enterprise AI systems and platforms. The pre-specified study routed eleven of twelve obligations; the remaining obligation had no adequate enforcement cut and exposed a case the method does not yet route. Across the documented cases, eight architectures agreed with or extended the method's prediction, three exhibited pre-specified gaps, two contradicted it, and one was undetermined. These results provide external corroboration rather than independent validation.
+***Abstract*—** Enterprises deploying AI systems have no shortage of governance obligations, but regulations and standards stop short of the step an architect must take: deriving an obligation's enforcement architecture — where enforcement should occur, what information must cross architectural boundaries, and what remains unenforceable. A long-recognised systems tension, captured by the end-to-end argument and the semantic gap, recurs here: locations with broad enforcement coverage often operate through general interfaces that abstract away the application-specific state — such as purpose, entitlement, objective, and contextual sensitivity — needed to evaluate context-dependent obligations, while the locations holding that state can be bypassed. We call this mediation–abstraction coupling and use it as a diagnostic, not as a new observation. The central contribution is a cause-sensitive selection rule, the Deficit-Cause Principle: after establishing what candidate locations actually know, mediate, and can do, the method diagnoses why a required fact or capability is unavailable at an adequate enforcement point and selects the class of architectural response from that cause: enforce locally, transport a fact, transport a verdict, approximate and detect, or declare a residual. The resulting enforcement architecture is the composition of these responses. We evaluate the method through four studies: a development corpus drawn from regulation and standards, a held-out applicability study, a pre-specified test of twelve obligations from sources excluded from method development, and fourteen documented AI platforms, frameworks and research systems. In the sealed pre-specified test, the frozen method returned a placement for eleven of twelve obligations, ten of them through a cause diagnosis; the twelfth had no adequate enforcement cut, a case the method does not yet route. Across the documented cases, documentation agreed with or extended eight predictions (two involving no deficit), contradicted two, was indeterminate for one, and in three was coded as showing a gap flagged in the prediction. These results are exploratory, single-analyst corroboration of applicability; whether cause-sensitive selection outperforms cause-blind alternatives is untested.
 :::
 
 ::: {custom-style="Abstract"}
@@ -36,7 +36,8 @@ requester has a legitimate business purpose. It needs five facts: sensitivity in
 purpose, entitlement and externality of the destination. In the illustrative architecture of §II, the
 broadly mediating locations initially have only the last available in authoritative form. §II works the case through.
 
-We argue that this is not only an artefact of immature tooling. A location mediates many paths because
+This is not only an artefact of immature tooling; it is the tension behind the end-to-end argument
+[@e2e] and the semantic gap [@chennoble], in enterprise form. A location mediates many paths because
 those paths share a general interface, and that generality tends to be achieved by abstracting over what
 differs among the applications that share it — including purpose, entitlement, objective and contextual
 sensitivity (§IV). Google's network service perimeter illustrates the point: its
@@ -55,25 +56,30 @@ decision from enforcement in XACML [@xacml] and zero trust architecture [@zta]. 
 policy-relevant attributes to a decision function; a semantic AI obligation may instead depend on a fact
 lost through abstraction, a judgement the enforcement point cannot render, information not yet available,
 or information that may not cross an organisational boundary. SARC [@sarc], the closest methodological
-antecedent, compiles constraints to four enforcement sites in an agent loop; we generalise to a
-heterogeneous enterprise estate, and from constraint class to the *cause* of the placement deficit.
+antecedent, ranks host layers by robustness and selects among them by constraint class, with no
+attribute for what a layer can observe.
 
-We make five contributions. Two explain the problem: *mediation–abstraction coupling*, a mechanism
-explaining why information and enforcement strength come apart, stated as a coupling rather than a law;
-and a classification of obligations as non-architectural, transparent or placement-obstructed, applied to
-a purposive corpus of governance obligations. Three form the method: the *Deficit-Cause Principle*, a
-proposed decision rule that maps the diagnosed cause of each deficit at an adequate enforcement cut,
-rather than the obligation's class, to a class of architectural transformation; compositional placement, including a transport recursion in which transported facts or
-verdicts create derived integrity obligations; and the residual as a first-class output, so that the
-method states explicitly what the architecture cannot enforce.
+The central contribution is the *Deficit-Cause Principle* (§VII‑B): a cause-sensitive selection rule
+that, at an adequate enforcement cut, diagnoses why a required fact or capability is unavailable and
+selects the class of architectural response — enforce locally, transport a fact or verdict, approximate
+and detect, or leave a residual — from that cause rather than from the obligation's class. We also
+contribute the method that operationalises it (adequate cut → deficit → cause → transformation →
+composition and residual, recorded in a placement record) and an evaluation showing it applicable, with
+its selection step exercised, on obligations from sources outside its development; it does not yet
+compare the rule with cause-blind alternatives. Mediation–abstraction coupling (used as a diagnostic),
+fact and verdict transport with their derived integrity obligations, classified residuals recording what
+remains unenforced after the selected transformation, and the obligation classes (non-architectural,
+transparent, placement-obstructed) are supporting concepts grounded in prior work (§III).
 The method is intended to be applied obligation by obligation and to produce an explicit placement record: where enforcement
 occurs, which facts or verdicts must cross boundaries, what integrity dependencies those transports
 create, and what remains unenforced.
-In evaluation, a pre-specified study routed eleven of twelve obligations from sources that played no
-part in the method's development. Across fourteen documented cases, eight architectures agreed with or
-extended the method's prediction, three had documented or documentation-inferred gaps consistent with
-the predictions, two contradicted it, and one was undetermined. These results provide external corroboration rather
-than independent validation.
+In a sealed applicability test, the frozen method returned a placement for eleven of twelve obligations
+from sources not used in its development (five of the twelve nonetheless closely resemble obligations
+already analysed). Across fourteen documented cases, documentation agreed with or extended eight
+predictions, contradicted two and was indeterminate for one; in three it was coded as showing a gap
+flagged in the prediction. These results are exploratory, single-analyst corroboration of applicability
+rather than independent validation; whether cause-sensitive selection outperforms cause-blind
+alternatives is untested (§X).
 
 # II. A governance obligation and four plausible places to enforce it
 
@@ -148,14 +154,15 @@ inform implementation choices; it does not, however, provide a general procedure
 across competing enforcement locations from the cause of an obligation-specific deficit.
 
 Koch's layered translation method [@koch] is among the closest placement-oriented approaches considered
-here. It carries standards-derived
-objectives through design-time constraints, runtime mediation and assurance feedback, using a rubric that
-reserves runtime guardrails for controls sufficiently observable, determinate and time-sensitive to
-justify execution-time intervention. That is a placement criterion, and we treat it as such. Koch
-assigns each objective to one or more of these layers, scoring it on six dimensions that include timing of
-harm, reversibility and evidence clarity.
-Our method instead derives an architecture across heterogeneous enforcement locations from the cause of
-each deficit, returning transport, composition or an explicit residual rather than a lifecycle layer.
+here. It normalises each standards-derived objective into a control tuple that records evidence and an
+owner — an antecedent of our placement record — and assigns it to one or more of four layers
+(governance objective, design-time constraint, runtime mediation, assurance), with human escalation
+available throughout. A six-criterion rubric, including timing of harm, pre-action observability,
+reversibility and evidence clarity, scores whether a control suits runtime enforcement. That is a
+placement criterion, and we treat it as such. Koch treats absent or late-arriving context as a reason to
+move a control off the runtime layer; we treat it as a deficit whose cause selects whether the context,
+a verdict or neither can be carried to an adequate cut, returning transport, composition or an explicit
+residual rather than a lifecycle layer.
 
 ## B. Architecture and security foundations
 
@@ -169,6 +176,20 @@ contribution is likewise inherited: quality-attribute-driven design and architec
 established the pattern of deriving design decisions from requirements under stated trade-offs, and we
 claim novelty in content, not form.
 
+The coupling of §IV and the transports of §VII have long precedents. The end-to-end argument holds that
+some functions can be implemented correctly only with knowledge held at the endpoints [@e2e]; Chen and
+Noble name the *semantic gap* facing services placed below the operating system and pair it with the
+converse risk, that in-OS services depend on the integrity of the layer holding the semantics
+[@chennoble]. Fact transport is the discipline of decentralised information-flow control, whose
+owner-controlled labels propagate with data, checked largely statically [@myers97], [@myers00] or by a
+runtime reference monitor [@flume], [@histar], and of sticky policies, which bind a policy to data and
+release it only once a trusted authority confirms compliance [@sticky]. Purpose-based access control
+weighs who can be trusted to supply an access purpose [@byunli]; RFC 2753 places decisions where the
+information lives and forwards partial decisions [@rfc2753]; usage control continues decisions during
+use [@ucon]; and hook-placement analysis automates where to mediate inside one code base [@ganapathy].
+Each fixes one discipline or places mediation within one system; the method adds the choice among fact,
+verdict, approximation and residual, per required fact, from the cause of its absence.
+
 ## C. Agent runtime enforcement
 
 Agent runtime enforcement is the closest active body of work, and it has matured beyond preprints. AgentSpec [@agentspec] provides a
@@ -177,11 +198,17 @@ impending action; Progent
 [@progent] represents privilege as symbolic rules over tool names and arguments, with an SMT check ensuring that, without approval, an agent's action space can only narrow; and MI9 [@mi9] and the Organizational Control Layer [@ocl] each propose enforcement machinery for deployed agents. These approaches instantiate constraints at predetermined runtime boundaries — such as tool invocation,
 action execution or a named control plane — rather than treating selection among heterogeneous enterprise locations as the architectural decision. Tallam [@fiveplane] comes closer: it centralises adjudication in a reasoning plane with full context and fans the verdict out to network, identity, endpoint and data planes — a fixed instance of verdict transport, which does not derive placement per obligation from the cause of a deficit.
 
-Two results come closest to the mechanism developed in §IV. Bensalem et al. [@bensalem] argue
-that safe agent operation depends on information becoming available at different execution stages,
-motivating enforcement across multiple layers. ActPlane [@actplane] exposes the same tension within one
-stack: policy context resides with the agent closest to the task, while operating-system enforcement
-provides broader coverage across the paths considered.
+Several results state the tension of §IV for agents: the semantic gap makes the enforcement layer hard
+to choose [@christodorescu], network enforcement without context-aware semantics reduces to coarse
+connectivity control [@tran], and syscall-only enforcement is semantically blind, which AgentKernel
+bridges with a fixed semantic-to-syscall path [@agentkernel]. Bensalem et al. [@bensalem] argue that
+safe agent operation depends on information becoming available at different execution stages. ActPlane
+[@actplane] exposes the tension within one stack and resolves it there by compiling agent-written policy,
+with propagated information-flow labels, into OS-level enforcement. Closest, Surapani et al. compare six
+agent-stack enforcement-point placements by the facts each can see, note that several become adequate
+only if taint sets or claims are supplied, and conclude that no single placement both sees the workflow
+and controls the boundary, answering with layered composition [@surapani]. None asks why a fact is
+missing at an adequate cut, or selects among fact, verdict, approximation and residual on that basis.
 
 Layered guardrail architectures also exist: the Swiss Cheese model [@swisscheese] contributes a taxonomy of
 runtime guardrails with a reference architecture spanning quality attributes, pipeline stages and agent
@@ -192,19 +219,25 @@ Recent work also makes policy context itself an architectural concern. Kaptein e
 policies over agent identity, partial execution path, proposed action and organisational state
 [@kaptein]. CONTINUITY preserves authenticated security context across component transitions through
 explicit security-context contracts [@continuity], while Gopalakrishna's zero-knowledge gateway conveys
-proofs of governance-defined predicates rather than the underlying private values, and exposes a
-resulting source-integrity gap [@zkgateway]. These works preserve, evaluate or selectively convey
-policy-relevant context across runtime boundaries; they do not derive enforcement placement across
-heterogeneous enterprise locations from the cause of an obligation's placement deficit.
+proofs of governance-defined predicates rather than the underlying private values — verdict transport
+under an authority deficit — and exposes a resulting source-integrity gap [@zkgateway]. CAC turns
+unresolved obligations into evidence requests at one admission point without classifying why evidence is
+missing [@cac], and AI-GRACE records for each capability a location or an unresolved gap, typed by
+implementation fit rather than by cause [@aigrace]. These works preserve,
+evaluate or selectively convey policy-relevant context, or record what is unresolved; they do not
+derive enforcement placement across heterogeneous enterprise locations from the cause of an
+obligation's placement deficit.
 
 SARC [@sarc] is the closest methodological antecedent, and we build on it rather than replace it. It
-compiles first-class constraints to four enforcement sites in an agent loop, hosting each at the lowest
-layer compatible with its class, under genuine placement criteria — predicate decidability, cost
-asymmetry by class and a reversibility window — with a reproducible evaluation. Two things change at
-enterprise scale: the location space becomes a heterogeneous estate of applications, gateways, data
-layers, platforms and organisational boundaries with different owners; and the transformation follows
-from the cause of the deficit at an adequate cut rather than from constraint class alone, which yields
-fact and verdict transport, compositional placement and explicit residuals (§VII‑B). A related result composes several pre-action gates on one
+compiles first-class constraints to enforcement sites in an agent loop under genuine placement criteria
+— predicate decidability, cost asymmetry by class and a reversibility window — with a reproducible
+evaluation, ranking host layers by robustness up to a policy layer outside the agent process (API
+gateways, network policies, IAM). Its decidability rescue already responds to a missing predicate: a
+constraint that cannot be evaluated where it must fire moves to the deepest layer at which it remains
+decidable, or is escalated or deferred to post-action audit. That response is keyed on constraint class
+and robustness; SARC has no attribute for what a layer can observe. The method instead asks what
+information an adequate cut lacks and why, and selects fact or verdict transport, approximation or an
+explicit residual from that cause (§VII‑B). A related result composes several pre-action gates on one
 action, where remediation by one control can invalidate another's judgement [@onegate] — composition at a
 single enforcement point, not across locations.
 
@@ -219,14 +252,18 @@ Taken together, this literature supplies obligations, patterns, enforcement mech
 architectures, and — in SARC — placement rules within an agent execution loop. To the best of our
 knowledge, no existing work combines obligation-specific information requirements, adequate-cut analysis
 and deficit-cause diagnosis to derive enforcement transformations across modelled heterogeneous
-enterprise locations. Where an adequate cut exists but lacks required information or capabilities, the
+enterprise locations; the closest, Surapani et al. [@surapani], identifies supplied facts as what makes
+a placement adequate but does not ask why they are missing. Where an adequate cut exists but lacks required information or capabilities, the
 method derives fact transport, verdict transport, approximation and detection, or an explicit residual.
 Where no single adequate cut exists, it reports a mediation deficit;
 deriving coverage through complementary enforcement points remains outside the present method.
-Fact transport, verdict transport, layered enforcement and integrity binding are not individually novel; the contribution is
-their combination under adequate-cut analysis, deficit-cause diagnosis and per-fact composition. The literature search reported here was frozen on 5 September 2026 (CONTINUITY [@continuity], submitted on 4 September, was added on its release), in an area where directly relevant
-preprints appear frequently. The vendor documentation used in §VIII‑F was read earlier, on 19 August
-2026, and is dated separately.
+Fact transport, verdict transport, layered enforcement, integrity binding and residual reporting are not
+individually novel; the contribution is the cause-sensitive selection among them at an adequate cut,
+which per-fact composition and the placement record operationalise.
+The literature search reported here was frozen on 5 September 2026 (CONTINUITY [@continuity], submitted
+on 4 September, was added on its release) and updated by a full-text review of the closest work through
+1 October 2026, in an area where directly relevant preprints appear frequently.
+The vendor documentation used in §VIII‑F was read earlier, on 19 August 2026, and is dated separately.
 
 # IV. Why the deficit arises: mediation–abstraction coupling
 
@@ -234,8 +271,9 @@ preprints appear frequently. The vendor documentation used in §VIII‑F was rea
 
 For context-dependent governance obligations — those turning on purpose, intent, scope, entitlement
 or contextual judgement — the locations holding enough information to evaluate the obligation are often
-not those that most broadly mediate its effects. We argue that this reflects a recurring pressure in how
-broad mediation is obtained, not only the state of current tooling.
+not those that most broadly mediate its effects. This restates the end-to-end argument and the semantic
+gap (§III‑B) for enterprise AI, a recurring pressure in how broad mediation is obtained rather than only
+the state of current tooling; what we add is its use as a diagnostic inside the method.
 
 A location mediates many execution paths because those paths share an interface passing through it — an
 HTTP boundary, a chat-completions API, a syscall table. Shared interfaces are typically *general* across
@@ -275,7 +313,7 @@ The relationship is a recurring design pressure, not a monotonic law. Counterexa
 gateways, mandatory SDKs with attestation, service meshes propagating end-user identity, data planes
 carrying classification labels. Each weakens or reverses the coupling by deliberate design — moving context to a
 strongly mediating location, or hardening a semantically rich location into a cut. The first is transport, which §VII prescribes; the second changes the architecture to
-which the method is applied. The coupling is therefore a pressure, not an invariant: absent deliberate measures of this kind, consolidating access behind a general interface tends to trade semantic context for coverage,
+which the method is applied. The coupling is therefore a pressure, not an invariant: absent deliberate measures of this kind, consolidating access behind a general interface can trade semantic context for coverage,
 often without that trade being made explicit. The counterexamples are not exceptions the method must
 eliminate: they are architectures in which the necessary information or coverage may already be present,
 making the obligation Class T rather than Class O.
@@ -283,15 +321,18 @@ making the obligation Class T rather than Class O.
 ## C. Beyond attribute routing
 
 Classical access-control and zero-trust architectures already separate policy decisions from enforcement
-and provide mechanisms for retrieving policy-relevant attributes. The present problem is therefore not
-simply that information is absent from a decision point. It is determining why a required fact is
-unavailable at an otherwise suitable enforcement location, and which architectural response that cause
-permits. Classical access-control architectures make policy-relevant attributes —
-subject, resource, action and contextual attributes retrieved as needed — available to the decision
-function; the policy information point exists to route what is not local. For semantic AI obligations, however, a required fact may no longer be represented at the boundary, may
-require a judgement no mechanism at the cut can render, may not yet exist at that point in the path, or
-may not be permitted to cross the boundary at all. Attribute routing alone does not resolve these cases;
-§V‑E formalises the distinctions among them.
+and make policy-relevant attributes — subject, resource, action and contextual attributes retrieved as
+needed — available to the decision function; the policy information point exists to route what is not
+local. Two cases below are partly handled already: usage control continues a decision during use as
+attributes change [@ucon] (temporal), and an XACML PEP that cannot discharge an obligation falls back on
+its bias [@xacml], which settles what the PEP does (actuation) but not where that leaves the obligation.
+The present problem is therefore not simply that information is absent from a decision point. It is
+determining why a required fact is unavailable at an otherwise suitable enforcement location, and which
+architectural response that cause permits. For semantic AI obligations, a required fact may no longer be
+represented at the boundary, may require a judgement no mechanism at the cut can render, may not yet
+exist at that point in the path, or may not be permitted to cross the boundary at all. Neither attribute
+routing, ongoing decisions nor obligation fallbacks say which response each cause admits; §V‑E
+formalises the distinctions.
 
 Two features of enterprise AI sharpen the difference. First, prompt assembly can act as a lossy join: content from different sources may be
 concatenated into a representation that no longer preserves the provenance and trust relationships on
@@ -375,7 +416,7 @@ condition, but not for prevention.
 
 Together these determine **structural placement feasibility**: whether a location *can* host a control at
 all. Operational qualities — latency, cost, ownership, maintainability — rank structurally feasible
-placements and may rule out particular implementations; the deficit cause determines the candidate
+placements and may rule out particular implementations; the deficit cause selects the candidate
 transformation class. This is why Table 1 need
 represent only the structural attributes the method uses.
 
@@ -463,7 +504,9 @@ The epistemic rows are operational judgements relative to the stated architectur
 boundary, not claims of uncomputability. One repeatable test separates the first two rows from the third:
 if an authoritative upstream value exists and may cross, the deficit is representational and the value
 is transported; if it exists but may not cross, it is authority; if the upstream party must exercise
-judgement to produce it, it is epistemic-renderable and the transported object is a verdict. Where more
+judgement to produce it, it is epistemic-renderable and the transported object is a verdict. The
+approximable/unrenderable boundary is whether a defensible proxy *and* a detection control exist, as
+judged by the analyst; it is a judgement, not a mechanical test. Where more
 than one cause applies to the same fact — one that may not cross and also needs judgement upstream, say —
 the record lists every cause, and the transformation must satisfy all their constraints; here,
 potentially a verdict, subject to the transport conditions below.
@@ -556,7 +599,8 @@ no adequate cut is feasible. Fig. 2 summarises the procedure and the transformat
 how the procedure reached this form.
 
 **Practitioner use.** The procedure is intended to be applied obligation by obligation. Its output is not
-only an enforcement location but a placement record: the selected cut, the transported facts or verdicts,
+only an enforcement location but a placement record, a governance-specialised form of architecture
+decision record [@nygard], [@tyree], whose fixed fields are the selected cut, the transported facts or verdicts,
 the integrity bindings they require, any approximation and detection controls, and the residual that
 remains unenforced.
 
@@ -566,7 +610,7 @@ remains unenforced.
 
 ## B. The transformation function
 
-A contrast shows why the cause, not the missing fact, decides. A gateway may lack a record's sensitivity
+A constructed contrast illustrates why the cause, not the missing fact, should decide. A gateway may lack a record's sensitivity
 classification because the label was dropped when the record was served — a representational deficit,
 closed by transporting the fact — or because policy forbids exposing it there — an authority deficit,
 closed only by transporting a verdict. The same observable condition, a missing decision fact, yields
@@ -575,7 +619,7 @@ cause, and the principle states it.
 
 ::: {custom-style="First Paragraph"}
 **Deficit-Cause Principle.** At an adequate cut, the class of architectural transformation is
-determined by *why* each required fact is missing, not by the obligation's class alone. A lost
+*selected* by why each required fact is missing, not by the obligation's class alone. A lost
 representation permits transport of the fact; an authority or renderable-epistemic deficit permits
 only transport of a verdict; a temporal or approximable deficit requires approximation with later
 detection, which closes the obligation only where the effect is reversible within the detection latency; and an actuation deficit permits the same only where an adequate substitute response
@@ -584,18 +628,26 @@ subject to its authority, transportability, actuation and reversibility precondi
 cannot be met, the unresolved part is residual.
 :::
 
-The principle is a proposed decision rule, not an empirical law: the evaluation shows that it routes the
-studied cases under our classifications, not that every missing fact has one unambiguous cause. It
-holds under the stated architecture, adversary and authority assumptions, and applies only at an adequate cut, and therefore says nothing about an
-obligation for which no cut exists (§VIII‑D); it determines the *class* of transformation and not its
-implementation, which §V‑C's operational qualities still choose; and it selects T3 for an actuation
-deficit only where Table 3's substitution condition holds. §VIII‑D reports how the cause separates the
-obligations of the three constructed corpora.
+Individual rows have precedent — verdict transport under an authority deficit in zero-knowledge
+predicate gateways [@zkgateway], ongoing decisions for temporal deficits in usage control [@ucon],
+deny-bias when an enforcement point cannot discharge an obligation in XACML [@xacml], and decidability
+rescue keyed on constraint class in SARC [@sarc]. The proposal is the single diagnostic test that selects
+among them at an adequate cut.
 
-**Table 3.** Deficit cause determines the transformation. The rows cover decision and actuation
+The principle is a proposed decision rule, not an empirical law: the evaluation shows only that, under
+our own cause codings, it returned a transformation for the studied cases; it does not compare the
+selected transformations with cause-blind alternatives, or show that every missing fact has one
+unambiguous cause. It
+holds under the stated architecture, adversary and authority assumptions, and applies only at an adequate cut, and therefore says nothing about an
+obligation for which no cut exists (§VIII‑D); it selects the *class* of transformation and not its
+implementation, which §V‑C's operational qualities still choose; and it selects T3 for an actuation
+deficit only where Table 3's substitution condition holds. §VIII‑D reports how often each class was
+selected in the three constructed corpora.
+
+**Table 3.** Deficit cause selects the transformation class. The rows cover decision and actuation
 deficits; a mediation deficit, where no adequate cut exists, has no row (§VIII‑D). T3's detective
 component is adequate only if the effect is reversible within the detection latency, a condition adapted
-from SARC's reversibility window [@sarc]; otherwise T3 leaves a residual (§VII‑F).
+from the reversibility criteria of SARC [@sarc] and Koch [@koch]; otherwise T3 leaves a residual (§VII‑F).
 
 | Condition at a maximal adequate cut | Transformation |
 |---|---|
@@ -702,10 +754,11 @@ The recursion terminates at a derived obligation when an adequate identity or si
 stated adversary already has the provenance information and actuation required to enforce it; being a cut
 is necessary but not sufficient, and a signature alone does not establish validity, freshness or correct
 binding. Transported assertions generate predicates over provenance facts — signatures, issuance time,
-binding to a request — which are transparent where that condition holds. The evidence: in the seven development transport cases whose derived obligation was recorded
+binding to a request — which are transparent where that condition holds. Supporting observations: in the seven development transport cases whose derived obligation was recorded
 (items 1, 3, 4, 19, 20, 21 and 23) and the five transport cases of the pre-specified study whose sealed predictions named it (§VIII‑D), the
 derived obligation was Class T and closed by T1 at an identity or signing layer, with no second
-recursion. Three documented retrodiction cases (P4, P12 and P13; §VIII‑F) show the same pattern. The
+recursion. Three documented retrodiction cases (P4, P12 and P13; §VIII‑F) show the same pattern,
+although P12's prediction did not follow Table 3 (§VIII‑D). The
 other constructed transport cases did not record their derived obligation and are not counted. Twelve
 constructed cases and three documented ones do not establish universal one-step termination, and we do
 not claim it: a derived obligation no adequate cut can discharge is an unresolved dependency in the
@@ -714,8 +767,11 @@ residual; the case-level records are in the artifact.
 ## F. Residual as an output
 
 A placement method should be able to report what no available location or supported transformation in
-the modelled architecture can enforce. The method's residual has three parts, with different implications
-for review: what no location in *L* can enforce — an unrenderable deficit, or an actuation deficit with no adequate
+the modelled architecture can enforce. Residuals as such are not new: Schneider characterises what an
+execution monitor cannot enforce, partly because its information cannot predict a target's future steps
+[@schneider], and CAC and AI-GRACE record unresolved obligations and gaps (§III‑C). The method's residuals
+are classified, recording what remains unenforced after the selected transformation, in three parts with
+different implications for review: what no location in *L* can enforce — an unrenderable deficit, or an actuation deficit with no adequate
 substitute — which calls for acceptance or redesign; what the enforcement point
 accepts on upstream trust through each transported fact or verdict, which calls for scrutiny of the issuer; and
 what an approximation may miss, which calls for monitoring where the effect is reversible, and for
@@ -734,7 +790,8 @@ make.
 We evaluate the method through four studies addressing progressively stronger questions and providing
 increasing separation from method development (Table 5): development, refinement, frozen testing and external
 comparison. The fourth takes as an **external reference** where documented enterprise AI platforms and
-systems enforce, rather than our own architectural judgement.
+systems enforce, rather than our own architectural judgement. None compares the method with a
+cause-blind alternative; §X states what would.
 
 **Chronology.** Studies are reported in methodological order; the documented-architecture study
 (§VIII‑F) preceded the untouched test (§VIII‑D). The held-out set produced three refinements (§VIII‑C). The
@@ -763,9 +820,9 @@ the development corpus.
 | Study | n | Question | Independence | Result |
 |---|--:|---|---|---|
 | Development corpus | 25 | **EQ1** Do placement-obstructed obligations occur across governance sources? | constructed and coded by us | 15 T / 10 O as coded; 12 T / 13 O under the definition of §VI |
-| Held-out refinement set | 15 | **EQ2** Do the pre-test rules extend beyond the corpus that produced them? | disjoint in source or chapter | 13 handled, 2 exceptions |
-| Untouched test set | 12 | **EQ3** Does the frozen method route obligations from sources excluded from its development? | pre-specified and sealed, source-disjoint | 11 routed, 1 exception |
-| Documented-architecture retrodiction | 14 | **EQ4** Do predictions agree with documented enforcement placement? | external documented architectures | 8 agree or extend, 3 gaps, 2 errors, 1 undetermined |
+| Held-out refinement set | 15 | **EQ2** Do the pre-test rules extend beyond the corpus that produced them? | disjoint in source or chapter; exceptions changed the method | 13 handled, 2 exceptions |
+| Untouched test set | 12 | **EQ3** Does the frozen method route obligations from sources excluded from its development? | pre-specified and sealed, source-disjoint | 11 returned a placement, 1 exception; full agreement with the same analyst's sealed direct-reasoning pass on 9 |
+| Documented-architecture retrodiction | 14 | **EQ4** Do predictions agree with documented enforcement placement? | external documentation; selected, predicted and coded by one analyst | 8 agree or extend (2 with no deficit), 3 gaps flagged in prediction, 2 errors, 1 undetermined |
 
 Because the NIST profile alone contributes 211 suggested actions, a fixed keyword filter was applied to
 them before they were read, and eight matching actions were taken. The sixteen terms are in the artifact;
@@ -834,7 +891,8 @@ pre-specified test set — the first study in which the method, cases, predictio
 all fixed before any architectural analysis. The prediction and architecture-reasoning passes were each
 hashed and sealed before the next began. The protocol was sealed by hash rather than deposited with a
 registry, so the seals establish that the published protocol is the one the analysis used, not
-independently timestamped priority.
+independently timestamped priority. One analyst wrote all three passes in one session; the seals fix
+order, not independence.
 
 The twelve obligations, three from each source, came from sources that had to be disjoint from the two
 earlier sets and to differ from one another in genre: MITRE ATLAS mitigations
@@ -847,8 +905,14 @@ routed using only the four pre-specified transformations. Any obligation requiri
 transformation counted as a method failure, regardless of the total routed.
 
 Eleven of the twelve were routed — nine cleanly, two with a recorded strain — and none required a
-transformation outside the four. The test met its numerical threshold but did not establish coverage of
-all three feasibility dimensions.
+transformation outside the four. The test met its numerical threshold, but routing is an applicability
+criterion that any rule mapping each missing fact to one of the four transformations would meet. Ten of
+the eleven carried a diagnosed deficit: 17 missing facts across five of Table 2's seven causes, none
+unrenderable or actuation, and no Terminal output. The sealed direct-reasoning pass agreed fully on nine
+obligations, partly on two and not on the exception. Post hoc and descriptively, outside the sealed
+coding, the cause-selected design differed from both cause-blind defaults (fetch every missing fact;
+infer it at the cut and detect) in four of the ten diagnosed obligations (K3, K8, K11, K12), all with
+full direct-reasoning agreement.
 
 The twelfth was diagnosed as a mediation deficit but could not be routed by the frozen transformation
 table, and therefore remained an exception: a missing row rather than a missing transformation. Provenance that must survive a third party's re-publication has no adequate cut in the
@@ -857,13 +921,13 @@ but Table 3 routes only two, so the method had nothing to return and the case
 counts as an exception.
 
 After observing this exception, we derived a symmetric row: a mediation deficit routes to T3 where a detectable
-approximation exists and to Terminal otherwise. This closes Table 3 over all three feasibility attributes
-without introducing a new transformation. Because it was derived from the case that exposed it, the row is untested by
+approximation exists and to Terminal otherwise. This would close Table 3 over the three feasibility
+attributes without introducing a new transformation. Because it was derived from the case that exposed it, the row is untested by
 this study, and we report it rather than fold it into Table 3.
 
 The two strained cases are instructive. Model-inventory completeness is transparent at the gateway under our
 adversary and placement-obstructed under one that includes a developer standing up an unregistered model:
-both answers are correct for their adversary. Classification is therefore relative to the stated
+both answers follow from the definitions under their adversary. Classification is therefore relative to the stated
 adversary rather than an intrinsic property of the obligation — the plainest illustration we have of
 §V‑A's claim. The second, query-rate limiting, exposed sensitivity to the level of abstraction at which an obligation enters the
 method: ATLAS, as a control catalogue, states the obligation one level below a statute.
@@ -876,31 +940,35 @@ should select for distance from the existing corpora rather than for size.
 **The cause across the three corpora.** Of the 35 deficit-bearing obligations in the three constructed
 corpora, 33 were coded to T2, T3 or Terminal (held-out rows as predicted): 14 transport a fact, 9 transport a verdict, 8 approximate and
 detect, and 2 are terminal; the other two are the mediation case above and one obligation resolved by T1
-with a minor residual. Obligation class alone does not distinguish among these transformations. The
-counts re-tabulate our own codings, so they show that the cause dimension separates these obligations,
-not that each separation is correct. Seven obligations need more than one transformation; each is
-counted once, under a primary transformation, by the counting rules in the artifact.
+with a minor residual. H5, an EQ2 exception, counts as predicted (Terminal); as now prescribed it is T3
+(14/9/9/1). No transformation accounts for more than 14 of the 33, and obligation class alone does not
+distinguish among these transformations, since all but three are Class O: the selection step is
+exercised, not degenerate, in our own codings, which does not show that any selection is correct or
+better than a cause-blind default. Four obligations combine two or more of T2 fact, T2 verdict, T3 and
+Terminal, and four pair one of them with T1; each is counted once, by the counting rules in the artifact.
 
 **Coding disagreements across the studies.** Three committed codings — development item 20 and two
 cases from the documented-architecture study (§VIII‑F), P9 and P12 — are classification disagreements with the rule:
 task scope is recorded as representational yet routed to a verdict, where it is better read as
 epistemic-renderable. They are retained unchanged rather than recoded, and they show that assigning a
-cause is itself a judgement; the artifact gives the reasoning.
+cause is itself a judgement; the artifact gives the reasoning. P12, a research system also discussed in
+§III, is nonetheless counted as an agreement as coded; because its prediction did not follow Table 3,
+that agreement is not evidence for the rule.
 
 ## E. Discrimination
 
 Applicability alone is insufficient: a method could appear successful simply by generating plausible
-placements. We therefore also asked whether it rejects plausible but structurally wrong ones. For six of
-the ten Class O obligations we recorded a placement a competent architect might propose — our own
-construction, not an independent architect's — and what the method returned.
+placements. For six of the ten Class O obligations we therefore recorded a placement a competent
+architect might propose — our own construction, not an independent architect's, so this illustrates
+rather than tests discrimination — and what the method returned.
 
 Three of the six share a shape. Prompt-injection filtering at the gateway works on a prompt stripped of segment provenance, tool allow-listing sits in a framework that is not a cut, and read-time memory sanitisation acts after write-time trust labels are lost: each tries to decide, where it lacks it, a fact the architecture held upstream but did not preserve across the interface. The other three fail differently: an approval workflow in the application is not a cut under our adversary model, a content classifier at the gateway is a proxy for an intent predicate, and a per-API-key purpose declaration is self-asserted and coarse, leaving misuse within a declared purpose as residual.
 
-The method also endorses the obvious answer where it is right. For unsanctioned code execution it
+The method also returns the conventional answer where the predicate's facts are native to the layer. For unsanctioned code execution it
 returns the platform boundary, because the predicate ranges over process and host behaviour and that is what the layer holds. Azure Container Apps dynamic sessions [@aca] enforce exactly there,
 through
-Hyper-V isolation applied irrespective of the code an agent generates. Without that case the method could
-be read as biased towards elaborate distributed controls.
+Hyper-V isolation applied irrespective of the code an agent generates. One case, which is also
+retrodiction case P18, cannot rule out a bias towards elaborate distributed controls.
 
 ## F. Documented-architecture retrodiction (EQ4)
 
@@ -913,22 +981,28 @@ Evidence was restricted to official first-party documentation. Outcomes were cod
 agreement, agreement with additional controls, an argued gap, a prediction error, or insufficient
 evidence. The admissibility test for a gap was fixed in advance and is reproduced in the artifact.
 
-Across 14 clean cases, eight documented architectures agreed with or extended the method's prediction,
-three exhibited pre-specified information or mediation gaps, two contradicted the predicted architecture,
-and one could not be determined from the available documentation. Under the interpretation rule, fixed
+Across 14 clean cases, documentation agreed with or extended eight predictions, two of them involving no
+deficit; in three it was coded as showing a gap flagged in the prediction (two on mediation, one on
+information); two contradicted
+the predicted architecture, and one could not be determined from the available documentation. Under the interpretation rule, fixed
 after the first coding pass and before the second, this places the study in the rule's agreement-dominant band, defined as agreement
 or extension predominating with at most two prediction errors. It sits at the boundary of that band
 rather than comfortably inside it, since there are exactly two.
 
 The rule also specified what would count against the method: four or more prediction errors, or errors
 concentrated in one deficit cause, would weaken the Deficit-Cause Principle — in the rule's own terms, from *determines* to
-*predicts in the majority of observed cases*. Neither weakening condition was met.
+*predicts in the majority of observed cases*. Neither weakening condition was met, but with two errors
+the concentration condition has little power, and the result does not separate the cause's contribution
+from that of cut analysis or common practice: all eight agreements are widely used placements, and a
+transport-the-missing-fact default would predict at least four.
 
 The protocol's original target was 30–40 cases. Collection stopped at 14 under an amendment recorded at
 the time, which gives four reasons: the result had stayed in the agreement-dominant band across the fourth
 and fifth coding passes, every deficit branch and enforcement zone had an external instance, further cases
-would not relieve the single-coder constraint, and effort was better spent elsewhere. Because the first
-reason depends on the outcome, the decision to stop was not independent of the result.
+would not relieve the single-coder constraint, and effort was better spent elsewhere. The second reason
+was inaccurate: the renderable and unrenderable branches and zone Z2 had no instance, and the temporal
+and Z1 instances were errors. Because the first reason depends on
+the outcome, the decision to stop was not independent of the result.
 
 Three cases illustrate different outcome categories. All documentation was read on **19 August 2026** (one source re-checked on 31 August for a recorded wording correction),
 and vendor architectures change. **Google VPC Service Controls** [@vpcsc] was predicted to enforce at the
@@ -942,14 +1016,15 @@ was read; the documentation confirms the placement, describes screening each pro
 single, independent request, and describes no provenance-aware treatment of its segments. This is a gap
 in the documented design, not proof that the deployed product lacks every provenance-aware integration.
 
-The two errors share a methodological root: each arose from incorrect assumptions about the candidate component,
-not from a deficit the method failed to represent. One predicted enforcement at the Vertex AI
+Both errors involved incorrectly attributed component properties. One predicted enforcement at the Vertex AI
 Model Registry [@vertexreg], assuming it holds deployment-approval state and mediates deployment; the
 documentation describes a catalogue from which a model is deployed to an endpoint as a separate step,
 and describes no deployment-approval state. The other predicted a preventive serving-time proxy alongside
 detective evaluation for Amazon SageMaker Model Monitor [@sagemaker]; monitoring there is scheduled and
-asynchronous, off the serving path, so both halves are detective. Neither prediction is rescued, and the
-count is unchanged. Both errors involved incorrectly attributed component properties. Reapplying the
+asynchronous, off the serving path, so both halves are detective. In this case (P19) the predicted
+preventive proxy also follows from Table 3's temporal row, so the documented, purely detective design is
+equally consistent with that row over-prescribing. Neither prediction is rescued, and the
+count is unchanged. Reapplying the
 method with the documented properties produced different placements in our subsequent analysis, but this
 retrospective exercise does not independently validate those placements; it is what prompted the
 **Instantiate** step of §VII‑A, whose effectiveness has not been independently tested. Every
@@ -982,7 +1057,7 @@ prescribes, so the shortfall is one of disclosure rather than placement. Model A
 the architectural decision record beside the chosen control; the practitioner value of doing so is
 untested.
 
-**Governance is often won or lost at the contracts between components.** A characteristic output of the
+**In the cases we examined, placement often turned on the contracts between components.** A characteristic output of the
 method is not simply "put the control at X" but "carry this fact, or this verdict, from X to Y, and
 protect it in transit". The contract between components therefore becomes a governing artifact, and the
 derived integrity obligation of §VII‑E becomes a first-class part of the design. Purview (§VIII‑F)
@@ -991,8 +1066,8 @@ illustrates this: where its label applies encryption, the label is enforced rath
 # X. Threats to validity
 
 **The method reasons over a model of the architecture, not the architecture.** Both prediction errors in
-§VIII‑F arose from structural properties incorrectly attributed to a candidate component rather than from
-the transformation rules. Category names such as "registry" and "monitor" implied properties that the
+§VIII‑F arose at least partly from structural properties incorrectly attributed to a candidate component
+(and, for P19, possibly from Table 3's temporal row itself). Category names such as "registry" and "monitor" implied properties that the
 documented products did not have. This is the most practically consequential limitation we identified,
 and the Instantiate step (§VII‑A) mitigates rather than removes it. It addresses the properties assigned
 to components, not whether the model includes every path available to the adversary; that completeness
@@ -1050,6 +1125,14 @@ Model Armor's rests on the absence of documented provenance handling.
 **No practitioner study.** No architect other than the author has applied the method or used its
 placement records; claims about their usability and review value are design claims, not findings.
 
+**What would test the principle directly.** The studies show the method applicable and its selection
+step exercised and not degenerate; they do not show that cause-based selection yields better
+architectures than cause-blind alternatives. Comparing it with baselines given the same inputs but not
+the deficit-cause rule would measure its incremental value, which the cause tally of §VIII‑D, a
+re-tabulation of existing codings, cannot; that comparison, sealed before analysis, is the next study.
+Varying one architectural condition at a time for a fixed obligation, and an independent-architect
+study, would test further aspects.
+
 **The decomposition is not independently assessed.** The completeness and correctness of each $I(o)$
 were judged by the author. A correct transformation rule can still produce an inadequate design if $I(o)$
 omits a necessary fact; this is distinct from misidentifying what a component can do.
@@ -1060,11 +1143,15 @@ measured. Table 1 therefore illustrates the proposed tendency; it does not indep
 
 # XI. Conclusion
 
-Context-dependent governance obligations and their enforcement locations tend to be pulled apart by a
-recurring design pressure: broad mediation is often obtained through general interfaces that abstract over the application-specific state on which context-dependent
-obligations depend — purpose, entitlement, objective and contextual sensitivity. We turn that pressure into a placement method in which the cause of
-each deficit determines whether to enforce locally, transport a fact or verdict, approximate and detect
-where the effect can be undone, or declare a residual.
+We have argued that context-dependent governance obligations and their enforcement locations can be
+pulled apart by the enterprise-AI form of the end-to-end and semantic-gap tension: broad mediation is
+often obtained through general interfaces that abstract over the application-specific state —
+purpose, entitlement, objective and contextual sensitivity — on which such obligations depend. Our
+central contribution, the Deficit-Cause Principle, lets the diagnosed cause of each deficit at an
+adequate cut select whether to enforce locally, transport a fact or verdict, approximate and detect
+where the effect can be undone, or declare a residual. In a sealed single-analyst test the frozen method returned a placement for 11 of 12
+obligations from sources outside its development; whether cause-sensitive selection yields better
+architectures than cause-blind defaults remains to be tested.
 
 The resulting design lesson is simple: in the cases we examined, placement often turned on the
 contracts between components, and every placement decision should state both what its control enforces

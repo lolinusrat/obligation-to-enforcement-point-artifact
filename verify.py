@@ -477,10 +477,11 @@ if MANUSCRIPT.exists():
           "manuscript-claims.md §8.3", [app["yes"], len(held)],
           [spelled(m.group(1)), int(m.group(2))] if m else None)
 
-    m = re.search(r"(\S+) documented architectures agreed with or extended the "
-                  r"method's prediction, (\S+) exhibited pre-specified information "
-                  r"or mediation gaps, (\S+) contradicted the predicted architecture, "
-                  r"and (\S+) could not be determined", MAN)
+    m = re.search(r"documentation agreed with or extended (\S+) predictions, "
+                  r"(?:\S+) of them involving no deficit; in (\S+) it was coded as "
+                  r"showing a gap flagged in the prediction \([^)]*\); (\S+) "
+                  r"contradicted the predicted architecture, and (\S+) could not be "
+                  r"determined", MAN)
     check("§8.5's spelled-out outcome counts match the coding",
           "manuscript-claims.md §8.5", [code["D0"] + code["D1"], code["D2"],
                                   code["D3"], code["D4"]],
@@ -493,7 +494,7 @@ if MANUSCRIPT.exists():
     check("the abstract's held-out-2 denominator matches the corpus",
           "manuscript-claims.md abstract", len(held2),
           spelled(m.group(1)) if m else None)
-    m = re.search(r"The pre-specified study routed (\S+) of (?:the )?(\S+?)(?: obligations)?;", MAN)
+    m = re.search(r"the frozen method returned a placement for (\S+) of (\S+) obligations", MAN)
     check("the abstract's held-out-2 result matches the coding",
           "manuscript-claims.md abstract", [app2["yes"], len(held2)],
           [spelled(g) for g in m.groups()] if m else None)
@@ -510,7 +511,7 @@ if MANUSCRIPT.exists():
           states(r"\*\*Deficit-Cause Principle\.\*\* At an adequate cut"))
     check("the principle is scoped to the class of transformation, not the implementation",
           "manuscript-claims.md §7.2", True,
-          states(r"determines the \*class\* of transformation and not its implementation"))
+          states(r"(?:determines|selects) the \*class\* of transformation and not its implementation"))
     check("the principle defers to the exception §8.4 found",
           "manuscript-claims.md §7.2", True,
           states(r"says nothing about an obligation for\s+which no cut exists"))

@@ -184,8 +184,11 @@ counted was coded in one of the three corpora and checked above.
   as an actuation deficit (the total would be 36); H5 (explanation) counts as
   Terminal, as predicted, although it later proved approximable (T3 would be 9,
   Terminal 1).
-- *One transformation per obligation.* Seven obligations use more than one
-  (development 2 and 25; K3, K5, K8, K10, K11). Each is counted once by
+- *One transformation per obligation.* Four obligations combine two or more of
+  T2 fact, T2 verdict, T3 and Terminal (development 2; K3, K8, K11), and four
+  pair one of them with local T1 enforcement (development 25; K1, K5, K10).
+  (Before 1 Oct 2026 this line read "seven", omitting K1, which is coded
+  `T2 fact + T1` like K5 and K10.) Each is counted once by
   precedence: T2 verdict, then T2 fact, then T3, then Terminal, then T1
   (`extract.transformation_of`).
 - *What it shows.* The tally re-tabulates the researcher's own codings, so it
