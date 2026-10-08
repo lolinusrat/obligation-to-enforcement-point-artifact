@@ -17,7 +17,7 @@ the exit code, not just the count line: the recomputed evaluation section is
 printed after the count.
 
 ```
-172/172 checks passed
+175/175 checks passed
 
 The paper's evaluation section, recomputed from the data files:
 
@@ -41,7 +41,7 @@ derived from a protocol file in `protocols/`. `CLAIMS.md` names the file and the
 column behind each one, with a shell command to recompute it by hand, and holds
 the counting rules the paper refers to.
 
-### What the 172 checks are
+### What the 175 checks are
 
 Each check prints its source in brackets, so the kinds can be told apart
 without reading the Python:
@@ -52,7 +52,7 @@ without reading the Python:
 - **23 compare the paper with the data.** Their source is
   `manuscript-claims.md`, and they read a number or an id list out of the
   paper's prose and require it to equal the recomputed value.
-- **40 are true/false checks on the paper's wording.** Their source is also
+- **43 are true/false checks on the paper's wording.** Their source is also
   `manuscript-claims.md`. Most require a qualification to be present (for
   example, that the protocol was "sealed by hash rather than deposited with a
   registry") or a withdrawn claim to be absent (for example, "pre-registered");
@@ -60,10 +60,10 @@ without reading the Python:
   a recomputed value — the per-source Class O rates, for example — and pass only
   if both hold.
 
-`manuscript-claims.md` is the anonymised shared text of the paper, written by
-the build. The arXiv version adds explanatory material but no counts.
+`manuscript-claims.md` is the shared text of the paper with author identity removed,
+written by the build. The public preprint adds explanatory material but no counts.
 
-## The T4 extension study (arXiv version only)
+## The T4 extension study (public preprint only)
 
 A preliminary extension, T4 (complementary enforcement composition), is tested
 separately on eight constructed cases. Its rule, case facts and three analysis
@@ -81,6 +81,7 @@ enforceability, not effectiveness in real architectures.
 |---|---|
 | `method-summary.md` | The method in two pages: classes, location attributes, deficit causes, transformations, composition |
 | `apply-the-method.md` | Worksheet — obligation to residual, one sheet per obligation |
+| `worked-placement-records.md` | The paper's two worked examples (§II, §VII‑D) filled in as complete placement records, plus the paper's rule for each judgement the worksheet asks for |
 | `data/development-corpus.csv` | 25 architecturally enforceable obligations, with `I(o)`, cut, deficit, class and transformation |
 | `data/held-out-corpus.csv` | 15 obligations from disjoint sources; predicted transformation recorded before the independent answer |
 | `data/held-out-2-corpus.csv` | 12 obligations from four further disjoint sources, run against the **final** method under a pre-specified, sealed protocol |
@@ -93,10 +94,10 @@ enforceability, not effectiveness in real architectures.
 | `CLAIMS.md` | Every number in the paper's evaluation section, and the file and column that produce it |
 | `verify.py` | Recomputes all of them and fails if the paper and the data disagree |
 | `protocols/` | The frozen selection, prediction and interpretation protocols, with their amendment history, and the held-out-2 protocol, prediction and independent passes with the hashes that seal them |
-| `novelty-comparison.md` | Claim boundary against XACML/ZTA, Swiss Cheese, Koch and SARC |
+| `novelty-comparison.md` | Claim boundary against XACML/ZTA, Swiss Cheese, Koch, SARC and the antecedents of cause-keyed selection (Letier, PTaCL, usage control) |
 | `expert-evaluation/` | A fifth study, **specified and not run** — see below |
 | `extract.py` | Regenerates the CSVs from the protocol files |
-| `manuscript-claims.md` | Anonymised snapshot of the submitted manuscript, so the prose checks run without the paper |
+| `manuscript-claims.md` | Snapshot of the paper's shared text (author identity removed), so the prose checks run without the paper |
 
 ## The CSVs are derived, not authored
 
@@ -125,7 +126,7 @@ that must not change.
 ## What the checker checks
 
 The package is self-contained. Every file the checker reads is inside it,
-including `manuscript-claims.md`, the anonymised snapshot of the manuscript that
+including `manuscript-claims.md`, the snapshot of the paper's shared text that
 the prose checks — case ids, system names, dates, spelled-out counts — are run
 against. Nothing outside the extracted directory is consulted, so the result
 does not depend on where it is unpacked or on what happens to sit beside it.

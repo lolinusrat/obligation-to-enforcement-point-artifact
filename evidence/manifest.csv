@@ -1,6 +1,6 @@
 key,vendor,url,accessed
 sagemaker,Amazon Web Services,https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html,2026/08/19
-modelarmor,Google,https://docs.cloud.google.com/security-command-center/docs/model-armor-overview,2026/08/19
+modelarmor,Google,https://docs.cloud.google.com/model-armor/overview,2026/08/19
 vertexreg,Google,https://docs.cloud.google.com/vertex-ai/docs/model-registry/introduction,2026/08/19
 vpcsc,Google,https://docs.cloud.google.com/vpc-service-controls/docs/overview,2026/08/19
 aca,Microsoft,https://learn.microsoft.com/en-us/azure/container-apps/sessions,2026/08/19

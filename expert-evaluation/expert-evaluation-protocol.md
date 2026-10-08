@@ -5,7 +5,7 @@ deficit-driven placement method and reach the same diagnosis. Addresses the
 limitation §VIII.3 and §X state plainly: every prediction, documentation reading
 and coding in the current evaluation was performed by the same researcher.
 
-> ## ⚠ ETHICS-GATED — NOT PART OF THE CURRENT SUBMISSION
+> ## ⚠ ETHICS-GATED — NOT PART OF THE PUBLISHED STUDIES
 >
 > **This protocol is specified and not run.** The gate below must close first.
 >
@@ -13,7 +13,7 @@ and coding in the current evaluation was performed by the same researcher.
 > equivalent study for a companion paper was deferred on the reasoning that its
 > publisher's author guidance requires authors to indicate at submission whether
 > approval was obtained from a review board when an article reports research
-> involving human subjects, and that ICSA publishes no track-specific exemption
+> involving human subjects, and that the venue published no track-specific exemption
 > for expert studies. That reasoning applies to this study *with greater force*,
 > not less. That paper's deferred instrument collected Likert ratings; this one
 > assigns predefined tasks to identifiable professionals, computes inter-rater

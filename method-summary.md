@@ -39,16 +39,16 @@ three independent reasons: cannot decide, cannot mediate, cannot act.
 prediction errors in the paper's evaluation came from assuming a "registry"
 gates deployment and a "monitor" sits on the serving path. Neither did.
 
-## 3. Deficit cause determines the transformation
+## 3. Deficit cause selects the transformation class
 
 Apply **per missing fact**, not per obligation.
 
 | Locus | Cause | Transformation |
 |---|---|---|
-| — | no deficit | **T1 Relocate** — enforce there |
+| — | no deficit | **T1 Enforce here** — at the maximal feasible cut (protocol label: *Relocate*) |
 | `A(l)` | representational | **T2 Transport (fact)** — restore the representation across the boundary |
-| `A(l)` | authority | **T2 Transport (verdict)** — the fact may not cross; the decision may |
-| `A(l)` | epistemic, renderable | **T2 Transport (verdict)** — the party who can judge decides; the cut enforces |
+| `A(l)` | authority | **T2 Transport (verdict)** — the fact may not cross; the verdict may, if an authorised party can render it |
+| `A(l)` | epistemic, renderable | **T2 Transport (verdict)** — the party who can judge renders it; the cut enforces |
 | `A(l)` | epistemic, approximable | **T3 Approximate-and-detect** |
 | `A(l)` | epistemic, unrenderable | **Terminal — declare residual** |
 | `A(l)` | temporal | **T3 Approximate-and-detect** — preventive over-approximation at the cut, detective evaluation of the true predicate after the effect |
@@ -56,7 +56,8 @@ Apply **per missing fact**, not per obligation.
 | `cut(l)` | mediation | *no row — see below* |
 
 T3's detective half is adequate only if the effect is reversible within the
-detection latency.
+detection latency. A mediation deficit is recorded separately, as a
+method-coverage limitation rather than an enforcement residual.
 
 **The table does not cover the mediation locus.** `F(o)` can be empty for three
 reasons and this table routes two of them. Held-out set 2 found the third: an
@@ -77,9 +78,10 @@ tested it.
   latency.
 - **Recurse.** Every transport makes a strong location act on an assertion from a
   weaker one. The integrity of that assertion is a new obligation. Its predicate
-  ranges over provenance facts, which survive abstraction, so it is Class T and
-  closes at the identity or signing layer, provided those layers are themselves
-  cuts under `X`. *In the seven counted development cases and the five of held-out
+  ranges over provenance facts, which survive abstraction, so it is Class T,
+  closing at the identity or signing layer where such a layer is a cut under `X`
+  and already holds the provenance information and actuation needed (being a cut
+  is necessary but not sufficient; paper §VII‑E). *In the seven counted development cases and the five of held-out
   set 2, the derived obligation closed by T1 in one step; three documented
   retrodiction cases (P4, P12, P13) show the same pattern. C2PA's claim signature
   is constructed case K4, not a documented case. This is not claimed as

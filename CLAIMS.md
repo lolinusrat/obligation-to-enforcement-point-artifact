@@ -5,7 +5,7 @@ produces it. `verify.py` recomputes all of them and exits non-zero on any
 disagreement, so this table is checked rather than asserted:
 
 ```
-python3 verify.py        # 172 checks, then the evaluation section recomputed
+python3 verify.py        # 175 checks, then the evaluation section recomputed
 ```
 
 The column headed **recompute** is a command you can run yourself, from this
@@ -264,7 +264,7 @@ see exactly what it would change, which is the strongest form of checking a
 single-coder study supports.
 
 
-## §VIII‑G — T4 extension (arXiv version; preliminary, constructed cases)
+## §VIII‑G — T4 extension (public preprint; preliminary, constructed cases)
 
 | Claim | File | Recompute |
 |---|---|---|
@@ -283,7 +283,36 @@ single-coder study supports.
   as the paper states. The protocol text is kept as written.
 - The P5 row of `data/retrodiction-cases.csv` places "examines the assembled prompt and complete response
   without distinguishing between segments by provenance" in quotation marks. It is a paraphrase of the
-  Model Armor documentation, not a verbatim quotation; the paper quotes only the page's own wording
+  Model Armor documentation, not a verbatim quotation; the paper paraphrases only the page's own wording
   ("inspects each prompt and response independently as a single-turn request").
+- (v1.0.11; identified 2 Oct 2026, reference re-check) The same P5 row also places "does not address whether Model
+  Armor distinguishes between trusted instructions and retrieved/untrusted content" in quotation marks;
+  it is likewise the coder's summary, not page text. The verbatim basis on the page is the Limitations
+  bullet: "Model Armor inspects each prompt and response independently as a single-turn request. It
+  doesn't track conversation history or maintain context across multi-turn interactions." The coding (D2)
+  rests on the page's silence about segment provenance, which still holds. The cited URL has redirected
+  to https://docs.cloud.google.com/model-armor/overview since at least January 2026.
+- (v1.0.11; identified 2 Oct 2026) The P4 row quotes the Azure page as "are NOT used to train, retrain, or improve the
+  base models"; the page has lowercase "not" in that sentence. Wording otherwise verbatim.
+- (v1.0.11; identified 2 Oct 2026) Held-out set 2, row K11 is attributed to the Treasury Board *Directive on Automated
+  Decision-Making*. Its wording ("audit trail recording the decision points, the system version, links to
+  the data") comes from the Directive's mandatory Algorithmic Impact Assessment questionnaire (Q17, Q18,
+  Q23), not from the Directive text; K10 (§6.2.1) and K12 (§6.3.1) are from the Directive. The sealed
+  files are unchanged; the manuscript now names both instruments.
+- (v1.0.11; identified 2 Oct 2026) Held-out set 2, row K7 is labelled "SR 11-7 §VII" in the sealed files; the model
+  inventory text is in §VI (§VII is the Conclusion). The sealed files are unchanged.
+- (erratum, v1.0.11; identified 3 Oct 2026) `protocols/retrodiction-protocol.md` §6 names `draft-section-8-skeleton.md`
+  as the single normative source of the five-row interpretation rule. That file is not shipped in this
+  artifact. The band the paper applies in §VIII‑F (agreement-dominant, at most two prediction errors) is
+  traceable through the protocol's own statement of it (§5, "the rule permits D3 ≤ 2"; "D0/D1 clearly
+  dominant, D3 ≤ 2") and through the two `verify.py` checks "D0/D1 dominant and D3 <= 2, so the first band
+  of the frozen rule holds" and "the result sits AT the band boundary, not inside it (D3 == 2)". The
+  protocol text is kept as written.
+- (added 7 Oct 2026, v1.0.11) §VIII‑F says that reapplying the method with the documented component
+  properties produced different placements for the two prediction errors. Those reapplied placements
+  were not retained in this artifact; the paper now says so. They are not results and change no count.
+- (added 7 Oct 2026, v1.0.11) `evidence/manifest.csv` records source URLs for seven vendor pages. Six
+  retrodiction cases (P6, P9, P12, P14, P16, P21) have no recorded source URL in the artifact; their
+  codings rest on the case descriptions in `data/retrodiction-cases.csv` and the protocol.
 - The cause tally is reported in §VIII‑D of the paper; the labels "§7.2" and "VII.B" in `verify.py`
   are the section numbers it had when the checks were written.

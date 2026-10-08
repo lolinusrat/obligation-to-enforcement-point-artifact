@@ -286,8 +286,8 @@ check("transport a fact", "the three corpora", 14, resolved["T2 fact"])
 check("transport a verdict", "the three corpora", 9, resolved["T2 verdict"])
 check("approximate and detect", "the three corpora", 8, resolved["T3"])
 check("terminate in a residual", "the three corpora", 2, resolved["Terminal"])
-check("all four transformations are represented, so the cause dimension "
-      "discriminates on every one of the 33",
+check("all four transformations occur among the 33, so the selection step "
+      "is exercised, not degenerate (not evidence that any selection is correct)",
       "the three corpora", 4, sum(1 for t in FOUR if resolved[t]))
 check("the only row returning no transformation is K6, the mediation deficit",
       "the three corpora", ["K6"], [i for i, t in deficit_rows if t is None])
@@ -371,8 +371,8 @@ check("code_norm agrees with the frozen code column for all 14",
 # paper's *prose* to it: the case ids, system names, dates and claims that are
 # written out in sentences and cannot be recomputed from a column.
 #
-# The prose is read from manuscript-claims.md, an anonymised snapshot of the
-# submitted manuscript written into this directory by the build. Nothing outside
+# The prose is read from manuscript-claims.md, a snapshot of the paper's shared
+# text (author identity removed) written into this directory by the build. Nothing outside
 # this directory is read, so the package verifies standalone: unzip, cd here,
 # run. If the snapshot is missing the package is incomplete, and the check below
 # says so rather than silently skipping the prose checks.
@@ -504,11 +504,25 @@ if MANUSCRIPT.exists():
     check("§7.2 instantiates the principle on a contrasting pair, not only asserts it",
           "manuscript-claims.md §7.2", True,
           states(r"a representational deficit, closed by transporting the fact")
-          and states(r"an authority deficit, closed only by transporting a verdict")
-          and states(r"cause is architecturally consequential"))
-    check("§7.2 states the Deficit-Cause Principle",
+          and states(r"an authority deficit, closed by transporting a verdict")
+          and states(r"cause decides whether the fact itself may cross"))
+    check("§7.2 states the deficit-cause rule",
           "manuscript-claims.md §7.2", True,
-          states(r"\*\*Deficit-Cause Principle\.\*\* At an adequate cut"))
+          states(r"\*\*Deficit-cause rule\.\*\* At an adequate cut"))
+    # v2 (7 Oct 2026): the rule is an operational synthesis of established
+    # cause-keyed techniques. Guard against the retired novelty claims returning.
+    check("the paper names the antecedents of cause-keyed selection",
+          "manuscript-claims.md §3.4", True,
+          states(r"Selecting a remedy by\s+the cause of a deficit is itself established")
+          and states(r"\[@letier\]") and states(r"\[@ptacl\]") and states(r"\[@hilty\]"))
+    check("the paper no longer claims cause-keyed selection is unprecedented",
+          "manuscript-claims.md", False,
+          states(r"no existing work combines") or states(r"single diagnostic test")
+          or states(r"central contribution is the \*?Deficit-Cause Principle"))
+    check("the worked example transports entitlement as a fact, not inside the attestation",
+          "manuscript-claims.md §2", True,
+          states(r"authoritative identity-provider records that may cross")
+          and not states(r"entitlement is evaluated there against the identity provider"))
     check("the principle is scoped to the class of transformation, not the implementation",
           "manuscript-claims.md §7.2", True,
           states(r"(?:determines|selects) the \*class\* of transformation and not its implementation"))
